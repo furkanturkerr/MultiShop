@@ -1,8 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{9B5DD705-2891-4A31-BBBD-1D6ECB6673F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{A3BF1D08-7401-4EA7-B478-471634132A7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.Catalog", "Services\Catalog\MultiShop.Catalog\MultiShop.Catalog.csproj", "{B628CF17-20CD-4FEB-B5B3-6A423B72A262}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B628CF17-20CD-4FEB-B5B3-6A423B72A262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B628CF17-20CD-4FEB-B5B3-6A423B72A262}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B628CF17-20CD-4FEB-B5B3-6A423B72A262}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B628CF17-20CD-4FEB-B5B3-6A423B72A262}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A3BF1D08-7401-4EA7-B478-471634132A7C} = {9B5DD705-2891-4A31-BBBD-1D6ECB6673F8}
+		{B628CF17-20CD-4FEB-B5B3-6A423B72A262} = {A3BF1D08-7401-4EA7-B478-471634132A7C}
 	EndGlobalSection
 EndGlobal
