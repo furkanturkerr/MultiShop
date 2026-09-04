@@ -14,6 +14,9 @@
                   <Item>
                     <option name="path" value="Services/Catalog/MultiShop.Catalog/appsettings.json" />
                   </Item>
+                  <Item>
+                    <option name="path" value="Services/Discount/MultiShop.Discount/appsettings.json" />
+                  </Item>
                 </list>
               </option>
             </SchemaInfo>
