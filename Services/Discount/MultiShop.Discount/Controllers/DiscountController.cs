@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Discount.Dtos;
 using MultiShop.Discount.Services;
@@ -6,6 +7,7 @@ namespace MultiShop.Discount.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class DiscountController : ControllerBase
     {
         private readonly IDiscountService _discountService;
@@ -16,6 +18,7 @@ namespace MultiShop.Discount.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var values = await _discountService.GetAllCouponsAsync();
@@ -23,6 +26,7 @@ namespace MultiShop.Discount.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> GetById(int id)
         {
             var value = await _discountService.GetCouponAsync(id);
