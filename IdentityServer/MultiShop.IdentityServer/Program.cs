@@ -25,18 +25,18 @@ builder.Services
     .AddAspNetIdentity<AppUser>()
     .AddInMemoryIdentityResources(Config.IdentityResources)
     .AddInMemoryApiScopes(Config.ApiScopes)
-    .AddInMemoryClients(Config.Clients);
+    .AddInMemoryClients(Config.Clients)
+    .AddInMemoryApiResources(Config.ApiResources);
 
 var app = builder.Build();
 
 app.UseStaticFiles();
 app.UseRouting();
-app.MapControllers();
 
 app.UseIdentityServer();
-
 app.UseAuthorization();
 
+app.MapControllers();
 app.MapRazorPages();
 
 app.Run();
