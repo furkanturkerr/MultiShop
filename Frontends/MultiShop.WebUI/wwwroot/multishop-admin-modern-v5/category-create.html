@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Yeni Kategori | MultiShop Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="ms-admin">
+  <aside class="ms-sidebar">
+    <a class="ms-brand" href="dashboard.html">
+      <span class="ms-brand-badge">MS</span>
+      <span class="ms-brand-copy"><strong>MultiShop</strong><span>Admin Paneli</span></span>
+    </a>
+
+    <div class="ms-nav-label">YÖNETİM</div>
+    <nav class="ms-nav">
+      <a class="" href="dashboard.html"><span class="ms-nav-icon"><i class="fa-solid fa-house"></i></span>Dashboard</a>
+      <a class="active" href="categories.html"><span class="ms-nav-icon"><i class="fa-solid fa-layer-group"></i></span>Kategoriler</a>
+      <a class="" href="products.html"><span class="ms-nav-icon"><i class="fa-solid fa-box-open"></i></span>Ürünler</a>
+    </nav>
+
+    <div class="ms-nav-label">SİSTEM</div>
+    <nav class="ms-nav">
+      <a href="#"><span class="ms-nav-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>Siteyi Görüntüle</a>
+    </nav>
+
+    <div class="ms-sidebar-footer">
+      <div class="ms-side-help">
+        <strong>MultiShop Yönetim</strong>
+        <p>Ürün ve kategorileri tek panel üzerinden yönet.</p>
+      </div>
+
+      <a class="ms-sidebar-logout" href="login.html">
+        <span class="ms-nav-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+        Çıkış Yap
+      </a>
+    </div>
+  </aside>
+
+  <main class="ms-main">
+    <header class="ms-topbar">
+      <div class="ms-topbar-title"><span>MultiShop Yönetim</span><strong>Yeni Kategori</strong></div>
+      <div class="ms-topbar-actions">
+        <button class="ms-icon-btn"><i class="fa-regular fa-bell"></i><span class="ms-notification-dot"></span></button>
+        <div class="ms-profile">
+          <span class="ms-avatar">FT</span>
+          <div><strong>Furkan Türker</strong><span>Yönetici</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="ms-content">
+
+<section class="ms-page-head">
+  <div><span class="ms-kicker">KATEGORİ YÖNETİMİ</span><h1>Yeni kategori ekle</h1><p>Kategori bilgilerini ve ürün oluştururken kullanılacak seçenek şablonlarını belirle.</p></div>
+  <div class="ms-head-actions"><a class="ms-secondary" href="categories.html">Vazgeç</a><button class="ms-primary" type="submit" form="categoryCreateForm"><i class="fa-solid fa-check"></i> Kategoriyi Kaydet</button></div>
+</section>
+
+<form id="categoryCreateForm" class="ms-form-layout" data-demo-form data-success-message="Kategori bilgileri hazır.">
+  <div class="ms-form-stack">
+    <section class="ms-card ms-form-card">
+      <div class="ms-form-title"><h2>Kategori bilgileri</h2><p>Kategorinin mağazada kullanılacak temel bilgileri.</p></div>
+      <div class="ms-form-grid">
+        <div class="ms-field full"><label>Kategori adı</label><input class="ms-input" data-category-name type="text" placeholder="Örn. Ayakkabı"></div>
+        <div class="ms-field full"><label>Slug</label><input class="ms-input" data-category-slug type="text" placeholder="ayakkabi"><small>URL dostu kısa isim. Örn: ev-yasam, kadin-giyim.</small></div>
+      </div>
+    </section>
+
+    <section class="ms-card ms-form-card">
+      <div class="ms-form-title"><h2>Seçenek şablonları</h2><p>Bu kategori seçildiğinde ürün oluşturma ekranında önerilecek seçenekler.</p></div>
+      <div class="ms-checkbox-grid">
+        <label class="ms-check"><input data-option-template value="Renk" type="checkbox" checked> Renk</label>
+        <label class="ms-check"><input data-option-template value="Beden" type="checkbox"> Beden</label>
+        <label class="ms-check"><input data-option-template value="Numara" type="checkbox" checked> Numara</label>
+        <label class="ms-check"><input data-option-template value="Hafıza" type="checkbox"> Hafıza</label>
+        <label class="ms-check"><input data-option-template value="Kapasite" type="checkbox"> Kapasite</label>
+        <label class="ms-check"><input data-option-template value="Paket" type="checkbox"> Paket</label>
+      </div>
+    </section>
+  </div>
+
+  <aside class="ms-form-stack">
+    <section class="ms-card ms-form-card">
+      <div class="ms-form-title"><h2>Önizleme</h2><p>Liste ekranında kategori bu yapıda görünür.</p></div>
+      <div class="ms-cell">
+        <span class="ms-cell-icon"><i class="fa-solid fa-layer-group"></i></span>
+        <div><strong class="ms-category-preview-name" data-preview-name>Yeni Kategori</strong><small class="ms-category-preview-slug" data-preview-slug>kategori-slug</small></div>
+      </div>
+      <div class="ms-chips" data-preview-chips style="margin-top:14px"><span>Renk</span><span>Numara</span></div>
+    </section>
+
+    <div class="ms-form-footer">
+      <a class="ms-secondary" href="categories.html">Vazgeç</a>
+      <button class="ms-primary" type="submit"><i class="fa-solid fa-check"></i> Kategoriyi Kaydet</button>
+    </div>
+  </aside>
+</form>
+
+    </div>
+  </main>
+</div>
+  <div class="ms-toast" data-toast>
+    <i class="fa-solid fa-circle-check"></i>
+    <span data-toast-text>Kaydedildi.</span>
+  </div>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

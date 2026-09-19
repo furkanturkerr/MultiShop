@@ -1,0 +1,166 @@
+@model MultiShop.Dtos.CatalogDtos.ProductDtos.UpdateProductDto
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+    <div>
+        <span class="ms-kicker">ÜRÜN YÖNETİMİ</span>
+        <h1>Ürünü güncelle</h1>
+        <p>Ürün bilgilerini düzenleyip değişiklikleri kaydet.</p>
+    </div>
+
+    <div class="ms-head-actions">
+        <a class="ms-secondary"
+           asp-area="Admin"
+           asp-controller="Product"
+           asp-action="ProductList">
+            Vazgeç
+        </a>
+
+        <button class="ms-primary"
+                type="submit"
+                form="productUpdateForm">
+            <i class="fa-solid fa-check"></i>
+            Değişiklikleri Kaydet
+        </button>
+    </div>
+</section>
+
+<form id="productUpdateForm"
+      class="ms-form-layout"
+      method="post"
+      asp-area="Admin"
+      asp-controller="Product"
+      asp-action="Update">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="ProductId"/>
+
+    <div class="ms-form-stack">
+
+        <section class="ms-card ms-form-card">
+            <div class="ms-form-title">
+                <h2>Temel bilgiler</h2>
+                <p>Ürünün mağazada görünen temel bilgilerini güncelle.</p>
+            </div>
+
+            <div class="ms-form-grid">
+
+                <div class="ms-field">
+                    <label asp-for="ProductName">Ürün Adı</label>
+
+                    <input class="ms-input"
+                           asp-for="ProductName"
+                           type="text"
+                           placeholder="Örn. Nike Air Max 270"/>
+                </div>
+
+                <div class="ms-field full">
+                    <label asp-for="ProductDescription">Ürün açıklaması</label>
+
+                    <textarea class="ms-textarea"
+                              asp-for="ProductDescription"
+                              placeholder="Ürünün detaylı açıklamasını yazın..."></textarea>
+                </div>
+
+                <div class="ms-field">
+                    <label asp-for="CategoryId">Kategori</label>
+
+                    <select class="ms-form-select"
+                            asp-for="CategoryId"
+                            asp-items="@ViewBag.Category">
+
+                        <option value="">Kategori seçin</option>
+
+                    </select>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="ms-card ms-form-card">
+            <div class="ms-form-title">
+                <h2>Fiyatlandırma</h2>
+                <p>Ürünün satış fiyatını güncelle.</p>
+            </div>
+
+            <div class="ms-form-grid">
+
+                <div class="ms-field">
+                    <label asp-for="ProductPrice">Satış fiyatı</label>
+
+                    <input class="ms-input"
+                           asp-for="ProductPrice"
+                           type="number"
+                           step="0.01"
+                           placeholder="4999"/>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <aside class="ms-form-stack">
+
+        <section class="ms-card ms-form-card">
+            <div class="ms-form-title">
+                <h2>Ürün görseli</h2>
+                <p>Ürünün ana görselini güncelle.</p>
+            </div>
+
+            <div class="ms-image-preview"
+                 data-product-image-preview>
+
+                @if (!string.IsNullOrWhiteSpace(Model.ProductImageUrl))
+                {
+                    <img src="@Model.ProductImageUrl"
+                         alt="@Model.ProductName"
+                         style="width:100%; height:240px; object-fit:contain;"/>
+                }
+                else
+                {
+                    <div class="ms-image-preview-inner">
+                        <i class="fa-regular fa-image"></i>
+                        <strong>Görsel önizleme</strong>
+                        <span>URL girdikten sonra burada ürün görseli yer alır.</span>
+                    </div>
+                }
+
+            </div>
+
+            <div class="ms-field" style="margin-top:12px">
+                <label asp-for="ProductImageUrl">Görsel URL</label>
+
+                <input class="ms-input"
+                       asp-for="ProductImageUrl"
+                       data-product-image-url
+                       type="url"
+                       placeholder="https://images.unsplash.com/..."/>
+            </div>
+
+        </section>
+
+        <div class="ms-form-footer">
+
+            <a class="ms-secondary"
+               asp-area="Admin"
+               asp-controller="Product"
+               asp-action="ProductList">
+                Vazgeç
+            </a>
+
+            <button class="ms-primary"
+                    type="submit">
+                <i class="fa-solid fa-check"></i>
+                Değişiklikleri Kaydet
+            </button>
+
+        </div>
+
+    </aside>
+
+</form>

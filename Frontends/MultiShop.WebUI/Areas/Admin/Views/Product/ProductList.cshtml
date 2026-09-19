@@ -1,0 +1,95 @@
+@model List<MultiShop.Dtos.CatalogDtos.ProductDtos.ResultProductDto>
+
+@{
+  Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+  <div><span class="ms-kicker">KATALOG</span>
+    <h1>Ürünler</h1>
+    <p>Ürünleri, fiyatları ve yayın durumlarını buradan yönet.</p></div>
+  <a class="ms-primary" asp-area="Admin" asp-controller="Product" asp-action="Create">
+    <i class="fa-solid fa-plus"></i> Yeni Ürün
+  </a>
+</section>
+
+<section class="ms-card">
+  <div class="ms-toolbar">
+    <div class="ms-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search" placeholder="Ürün, marka veya kategori ara...">
+    </div>
+    <select class="ms-select">
+      <option>Tüm kategoriler</option>
+      <option>Ayakkabı</option>
+      <option>Elektronik</option>
+      <option>Ev & Yaşam</option>
+    </select>
+    <select class="ms-select">
+      <option>Tüm durumlar</option>
+      <option>Aktif</option>
+      <option>Pasif</option>
+    </select>
+  </div>
+  <div class="ms-table-wrap">
+    <table class="ms-table">
+      <thead>
+      <tr>
+        <th>Ürün</th>
+        <th>Kategori</th>
+        <th>Fiyat</th>
+        <th>Durum</th>
+        <th>Oluşturulma</th>
+        <th style="text-align:right">İşlem</th>
+      </tr>
+      </thead>
+      <tbody>
+      @foreach (var item in Model)
+      {
+        <tr>
+          <td>
+            <div class="ms-cell">
+              <img src="@item.ProductImageUrl">
+              <div>
+                <strong>@item.ProductName</strong>
+                <small>Nike</small>
+              </div>
+            </div>
+          </td>
+          <td>@item.CategoryName</td>
+          <td>
+            <div class="ms-price">
+              <strong>@item.ProductPrice ₺</strong>
+              <del>5.499 ₺</del>
+            </div>
+          </td>
+          <td><span class="ms-status on">Aktif</span></td>
+          <td>18 Eyl 2026</td>
+          <td>
+            <div class="ms-actions"><a class="ms-action" href="#"><i class="fa-regular fa-eye"></i></a>
+              <a class="ms-action" asp-area="Admin" asp-controller="Product" asp-action="Update" asp-route-id="@item.ProductId">
+                <i class="fa-regular fa-pen-to-square"></i>
+              </a>
+              <form method="post"
+                    asp-area="Admin"
+                    asp-controller="Product"
+                    asp-action="Delete"
+                    asp-route-id="@item.ProductId"
+                    class="d-inline">
+
+                @Html.AntiForgeryToken()
+
+                <button type="submit"
+                        class="ms-action danger"
+                        title="Ürünü Sil">
+                  <i class="fa-regular fa-trash-can"></i>
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+</section>

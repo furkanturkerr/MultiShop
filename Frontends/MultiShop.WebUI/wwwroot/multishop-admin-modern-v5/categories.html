@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Kategoriler | MultiShop Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="ms-admin">
+  <aside class="ms-sidebar">
+    <a class="ms-brand" href="dashboard.html">
+      <span class="ms-brand-badge">MS</span>
+      <span class="ms-brand-copy"><strong>MultiShop</strong><span>Admin Paneli</span></span>
+    </a>
+
+    <div class="ms-nav-label">YÖNETİM</div>
+    <nav class="ms-nav">
+      <a class="" href="dashboard.html"><span class="ms-nav-icon"><i class="fa-solid fa-house"></i></span>Dashboard</a>
+      <a class="active" href="categories.html"><span class="ms-nav-icon"><i class="fa-solid fa-layer-group"></i></span>Kategoriler</a>
+      <a class="" href="products.html"><span class="ms-nav-icon"><i class="fa-solid fa-box-open"></i></span>Ürünler</a>
+    </nav>
+
+    <div class="ms-nav-label">SİSTEM</div>
+    <nav class="ms-nav">
+      <a href="#"><span class="ms-nav-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>Siteyi Görüntüle</a>
+    </nav>
+
+    <div class="ms-sidebar-footer">
+      <div class="ms-side-help">
+        <strong>MultiShop Yönetim</strong>
+        <p>Ürün ve kategorileri tek panel üzerinden yönet.</p>
+      </div>
+
+      <a class="ms-sidebar-logout" href="login.html">
+        <span class="ms-nav-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+        Çıkış Yap
+      </a>
+    </div>
+  </aside>
+
+  <main class="ms-main">
+    <header class="ms-topbar">
+      <div class="ms-topbar-title"><span>MultiShop Yönetim</span><strong>Kategoriler</strong></div>
+      <div class="ms-topbar-actions">
+        <button class="ms-icon-btn"><i class="fa-regular fa-bell"></i><span class="ms-notification-dot"></span></button>
+        <div class="ms-profile">
+          <span class="ms-avatar">FT</span>
+          <div><strong>Furkan Türker</strong><span>Yönetici</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="ms-content">
+
+<section class="ms-page-head">
+  <div><span class="ms-kicker">KATALOG</span><h1>Kategoriler</h1><p>Mağaza kategorilerini ve ürün seçeneklerini yönet.</p></div>
+  <a class="ms-primary" href="category-create.html"><i class="fa-solid fa-plus"></i> Yeni Kategori</a>
+</section>
+
+<section class="ms-card">
+  <div class="ms-toolbar"><div class="ms-search"><i class="fa-solid fa-magnifying-glass"></i><input type="search" placeholder="Kategori ara..."></div><div class="ms-toolbar-meta">12 kategori</div></div>
+  <div class="ms-table-wrap">
+    <table class="ms-table">
+      <thead><tr><th>Kategori</th><th>Slug</th><th>Seçenek Şablonları</th><th>Ürün</th><th style="text-align:right">İşlem</th></tr></thead>
+      <tbody>
+        <tr><td><div class="ms-cell"><span class="ms-cell-icon"><i class="fa-solid fa-shirt"></i></span><div><strong>Giyim</strong><small>Moda ürünleri</small></div></div></td><td><span class="ms-code">giyim</span></td><td><div class="ms-chips"><span>Renk</span><span>Beden</span></div></td><td>86</td><td><div class="ms-actions"><a class="ms-action" href="#"><i class="fa-regular fa-pen-to-square"></i></a><a class="ms-action danger" href="#"><i class="fa-regular fa-trash-can"></i></a></div></td></tr>
+        <tr><td><div class="ms-cell"><span class="ms-cell-icon"><i class="fa-solid fa-shoe-prints"></i></span><div><strong>Ayakkabı</strong><small>Spor ve günlük</small></div></div></td><td><span class="ms-code">ayakkabi</span></td><td><div class="ms-chips"><span>Renk</span><span>Numara</span></div></td><td>42</td><td><div class="ms-actions"><a class="ms-action" href="#"><i class="fa-regular fa-pen-to-square"></i></a><a class="ms-action danger" href="#"><i class="fa-regular fa-trash-can"></i></a></div></td></tr>
+        <tr><td><div class="ms-cell"><span class="ms-cell-icon"><i class="fa-solid fa-laptop"></i></span><div><strong>Elektronik</strong><small>Teknoloji ürünleri</small></div></div></td><td><span class="ms-code">elektronik</span></td><td><div class="ms-chips"><span>Renk</span><span>Hafıza</span></div></td><td>61</td><td><div class="ms-actions"><a class="ms-action" href="#"><i class="fa-regular fa-pen-to-square"></i></a><a class="ms-action danger" href="#"><i class="fa-regular fa-trash-can"></i></a></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+    </div>
+  </main>
+</div>
+  <div class="ms-toast" data-toast>
+    <i class="fa-solid fa-circle-check"></i>
+    <span data-toast-text>Kaydedildi.</span>
+  </div>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

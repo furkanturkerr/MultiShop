@@ -20,6 +20,15 @@ public class GeneralMapping : Profile
         CreateMap<UpdateProductDto, Product>();
         CreateMap<CreateProductDto, Product>();
         CreateMap<Product, GetByIdProductDto>();
+        CreateMap<Product, ResultProductWithCategory>()
+            .ForMember(
+                dest => dest.CategoryName,
+                opt => opt.MapFrom(src =>
+                    src.Category != null
+                        ? src.Category.CategoryName
+                        : "Kategori Yok"
+                )
+            );
 
         CreateMap<ProductDetail, ResultProductDetailDto>();
         CreateMap<UpdateProductDetailDto, ProductDetail>();

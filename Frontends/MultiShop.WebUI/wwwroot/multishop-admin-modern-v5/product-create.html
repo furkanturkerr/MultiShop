@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Yeni Ürün | MultiShop Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="ms-admin">
+  <aside class="ms-sidebar">
+    <a class="ms-brand" href="dashboard.html">
+      <span class="ms-brand-badge">MS</span>
+      <span class="ms-brand-copy"><strong>MultiShop</strong><span>Admin Paneli</span></span>
+    </a>
+
+    <div class="ms-nav-label">YÖNETİM</div>
+    <nav class="ms-nav">
+      <a class="" href="dashboard.html"><span class="ms-nav-icon"><i class="fa-solid fa-house"></i></span>Dashboard</a>
+      <a class="" href="categories.html"><span class="ms-nav-icon"><i class="fa-solid fa-layer-group"></i></span>Kategoriler</a>
+      <a class="active" href="products.html"><span class="ms-nav-icon"><i class="fa-solid fa-box-open"></i></span>Ürünler</a>
+    </nav>
+
+    <div class="ms-nav-label">SİSTEM</div>
+    <nav class="ms-nav">
+      <a href="#"><span class="ms-nav-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>Siteyi Görüntüle</a>
+    </nav>
+
+    <div class="ms-sidebar-footer">
+      <div class="ms-side-help">
+        <strong>MultiShop Yönetim</strong>
+        <p>Ürün ve kategorileri tek panel üzerinden yönet.</p>
+      </div>
+
+      <a class="ms-sidebar-logout" href="login.html">
+        <span class="ms-nav-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+        Çıkış Yap
+      </a>
+    </div>
+  </aside>
+
+  <main class="ms-main">
+    <header class="ms-topbar">
+      <div class="ms-topbar-title"><span>MultiShop Yönetim</span><strong>Yeni Ürün</strong></div>
+      <div class="ms-topbar-actions">
+        <button class="ms-icon-btn"><i class="fa-regular fa-bell"></i><span class="ms-notification-dot"></span></button>
+        <div class="ms-profile">
+          <span class="ms-avatar">FT</span>
+          <div><strong>Furkan Türker</strong><span>Yönetici</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="ms-content">
+
+<section class="ms-page-head">
+  <div><span class="ms-kicker">ÜRÜN YÖNETİMİ</span><h1>Yeni ürün ekle</h1><p>Ürünün temel bilgilerini, fiyatını ve seçeneklerini oluştur.</p></div>
+  <div class="ms-head-actions"><a class="ms-secondary" href="products.html">Vazgeç</a><button class="ms-primary" type="submit" form="productCreateForm"><i class="fa-solid fa-check"></i> Ürünü Kaydet</button></div>
+</section>
+
+<form id="productCreateForm" class="ms-form-layout" data-demo-form data-success-message="Ürün bilgileri hazır.">
+  <div class="ms-form-stack">
+    <section class="ms-card ms-form-card">
+      <div class="ms-form-title"><h2>Temel bilgiler</h2><p>Mağazada müşterilerin göreceği ana ürün bilgileri.</p></div>
+      <div class="ms-form-grid">
+        <div class="ms-field full"><label>Ürün adı</label><input class="ms-input" type="text" placeholder="Örn. Nike Air Max 270"></div>
+        <div class="ms-field"><label>Kategori</label><select class="ms-form-select"><option>Kategori seçin</option><option>Ayakkabı</option><option>Elektronik</option><option>Giyim</option></select></div>
+        <div class="ms-field"><label>Marka</label><input class="ms-input" type="text" placeholder="Örn. Nike"></div>
+        <div class="ms-field full"><label>Kısa açıklama</label><input class="ms-input" type="text" placeholder="Listeleme kartında görünecek kısa açıklama"></div>
+        <div class="ms-field full"><label>Ürün açıklaması</label><textarea class="ms-textarea" placeholder="Ürünün detaylı açıklamasını yazın..."></textarea></div>
+      </div>
+    </section>
+
+    <section class="ms-card ms-form-card">
+      <div class="ms-form-title"><h2>Fiyatlandırma</h2><p>Ürünün satış fiyatını ve varsa eski fiyatını belirle.</p></div>
+      <div class="ms-form-grid">
+        <div class="ms-field"><label>Satış fiyatı</label><input class="ms-input" type="number" placeholder="4999"></div>
+        <div class="ms-field"><label>Eski fiyat</label><input class="ms-input" type="number" placeholder="5499"><small>İndirim göstermek istemiyorsan boş bırak.</small></div>
+      </div>
+    </section>
+
+    <section class="ms-card ms-form-card">
+      <div class="ms-form-title"><h2>Ürün özellikleri</h2><p>Müşterinin seçim yapmadığı teknik veya açıklayıcı bilgiler.</p></div>
+      <div class="ms-option-list" data-attribute-list>
+        <div class="ms-option-item"><input class="ms-input" placeholder="Özellik adı" value="Materyal"><input class="ms-input" placeholder="Değer" value="File ve sentetik"><button class="ms-option-remove" data-remove-item type="button"><i class="fa-regular fa-trash-can"></i></button></div>
+        <div class="ms-option-item"><input class="ms-input" placeholder="Özellik adı" value="Taban"><input class="ms-input" placeholder="Değer" value="Kauçuk"><button class="ms-option-remove" data-remove-item type="button"><i class="fa-regular fa-trash-can"></i></button></div>
+      </div>
+      <a class="ms-add-inline" data-add-attribute href="#"><i class="fa-solid fa-plus"></i> Özellik ekle</a>
+    </section>
+
+    <section class="ms-card ms-form-card">
+      <div class="ms-form-title"><h2>Seçilebilir seçenekler</h2><p>Müşterinin ürün detayında seçebileceği seçenek grupları.</p></div>
+      <div class="ms-option-list" data-option-list>
+        <div class="ms-option-item"><input class="ms-input" value="Renk"><input class="ms-input" value="Siyah, Beyaz, Gri"><button class="ms-option-remove" data-remove-item type="button"><i class="fa-regular fa-trash-can"></i></button></div>
+        <div class="ms-option-item"><input class="ms-input" value="Numara"><input class="ms-input" value="40, 41, 42, 43, 44"><button class="ms-option-remove" data-remove-item type="button"><i class="fa-regular fa-trash-can"></i></button></div>
+      </div>
+      <a class="ms-add-inline" data-add-option href="#"><i class="fa-solid fa-plus"></i> Seçenek grubu ekle</a>
+    </section>
+  </div>
+
+  <aside class="ms-form-stack">
+    <section class="ms-card ms-form-card">
+      <div class="ms-form-title"><h2>Ürün görseli</h2><p>Tek ana görsel URL'si kullanılır.</p></div>
+      <div class="ms-image-preview" data-product-image-preview>
+        <div class="ms-image-preview-inner"><i class="fa-regular fa-image"></i><strong>Görsel önizleme</strong><span>URL girdikten sonra burada ürün görseli yer alır.</span></div>
+      </div>
+      <div class="ms-field" style="margin-top:12px"><label>Görsel URL</label><input class="ms-input" data-product-image-url type="url" placeholder="https://images.unsplash.com/..."></div>
+    </section>
+
+    <section class="ms-card ms-form-card">
+      <div class="ms-form-title"><h2>Yayın durumu</h2><p>Ürünün mağazada görünürlüğünü belirle.</p></div>
+      <div class="ms-switch-row"><div><strong>Aktif ürün</strong><span>Ürün mağazada yayınlansın.</span></div><label class="ms-switch"><input type="checkbox" checked><span class="ms-slider"></span></label></div>
+    </section>
+
+    <div class="ms-form-footer">
+      <a class="ms-secondary" href="products.html">Vazgeç</a>
+      <button class="ms-primary" type="submit"><i class="fa-solid fa-check"></i> Ürünü Kaydet</button>
+    </div>
+  </aside>
+</form>
+
+    </div>
+  </main>
+</div>
+  <div class="ms-toast" data-toast>
+    <i class="fa-solid fa-circle-check"></i>
+    <span data-toast-text>Kaydedildi.</span>
+  </div>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

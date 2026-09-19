@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dashboard | MultiShop Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="ms-admin">
+  <aside class="ms-sidebar">
+    <a class="ms-brand" href="dashboard.html">
+      <span class="ms-brand-badge">MS</span>
+      <span class="ms-brand-copy"><strong>MultiShop</strong><span>Admin Paneli</span></span>
+    </a>
+
+    <div class="ms-nav-label">YÖNETİM</div>
+    <nav class="ms-nav">
+      <a class="active" href="dashboard.html"><span class="ms-nav-icon"><i class="fa-solid fa-house"></i></span>Dashboard</a>
+      <a class="" href="categories.html"><span class="ms-nav-icon"><i class="fa-solid fa-layer-group"></i></span>Kategoriler</a>
+      <a class="" href="products.html"><span class="ms-nav-icon"><i class="fa-solid fa-box-open"></i></span>Ürünler</a>
+    </nav>
+
+    <div class="ms-nav-label">SİSTEM</div>
+    <nav class="ms-nav">
+      <a href="#"><span class="ms-nav-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>Siteyi Görüntüle</a>
+    </nav>
+
+    <div class="ms-sidebar-footer">
+      <div class="ms-side-help">
+        <strong>MultiShop Yönetim</strong>
+        <p>Ürün ve kategorileri tek panel üzerinden yönet.</p>
+      </div>
+
+      <a class="ms-sidebar-logout" href="login.html">
+        <span class="ms-nav-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+        Çıkış Yap
+      </a>
+    </div>
+  </aside>
+
+  <main class="ms-main">
+    <header class="ms-topbar">
+      <div class="ms-topbar-title"><span>MultiShop Yönetim</span><strong>Dashboard</strong></div>
+      <div class="ms-topbar-actions">
+        <button class="ms-icon-btn"><i class="fa-regular fa-bell"></i><span class="ms-notification-dot"></span></button>
+        <div class="ms-profile">
+          <span class="ms-avatar">FT</span>
+          <div><strong>Furkan Türker</strong><span>Yönetici</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="ms-content">
+
+<section class="ms-page-head">
+  <div><span class="ms-kicker">GENEL BAKIŞ</span><h1>Dashboard</h1><p>Mağazanın güncel durumunu hızlıca takip et.</p></div>
+  <a class="ms-primary" href="product-create.html"><i class="fa-solid fa-plus"></i> Yeni Ürün</a>
+</section>
+
+<section class="ms-stats">
+  <article class="ms-stat"><div class="ms-stat-top"><span class="ms-stat-icon"><i class="fa-solid fa-box-open"></i></span><small>Bu ay +12</small></div><strong>248</strong><span>Toplam ürün</span></article>
+  <article class="ms-stat"><div class="ms-stat-top"><span class="ms-stat-icon"><i class="fa-solid fa-layer-group"></i></span><small>Aktif</small></div><strong>12</strong><span>Kategori</span></article>
+  <article class="ms-stat"><div class="ms-stat-top"><span class="ms-stat-icon"><i class="fa-solid fa-eye"></i></span><small>%93</small></div><strong>231</strong><span>Yayındaki ürün</span></article>
+  <article class="ms-stat"><div class="ms-stat-top"><span class="ms-stat-icon"><i class="fa-solid fa-tag"></i></span><small>Kampanya</small></div><strong>34</strong><span>İndirimli ürün</span></article>
+</section>
+
+<section class="ms-grid">
+  <div class="ms-card">
+    <div class="ms-card-head"><div><span class="ms-kicker">ÜRÜNLER</span><h2>Son eklenen ürünler</h2></div><a class="ms-link" href="products.html">Tümünü Gör →</a></div>
+    <article class="ms-product-row"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=180&q=85"><div><strong>Nike Air Max 270</strong><span>Ayakkabı · Nike</span></div><b>4.999 ₺</b><span class="ms-status on">Aktif</span></article>
+    <article class="ms-product-row"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=180&q=85"><div><strong>Premium Kablosuz Kulaklık</strong><span>Elektronik · Sony</span></div><b>2.799 ₺</b><span class="ms-status on">Aktif</span></article>
+    <article class="ms-product-row"><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=180&q=85"><div><strong>Sony Alpha A6400</strong><span>Elektronik · Sony</span></div><b>32.499 ₺</b><span class="ms-status on">Aktif</span></article>
+  </div>
+  <aside class="ms-card">
+    <div class="ms-card-head"><div><span class="ms-kicker">HIZLI İŞLEMLER</span><h2>Kısayollar</h2></div></div>
+    <div class="ms-quick">
+      <a href="product-create.html"><span class="ms-quick-icon"><i class="fa-solid fa-plus"></i></span><div><strong>Ürün Ekle</strong><small>Yeni ürün oluştur</small></div><i class="fa-solid fa-chevron-right"></i></a>
+      <a href="category-create.html"><span class="ms-quick-icon"><i class="fa-solid fa-layer-group"></i></span><div><strong>Kategori Ekle</strong><small>Yeni kategori oluştur</small></div><i class="fa-solid fa-chevron-right"></i></a>
+      <a href="#"><span class="ms-quick-icon"><i class="fa-solid fa-store"></i></span><div><strong>Mağazayı Aç</strong><small>Web sitesini görüntüle</small></div><i class="fa-solid fa-chevron-right"></i></a>
+    </div>
+  </aside>
+</section>
+
+    </div>
+  </main>
+</div>
+  <div class="ms-toast" data-toast>
+    <i class="fa-solid fa-circle-check"></i>
+    <span data-toast-text>Kaydedildi.</span>
+  </div>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

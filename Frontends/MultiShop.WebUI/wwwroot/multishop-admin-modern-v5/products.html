@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ürünler | MultiShop Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="ms-admin">
+  <aside class="ms-sidebar">
+    <a class="ms-brand" href="dashboard.html">
+      <span class="ms-brand-badge">MS</span>
+      <span class="ms-brand-copy"><strong>MultiShop</strong><span>Admin Paneli</span></span>
+    </a>
+
+    <div class="ms-nav-label">YÖNETİM</div>
+    <nav class="ms-nav">
+      <a class="" href="dashboard.html"><span class="ms-nav-icon"><i class="fa-solid fa-house"></i></span>Dashboard</a>
+      <a class="" href="categories.html"><span class="ms-nav-icon"><i class="fa-solid fa-layer-group"></i></span>Kategoriler</a>
+      <a class="active" href="products.html"><span class="ms-nav-icon"><i class="fa-solid fa-box-open"></i></span>Ürünler</a>
+    </nav>
+
+    <div class="ms-nav-label">SİSTEM</div>
+    <nav class="ms-nav">
+      <a href="#"><span class="ms-nav-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>Siteyi Görüntüle</a>
+    </nav>
+
+    <div class="ms-sidebar-footer">
+      <div class="ms-side-help">
+        <strong>MultiShop Yönetim</strong>
+        <p>Ürün ve kategorileri tek panel üzerinden yönet.</p>
+      </div>
+
+      <a class="ms-sidebar-logout" href="login.html">
+        <span class="ms-nav-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+        Çıkış Yap
+      </a>
+    </div>
+  </aside>
+
+  <main class="ms-main">
+    <header class="ms-topbar">
+      <div class="ms-topbar-title"><span>MultiShop Yönetim</span><strong>Ürünler</strong></div>
+      <div class="ms-topbar-actions">
+        <button class="ms-icon-btn"><i class="fa-regular fa-bell"></i><span class="ms-notification-dot"></span></button>
+        <div class="ms-profile">
+          <span class="ms-avatar">FT</span>
+          <div><strong>Furkan Türker</strong><span>Yönetici</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="ms-content">
+
+<section class="ms-page-head">
+  <div><span class="ms-kicker">KATALOG</span><h1>Ürünler</h1><p>Ürünleri, fiyatları ve yayın durumlarını buradan yönet.</p></div>
+  <a class="ms-primary" href="product-create.html"><i class="fa-solid fa-plus"></i> Yeni Ürün</a>
+</section>
+
+<section class="ms-card">
+  <div class="ms-toolbar">
+    <div class="ms-search"><i class="fa-solid fa-magnifying-glass"></i><input type="search" placeholder="Ürün, marka veya kategori ara..."></div>
+    <select class="ms-select"><option>Tüm kategoriler</option><option>Ayakkabı</option><option>Elektronik</option><option>Ev & Yaşam</option></select>
+    <select class="ms-select"><option>Tüm durumlar</option><option>Aktif</option><option>Pasif</option></select>
+  </div>
+  <div class="ms-table-wrap">
+    <table class="ms-table">
+      <thead><tr><th>Ürün</th><th>Kategori</th><th>Fiyat</th><th>Durum</th><th>Oluşturulma</th><th style="text-align:right">İşlem</th></tr></thead>
+      <tbody>
+        <tr><td><div class="ms-cell"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=150&q=85"><div><strong>Nike Air Max 270</strong><small>Nike</small></div></div></td><td>Ayakkabı</td><td><div class="ms-price"><strong>4.999 ₺</strong><del>5.499 ₺</del></div></td><td><span class="ms-status on">Aktif</span></td><td>18 Eyl 2026</td><td><div class="ms-actions"><a class="ms-action" href="#"><i class="fa-regular fa-eye"></i></a><a class="ms-action" href="#"><i class="fa-regular fa-pen-to-square"></i></a><a class="ms-action danger" href="#"><i class="fa-regular fa-trash-can"></i></a></div></td></tr>
+        <tr><td><div class="ms-cell"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=150&q=85"><div><strong>Sony Kablosuz Kulaklık</strong><small>Sony</small></div></div></td><td>Elektronik</td><td><div class="ms-price"><strong>2.799 ₺</strong></div></td><td><span class="ms-status on">Aktif</span></td><td>17 Eyl 2026</td><td><div class="ms-actions"><a class="ms-action" href="#"><i class="fa-regular fa-eye"></i></a><a class="ms-action" href="#"><i class="fa-regular fa-pen-to-square"></i></a><a class="ms-action danger" href="#"><i class="fa-regular fa-trash-can"></i></a></div></td></tr>
+        <tr><td><div class="ms-cell"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=150&q=85"><div><strong>Minimal Tasarım Kol Saati</strong><small>Nordic</small></div></div></td><td>Saat & Takı</td><td><div class="ms-price"><strong>1.899 ₺</strong><del>2.299 ₺</del></div></td><td><span class="ms-status off">Pasif</span></td><td>16 Eyl 2026</td><td><div class="ms-actions"><a class="ms-action" href="#"><i class="fa-regular fa-eye"></i></a><a class="ms-action" href="#"><i class="fa-regular fa-pen-to-square"></i></a><a class="ms-action danger" href="#"><i class="fa-regular fa-trash-can"></i></a></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+    </div>
+  </main>
+</div>
+  <div class="ms-toast" data-toast>
+    <i class="fa-solid fa-circle-check"></i>
+    <span data-toast-text>Kaydedildi.</span>
+  </div>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

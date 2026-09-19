@@ -21,7 +21,7 @@ public class ProductImageService : IProductImageService
 
     public async Task<List<ResultProductImageDto>> GetAllCategoriesAsync()
     {
-        var values = await _collection.FindAsync(x=> true);
+        var values = await _collection.Find(x => true).ToListAsync();
         return  _mapper.Map<List<ResultProductImageDto>>(values);
     }
 
@@ -33,13 +33,17 @@ public class ProductImageService : IProductImageService
 
     public async Task UpdateProductImageAsync(UpdateProductImageDto dto)
     {
-        var values = _mapper.Map<ProductImage>(dto);
-        await _collection.FindOneAndReplaceAsync(x=>x.ProductImageId == dto.ProductImageId, values);
+        var update = Builders<ProductImage>.Update
+            .Set(x => x.ImageUrl1, dto.ImageUrl1)
+            .Set(x => x.ImageUrl2, dto.ImageUrl2)
+            .Set(x => x.ImageUrl3, dto.ImageUrl3)
+            .Set(x => x.ProductId, dto.ProductId);
+        await _collection.UpdateOneAsync(x => x.ProductImageId == dto.ProductImageId, update);
     }
 
     public async Task<GetByIdProductImageDto> GetProductImageByIdAsync(string id)
     {
-        var value = await _collection.FindAsync(x=>x.ProductImageId == id);
+        var value = await _collection.Find(x => x.ProductImageId == id).FirstOrDefaultAsync();
         return _mapper.Map<GetByIdProductImageDto>(value);
     }
 

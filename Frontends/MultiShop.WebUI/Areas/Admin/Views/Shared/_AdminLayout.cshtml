@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Kategoriler | MultiShop Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="~/multishop-admin-modern-v5/assets/css/style.css">
+</head>
+<body>
+<div class="ms-admin">
+  <partial name="Partials/_Sidebar" />
+
+  <main class="ms-main">
+    <partial name="Partials/_Topbar" />
+
+    <div class="ms-content">
+
+      @RenderBody()
+
+    </div>
+  </main>
+</div>
+<div class="ms-toast" data-toast>
+  <i class="fa-solid fa-circle-check"></i>
+  <span data-toast-text>Kaydedildi.</span>
+</div>
+<script src="~/multishop-admin-modern-v5/assets/js/admin.js"></script>
+</body>
+</html>

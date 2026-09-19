@@ -1,0 +1,77 @@
+@model List<MultiShop.Dtos.CatalogDtos.CategoryDtos.ResultCategoryDto>
+
+@{
+  Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+  <div><span class="ms-kicker">KATALOG</span>
+    <h1>Kategoriler</h1>
+    <p>Mağaza kategorilerini ve ürün seçeneklerini yönet.</p></div>
+  <a class="ms-primary" asp-area="Admin" asp-controller="Category" asp-action="Create">
+    <i class="fa-solid fa-plus"></i> Yeni Kategori
+  </a>
+</section>
+
+<section class="ms-card">
+  <div class="ms-toolbar">
+    <div class="ms-search"><i class="fa-solid fa-magnifying-glass">
+      </i><input type="search" placeholder="Kategori ara..."></div>
+    <div class="ms-toolbar-meta">12 kategori</div>
+  </div>
+  <div class="ms-table-wrap">
+    <table class="ms-table">
+      <thead>
+      <tr>
+        <th>Kategori</th>
+        <th>Slug</th>
+        <th>Seçenek Şablonları</th>
+        <th>Ürün</th>
+        <th style="text-align:right">İşlem</th>
+      </tr>
+      </thead>
+      <tbody>
+      @foreach (var category in Model)
+      {
+        <tr>
+          <td>
+            <div class="ms-cell"><span class="ms-cell-icon"><i class="fa-solid fa-shirt"></i></span>
+              <div>
+                <strong>@category.CategoryName</strong>
+                <small>@category.CategoryId</small>
+              </div>
+            </div>
+          </td>
+          <td><span class="ms-code">giyim</span></td>
+          <td>
+            <div class="ms-chips"><span>Renk</span><span>Beden</span></div>
+          </td>
+          <td>86</td>
+          <td>
+            <div class="ms-actions">
+              <a class="ms-action" asp-area="Admin" asp-controller="Category" asp-action="Update" asp-route-id="@category.CategoryId">
+                <i class="fa-regular fa-pen-to-square"></i>
+              </a>
+              <form method="post"
+                    asp-area="Admin"
+                    asp-controller="Category"
+                    asp-action="Delete"
+                    asp-route-id="@category.CategoryId"
+                    class="d-inline">
+
+                @Html.AntiForgeryToken()
+
+                <button type="submit"
+                        class="ms-action danger"
+                        title="Kategoriyi Sil">
+                  <i class="fa-regular fa-trash-can"></i>
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+</section>

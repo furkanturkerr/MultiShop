@@ -1,0 +1,39 @@
+<aside class="ms-sidebar">
+    <a class="ms-brand" href="dashboard.html">
+        <span class="ms-brand-badge">MS</span>
+        <span class="ms-brand-copy"><strong>MultiShop</strong><span>Admin Paneli</span></span>
+    </a>
+
+    <div class="ms-nav-label">YÖNETİM</div>
+    <nav class="ms-nav">
+        <a class="" href="dashboard.html"><span class="ms-nav-icon"><i class="fa-solid fa-house"></i></span>Dashboard</a>
+        <a class="active" asp-area="Admin" asp-controller="Category" asp-action="Index">
+            <span class="ms-nav-icon">
+                <i class="fa-solid fa-layer-group"></i>
+            </span>Kategoriler
+        </a>
+        <a class="active" asp-area="Admin" asp-controller="Product" asp-action="ProductList">
+            <span class="ms-nav-icon">
+                <i class="fa-solid fa-box-open"></i>
+            </span>Ürünler
+        </a>
+    </nav>
+
+    <div class="ms-nav-label">SİSTEM</div>
+    <nav class="ms-nav">
+        <a href="#"><span class="ms-nav-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>Siteyi
+            Görüntüle</a>
+    </nav>
+
+    <div class="ms-sidebar-footer">
+        <div class="ms-side-help">
+            <strong>MultiShop Yönetim</strong>
+            <p>Ürün ve kategorileri tek panel üzerinden yönet.</p>
+        </div>
+
+        <a class="ms-sidebar-logout" href="login.html">
+            <span class="ms-nav-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+            Çıkış Yap
+        </a>
+    </div>
+</aside>

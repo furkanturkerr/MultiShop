@@ -21,7 +21,7 @@ public class ProductDetailService : IProductDetailService
 
     public async Task<List<ResultProductDetailDto>> GetAllCategoriesAsync()
     {
-        var values = await _collection.FindAsync(x=> true);
+        var values = await _collection.Find(x => true).ToListAsync();
         return  _mapper.Map<List<ResultProductDetailDto>>(values);
     }
 
@@ -33,13 +33,15 @@ public class ProductDetailService : IProductDetailService
 
     public async Task UpdateProductDetailAsync(UpdateProductDetailDto dto)
     {
-        var values = _mapper.Map<ProductDetail>(dto);
-        await _collection.FindOneAndReplaceAsync(x=>x.ProductDetailId == dto.ProductDetailId, values);
+        var update = Builders<ProductDetail>.Update
+            .Set(x => x.ProductDescription, dto.ProductDescription)
+            .Set(x => x.ProductInfo, dto.ProductInfo);
+        await _collection.UpdateOneAsync(x => x.ProductDetailId == dto.ProductDetailId, update);
     }
 
     public async Task<GetByIdProductDetailDto> GetProductDetailByIdAsync(string id)
     {
-        var value = await _collection.FindAsync(x=>x.ProductDetailId == id);
+        var value = await _collection.Find(x => x.ProductDetailId == id).FirstOrDefaultAsync();
         return _mapper.Map<GetByIdProductDetailDto>(value);
     }
 

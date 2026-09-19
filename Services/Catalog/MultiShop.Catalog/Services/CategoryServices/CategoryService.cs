@@ -33,8 +33,8 @@ public class CategoryService : ICategoryService
 
     public async Task UpdateCategoryAsync(UpdateCategoryDto dto)
     {
-        var value = _mapper.Map<Category>(dto);
-        await _collection.FindOneAndReplaceAsync(x=>x.CategoryId == dto.CategoryId, value);
+        var update = Builders<Category>.Update.Set(x => x.CategoryName, dto.CategoryName);
+        await _collection.UpdateOneAsync(x => x.CategoryId == dto.CategoryId, update);
     }
 
     public async Task<GetByIdCategoryDto> GetCategoryByIdAsync(string id)
