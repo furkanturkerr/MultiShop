@@ -1,0 +1,129 @@
+@model List<MultiShop.Dtos.CatalogDtos.BrandDtos.ResultBrandDto>
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+    <div>
+        <span class="ms-kicker">KATALOG YÖNETİMİ</span>
+        <h1>Markalar</h1>
+        <p>Mağazada kullanılan markaları ve görsellerini buradan yönet.</p>
+    </div>
+
+    <a class="ms-primary"
+       asp-area="Admin"
+       asp-controller="Brand"
+       asp-action="Create">
+
+        <i class="fa-solid fa-plus"></i>
+        Yeni Marka
+
+    </a>
+</section>
+
+<section class="ms-card">
+
+    <div class="ms-table-wrap">
+
+        <table class="ms-table">
+
+            <thead>
+            <tr>
+                <th>Logo</th>
+                <th>Marka</th>
+                <th>Durum</th>
+                <th style="text-align:right">İşlem</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        <div class="ms-cell">
+
+                            <img src="@item.ImageUrl"
+                                 alt="@item.BrandName"
+                                 style="width:90px; height:55px; object-fit:contain; border-radius:8px; background:#fff;" />
+
+                        </div>
+                    </td>
+
+                    <td>
+                        <div>
+                            <strong>@item.BrandName</strong>
+                            <small style="display:block; margin-top:4px;">
+                                @item.BrandId
+                            </small>
+                        </div>
+                    </td>
+
+                    <td>
+
+                        @if (item.IsActive)
+                        {
+                            <span class="ms-status on">
+                                Aktif
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="ms-status off">
+                                Pasif
+                            </span>
+                        }
+
+                    </td>
+
+                    <td>
+
+                        <div class="ms-actions">
+
+                            <a class="ms-action"
+                               asp-area="Admin"
+                               asp-controller="Brand"
+                               asp-action="Update"
+                               asp-route-id="@item.BrandId"
+                               title="Düzenle">
+
+                                <i class="fa-regular fa-pen-to-square"></i>
+
+                            </a>
+
+                            <form method="post"
+                                  asp-area="Admin"
+                                  asp-controller="Brand"
+                                  asp-action="Delete"
+                                  asp-route-id="@item.BrandId"
+                                  class="d-inline">
+
+                                @Html.AntiForgeryToken()
+
+                                <button type="submit"
+                                        class="ms-action danger"
+                                        title="Markayı Sil">
+
+                                    <i class="fa-regular fa-trash-can"></i>
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+            }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>

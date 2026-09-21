@@ -1,72 +1,138 @@
 @model MultiShop.Dtos.CatalogDtos.CategoryDtos.CreateCategoryDto
 
 @{
-  Layout = "_AdminLayout";
+    Layout = "_AdminLayout";
 }
 
-
 <section class="ms-page-head">
-  <div><span class="ms-kicker">KATEGORİ YÖNETİMİ</span>
-    <h1>Yeni kategori ekle</h1>
-    <p>Kategori bilgilerini ve ürün oluştururken kullanılacak seçenek şablonlarını belirle.</p></div>
-  <div class="ms-head-actions"><a class="ms-secondary" href="categories.html">Vazgeç</a>
-    <button class="ms-primary" type="submit" form="categoryCreateForm"><i class="fa-solid fa-check"></i> Kategoriyi
-      Kaydet
-    </button>
-  </div>
+    <div>
+        <span class="ms-kicker">KATEGORİ YÖNETİMİ</span>
+        <h1>Yeni kategori ekle</h1>
+        <p>Kategori bilgilerini oluştur ve mağazada kullanılacak görseli belirle.</p>
+    </div>
+
+    <div class="ms-head-actions">
+        <a class="ms-secondary"
+           asp-area="Admin"
+           asp-controller="Category"
+           asp-action="Index">
+            Vazgeç
+        </a>
+
+        <button class="ms-primary"
+                type="submit"
+                form="categoryCreateForm">
+            <i class="fa-solid fa-check"></i>
+            Kategoriyi Kaydet
+        </button>
+    </div>
 </section>
 
-<form id="categoryCreateForm" class="ms-form-layout" asp-area="Admin" asp-action="Create" asp-controller="Category">
-  
-  @Html.AntiForgeryToken()
-  
-  <div class="ms-form-stack">
-    <section class="ms-card ms-form-card">
-      <div class="ms-form-title">
-        <h2>Kategori bilgileri</h2>
-        <p>Kategorinin mağazada kullanılacak temel bilgileri.</p>
-      </div>
-      <div class="ms-form-grid">
-        <div class="ms-field full">
-          <label>Kategori adı</label>
-          <input class="ms-input" asp-for="@Model.CategoryName" placeholder="Örn. Ayakkabı">
-        </div>
-      </div>
-    </section>
+<form id="categoryCreateForm"
+      class="ms-form-layout"
+      method="post"
+      asp-area="Admin"
+      asp-controller="Category"
+      asp-action="Create">
 
-    @* <section class="ms-card ms-form-card"> *@
-    @*   <div class="ms-form-title"><h2>Seçenek şablonları</h2> *@
-    @*     <p>Bu kategori seçildiğinde ürün oluşturma ekranında önerilecek seçenekler.</p></div> *@
-    @*   <div class="ms-checkbox-grid"> *@
-    @*     <label class="ms-check"><input data-option-template value="Renk" type="checkbox" checked> Renk</label> *@
-    @*     <label class="ms-check"><input data-option-template value="Beden" type="checkbox"> Beden</label> *@
-    @*     <label class="ms-check"><input data-option-template value="Numara" type="checkbox" checked> Numara</label> *@
-    @*     <label class="ms-check"><input data-option-template value="Hafıza" type="checkbox"> Hafıza</label> *@
-    @*     <label class="ms-check"><input data-option-template value="Kapasite" type="checkbox"> Kapasite</label> *@
-    @*     <label class="ms-check"><input data-option-template value="Paket" type="checkbox"> Paket</label> *@
-    @*   </div> *@
-    @* </section> *@
-  </div>
+    @Html.AntiForgeryToken()
 
-  <aside class="ms-form-stack">
-    <section class="ms-card ms-form-card">
-      <div class="ms-form-title">
-        <h2>Önizleme</h2>
-        <p>Liste ekranında kategori bu yapıda görünür.</p></div>
-      <div class="ms-cell">
-        <span class="ms-cell-icon"><i class="fa-solid fa-layer-group"></i></span>
-        <div><strong class="ms-category-preview-name" data-preview-name>Yeni Kategori</strong>
-          <small
-            class="ms-category-preview-slug" data-preview-slug>kategori-slug</small></div>
-      </div>
-      <div class="ms-chips" data-preview-chips style="margin-top:14px"><span>Renk</span><span>Numara</span></div>
-    </section>
+    <div class="ms-form-stack">
 
-    <div class="ms-form-footer">
-      <a class="ms-secondary" asp-area="Admin" asp-controller="Category" asp-action="Index">Vazgeç</a>
-      <button class="ms-primary" type="submit">
-        <i class="fa-solid fa-check"></i> Kategoriyi Kaydet
-      </button>
+        <section class="ms-card ms-form-card">
+
+            <div class="ms-form-title">
+                <h2>Kategori bilgileri</h2>
+                <p>Kategorinin mağazada gösterilecek temel bilgilerini gir.</p>
+            </div>
+
+            <div class="ms-form-grid">
+
+                <div class="ms-field full">
+                    <label asp-for="CategoryName">
+                        Kategori adı
+                    </label>
+
+                    <input class="ms-input"
+                           asp-for="CategoryName"
+                           type="text"
+                           placeholder="Örn. Ayakkabı" />
+
+                    <span asp-validation-for="CategoryName"
+                          class="text-danger"></span>
+                </div>
+
+            </div>
+
+        </section>
+
     </div>
-  </aside>
+
+    <aside class="ms-form-stack">
+
+        <section class="ms-card ms-form-card">
+
+            <div class="ms-form-title">
+                <h2>Kategori görseli</h2>
+                <p>Kategori kartında kullanılacak görseli belirle.</p>
+            </div>
+
+            <div class="ms-image-preview"
+                 data-product-image-preview>
+
+                <div class="ms-image-preview-inner">
+
+                    <i class="fa-regular fa-image"></i>
+
+                    <strong>
+                        Görsel önizleme
+                    </strong>
+
+                    <span>
+                        URL girdikten sonra kategori görseli burada görünür.
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="ms-field"
+                 style="margin-top:12px">
+
+                <label asp-for="ImageUrl">
+                    Görsel URL
+                </label>
+
+                <input class="ms-input"
+                       asp-for="ImageUrl"
+                       data-product-image-url
+                       type="url"
+                       placeholder="https://images.unsplash.com/..." />
+
+                <span asp-validation-for="ImageUrl"
+                      class="text-danger"></span>
+
+            </div>
+
+        </section>
+
+        <div class="ms-form-footer">
+
+            <a class="ms-secondary"
+               asp-area="Admin"
+               asp-controller="Category"
+               asp-action="Index">
+                Vazgeç
+            </a>
+
+            <button class="ms-primary"
+                    type="submit">
+                <i class="fa-solid fa-check"></i>
+                Kategoriyi Kaydet
+            </button>
+
+        </div>
+
+    </aside>
+
 </form>

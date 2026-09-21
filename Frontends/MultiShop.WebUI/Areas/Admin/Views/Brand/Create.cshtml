@@ -1,0 +1,179 @@
+@model MultiShop.Dtos.CatalogDtos.BrandDtos.CreateBrandDto
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+
+    <div>
+        <span class="ms-kicker">MARKA YÖNETİMİ</span>
+        <h1>Yeni marka ekle</h1>
+        <p>Mağazada kullanılacak marka bilgilerini oluştur.</p>
+    </div>
+
+    <div class="ms-head-actions">
+
+        <a class="ms-secondary"
+           asp-area="Admin"
+           asp-controller="Brand"
+           asp-action="Index">
+
+            Vazgeç
+
+        </a>
+
+        <button class="ms-primary"
+                type="submit"
+                form="brandCreateForm">
+
+            <i class="fa-solid fa-check"></i>
+            Markayı Kaydet
+
+        </button>
+
+    </div>
+
+</section>
+
+<form id="brandCreateForm"
+      class="ms-form-layout"
+      method="post"
+      asp-area="Admin"
+      asp-controller="Brand"
+      asp-action="Create">
+
+    @Html.AntiForgeryToken()
+
+    <div class="ms-form-stack">
+
+        <section class="ms-card ms-form-card">
+
+            <div class="ms-form-title">
+                <h2>Marka bilgileri</h2>
+                <p>Markanın mağazada gösterilecek temel bilgisini gir.</p>
+            </div>
+
+            <div class="ms-form-grid">
+
+                <div class="ms-field full">
+
+                    <label asp-for="BrandName">
+                        Marka Adı
+                    </label>
+
+                    <input class="ms-input"
+                           asp-for="BrandName"
+                           placeholder="Örn. Nike" />
+
+                    <span asp-validation-for="BrandName"
+                          class="text-danger"></span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <aside class="ms-form-stack">
+
+        <section class="ms-card ms-form-card">
+
+            <div class="ms-form-title">
+                <h2>Marka logosu</h2>
+                <p>Markayı temsil edecek logo veya görsel URL'sini gir.</p>
+            </div>
+
+            <div class="ms-image-preview"
+                 data-product-image-preview>
+
+                <div class="ms-image-preview-inner">
+
+                    <i class="fa-regular fa-image"></i>
+
+                    <strong>
+                        Logo önizleme
+                    </strong>
+
+                    <span>
+                        URL girdikten sonra logo burada görünür.
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="ms-field"
+                 style="margin-top:12px">
+
+                <label asp-for="ImageUrl">
+                    Logo URL
+                </label>
+
+                <input class="ms-input"
+                       asp-for="ImageUrl"
+                       data-product-image-url
+                       type="url"
+                       placeholder="https://..." />
+
+                <span asp-validation-for="ImageUrl"
+                      class="text-danger"></span>
+
+            </div>
+
+        </section>
+
+        <section class="ms-card ms-form-card">
+
+            <div class="ms-form-title">
+                <h2>Yayın durumu</h2>
+                <p>Markanın mağazada aktif olup olmayacağını belirle.</p>
+            </div>
+
+            <div class="ms-switch-row">
+
+                <div>
+                    <strong>Aktif marka</strong>
+                    <span>Marka mağazada gösterilsin.</span>
+                </div>
+
+                <label class="ms-switch">
+
+                    <input asp-for="IsActive"
+                           type="checkbox"
+                           checked />
+
+                    <span class="ms-slider"></span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+        <div class="ms-form-footer">
+
+            <a class="ms-secondary"
+               asp-area="Admin"
+               asp-controller="Brand"
+               asp-action="Index">
+
+                Vazgeç
+
+            </a>
+
+            <button class="ms-primary"
+                    type="submit">
+
+                <i class="fa-solid fa-check"></i>
+                Markayı Kaydet
+
+            </button>
+
+        </div>
+
+    </aside>
+
+</form>

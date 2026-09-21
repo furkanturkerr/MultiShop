@@ -1,88 +1,76 @@
+@model List<MultiShop.Dtos.CatalogDtos.FeatureSliderDtos.ResultFeatureSliderDto>
+
+@{
+    var sliders = Model.Where(x => x.IsActive).ToList();
+}
+
 <div class="container-fluid mb-3">
     <div class="row px-xl-5">
+
         <div class="col-lg-8">
-            <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+
+            <div id="header-carousel"
+                 class="carousel slide carousel-fade mb-30 mb-lg-0"
+                 data-ride="carousel">
+
                 <ol class="carousel-indicators">
-                    <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#header-carousel" data-slide-to="1"></li>
-                    <li data-target="#header-carousel" data-slide-to="2"></li>
+
+                    @for (int i = 0; i < sliders.Count; i++)
+                    {
+                        <li data-target="#header-carousel"
+                            data-slide-to="@i"
+                            class="@(i == 0 ? "active" : "")">
+                        </li>
+                    }
+
                 </ol>
 
                 <div class="carousel-inner">
 
-                    <div class="carousel-item position-relative active" style="height: 430px;">
-                        <img class="position-absolute w-100 h-100"
-                             src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=1600&q=85"
-                             style="object-fit: cover;">
+                    @for (int i = 0; i < sliders.Count; i++)
+                    {
+                        var item = sliders[i];
 
-                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                            <div class="p-3" style="max-width: 700px;">
-                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">
-                                    Yeni Sezon Koleksiyonu
-                                </h1>
+                        <div class="carousel-item position-relative @(i == 0 ? "active" : "")"
+                             style="height: 430px;">
 
-                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">
-                                    Günlük stilinden özel günlere kadar özenle seçilmiş yeni sezon parçalarını keşfet.
-                                </p>
+                            <img class="position-absolute w-100 h-100"
+                                 src="@item.ImageUrl"
+                                 alt="@item.Title"
+                                 style="object-fit: cover;">
 
-                                <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
-                                   href="#">
-                                    Koleksiyonu Keşfet
-                                </a>
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+
+                                <div class="p-3"
+                                     style="max-width: 700px;">
+
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">
+                                        @item.Title
+                                    </h1>
+
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">
+                                        @item.Description
+                                    </p>
+
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+                                       href="#">
+                                        Alışverişe Başla
+                                    </a>
+
+                                </div>
+
                             </div>
+
                         </div>
-                    </div>
-
-                    <div class="carousel-item position-relative" style="height: 430px;">
-                        <img class="position-absolute w-100 h-100"
-                             src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1600&q=85"
-                             style="object-fit: cover;">
-
-                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                            <div class="p-3" style="max-width: 700px;">
-                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">
-                                    Tarzını Yenile
-                                </h1>
-
-                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">
-                                    Modern çizgiler, zamansız renkler ve sezonun öne çıkan parçaları bir arada.
-                                </p>
-
-                                <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
-                                   href="#">
-                                    Alışverişe Başla
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item position-relative" style="height: 430px;">
-                        <img class="position-absolute w-100 h-100"
-                             src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1600&q=85"
-                             style="object-fit: cover;">
-
-                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                            <div class="p-3" style="max-width: 700px;">
-                                <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">
-                                    Günlük Şıklığın Yeni Hali
-                                </h1>
-
-                                <p class="mx-md-5 px-5 animate__animated animate__bounceIn">
-                                    Rahatlığı ve şıklığı bir araya getiren parçalarla kendi stilini oluştur.
-                                </p>
-
-                                <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
-                                   href="#">
-                                    Ürünleri İncele
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    }
 
                 </div>
+
             </div>
+
         </div>
 
         @await Component.InvokeAsync("HomeSpacialOffer")
+
     </div>
 </div>

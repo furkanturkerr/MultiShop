@@ -1,0 +1,191 @@
+@model MultiShop.Dtos.CatalogDtos.OfferDiscountDtos.CreateOfferDiscountDto
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+
+    <div>
+        <span class="ms-kicker">İNDİRİM YÖNETİMİ</span>
+        <h1>Yeni indirim ekle</h1>
+        <p>Ana sayfada gösterilecek kampanya alanını oluştur.</p>
+    </div>
+
+    <div class="ms-head-actions">
+
+        <a class="ms-secondary"
+           asp-area="Admin"
+           asp-controller="OfferDiscount"
+           asp-action="Index">
+            Vazgeç
+        </a>
+
+        <button class="ms-primary"
+                type="submit"
+                form="offerDiscountCreateForm">
+
+            <i class="fa-solid fa-check"></i>
+            İndirimi Kaydet
+
+        </button>
+
+    </div>
+
+</section>
+
+<form id="offerDiscountCreateForm"
+      class="ms-form-layout"
+      method="post"
+      asp-area="Admin"
+      asp-controller="OfferDiscount"
+      asp-action="Create">
+
+    @Html.AntiForgeryToken()
+
+    <div class="ms-form-stack">
+
+        <section class="ms-card ms-form-card">
+
+            <div class="ms-form-title">
+                <h2>Kampanya bilgileri</h2>
+                <p>Banner üzerinde gösterilecek içerikleri belirle.</p>
+            </div>
+
+            <div class="ms-form-grid">
+
+                <div class="ms-field full">
+
+                    <label asp-for="SubTitle">
+                        Üst Başlık
+                    </label>
+
+                    <input class="ms-input"
+                           asp-for="SubTitle"
+                           placeholder="Örn. %15 İNDİRİM" />
+
+                </div>
+
+                <div class="ms-field full">
+
+                    <label asp-for="Title">
+                        Başlık
+                    </label>
+
+                    <input class="ms-input"
+                           asp-for="Title"
+                           placeholder="Örn. Ev Dekorasyonu" />
+
+                </div>
+
+                <div class="ms-field full">
+
+                    <label asp-for="ButtonText">
+                        Buton Yazısı
+                    </label>
+
+                    <input class="ms-input"
+                           asp-for="ButtonText"
+                           placeholder="Örn. Alışverişe Başla" />
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <aside class="ms-form-stack">
+
+        <section class="ms-card ms-form-card">
+
+            <div class="ms-form-title">
+                <h2>Kampanya görseli</h2>
+                <p>Banner arka planında kullanılacak görseli belirle.</p>
+            </div>
+
+            <div class="ms-image-preview"
+                 data-product-image-preview>
+
+                <div class="ms-image-preview-inner">
+
+                    <i class="fa-regular fa-image"></i>
+
+                    <strong>Görsel önizleme</strong>
+
+                    <span>
+                        URL girdikten sonra görsel burada görünür.
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="ms-field"
+                 style="margin-top:12px">
+
+                <label asp-for="ImageUrl">
+                    Görsel URL
+                </label>
+
+                <input class="ms-input"
+                       asp-for="ImageUrl"
+                       data-product-image-url
+                       type="url"
+                       placeholder="https://images.unsplash.com/..." />
+
+            </div>
+
+        </section>
+
+        <section class="ms-card ms-form-card">
+
+            <div class="ms-form-title">
+                <h2>Yayın durumu</h2>
+                <p>Kampanyanın ana sayfada gösterilip gösterilmeyeceğini belirle.</p>
+            </div>
+
+            <div class="ms-switch-row">
+
+                <div>
+                    <strong>Aktif kampanya</strong>
+                    <span>Ana sayfada gösterilsin.</span>
+                </div>
+
+                <label class="ms-switch">
+
+                    <input asp-for="IsActive"
+                           type="checkbox"
+                           checked />
+
+                    <span class="ms-slider"></span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+        <div class="ms-form-footer">
+
+            <a class="ms-secondary"
+               asp-area="Admin"
+               asp-controller="OfferDiscount"
+               asp-action="Index">
+                Vazgeç
+            </a>
+
+            <button class="ms-primary"
+                    type="submit">
+
+                <i class="fa-solid fa-check"></i>
+                İndirimi Kaydet
+
+            </button>
+
+        </div>
+
+    </aside>
+
+</form>

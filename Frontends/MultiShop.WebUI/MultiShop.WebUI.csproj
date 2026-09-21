@@ -34,6 +34,10 @@
 
     <ItemGroup>
       <AdditionalFiles Include="Areas\Admin\Views\Category\Index.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\FeatureSlider\Index.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\OfferDiscount\Create.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\OfferDiscount\Index.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\OfferDiscount\Update.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

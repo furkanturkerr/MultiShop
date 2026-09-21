@@ -1,40 +1,15 @@
+@model List<MultiShop.Dtos.CatalogDtos.BrandDtos.ResultBrandDto>
+
 <div class="container-fluid py-5">
     <div class="row px-xl-5">
         <div class="col">
             <div class="owl-carousel vendor-carousel">
-
-                <div class="bg-light p-4">
-                    <img src="https://cdn.simpleicons.org/nike/111111" alt="Nike">
-                </div>
-
-                <div class="bg-light p-4">
-                    <img src="https://cdn.simpleicons.org/adidas/111111" alt="Adidas">
-                </div>
-
-                <div class="bg-light p-4">
-                    <img src="https://cdn.simpleicons.org/apple/111111" alt="Apple">
-                </div>
-
-                <div class="bg-light p-4">
-                    <img src="https://cdn.simpleicons.org/samsung/1428A0" alt="Samsung">
-                </div>
-
-                <div class="bg-light p-4">
-                    <img src="https://cdn.simpleicons.org/sony/111111" alt="Sony">
-                </div>
-
-                <div class="bg-light p-4">
-                    <img src="https://cdn.simpleicons.org/lenovo/E2231A" alt="Lenovo">
-                </div>
-
-                <div class="bg-light p-4">
-                    <img src="https://cdn.simpleicons.org/puma/111111" alt="Puma">
-                </div>
-
-                <div class="bg-light p-4">
-                    <img src="https://cdn.simpleicons.org/newbalance/CF0A2C" alt="New Balance">
-                </div>
-
+                @foreach (var item in Model)
+                {
+                    <div class="bg-light p-4">
+                        <img src="@item.ImageUrl" alt="@item.BrandName">
+                    </div>
+                }
             </div>
         </div>
     </div>

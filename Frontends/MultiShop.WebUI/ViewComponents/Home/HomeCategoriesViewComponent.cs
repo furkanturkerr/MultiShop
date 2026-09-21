@@ -1,11 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
+using MultiShop.Dtos.CatalogDtos.CategoryDtos;
 
 namespace MultiShop.WebUI.ViewComponents.Home;
 
 public class HomeCategoriesViewComponent : ViewComponent
 {
-    public IViewComponentResult Invoke()
+    private readonly IHttpClientFactory _httpClientFactory;
+
+    public HomeCategoriesViewComponent(IHttpClientFactory httpClientFactory)
     {
+        _httpClientFactory = httpClientFactory;
+    }
+
+    public async Task<IViewComponentResult> InvokeAsync()
+    {
+        var client = _httpClientFactory.CreateClient();
+        var response = await client.GetAsync("http://localhost:5053/api/Categories");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonData = await response.Content.ReadFromJsonAsync<List<ResultCategoryDto>>();
+            return View(jsonData);
+        }
         return View();
     }
 }

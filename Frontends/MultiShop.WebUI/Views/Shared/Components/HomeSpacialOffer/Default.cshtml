@@ -1,33 +1,22 @@
-@model dynamic
+@model List<MultiShop.Dtos.CatalogDtos.SpecialOfferDtos.ResultSpecialOfferDto>
 
 <div class="col-lg-4">
+    
+    @foreach (var item in Model)
+    {
+        <div class="product-offer mb-30" style="height: 200px;">
+            <img class="img-fluid"
+                 src="@item.ImageUrl"
+                 alt="Spor ayakkabı">
 
-    <div class="product-offer mb-30" style="height: 200px;">
-        <img class="img-fluid"
-             src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1000&q=85"
-             alt="Spor ayakkabı">
-
-        <div class="offer-text">
-            <h6 class="text-white text-uppercase">%20'ye Varan İndirim</h6>
-            <h3 class="text-white mb-3">Ayakkabı Fırsatları</h3>
-            <a href="" class="btn btn-primary">
-                Ürünleri İncele
-            </a>
+            <div class="offer-text">
+                <h6 class="text-white text-uppercase">@item.SubTitle</h6>
+                <h3 class="text-white mb-3">@item.Title</h3>
+                <a href="" class="btn btn-primary">
+                    Ürünleri İncele
+                </a>
+            </div>
         </div>
-    </div>
-
-    <div class="product-offer mb-30" style="height: 200px;">
-        <img class="img-fluid"
-             src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1000&q=85"
-             alt="Yeni sezon moda ürünleri">
-
-        <div class="offer-text">
-            <h6 class="text-white text-uppercase">Yeni Sezon</h6>
-            <h3 class="text-white mb-3">Sezonun Favorileri</h3>
-            <a href="" class="btn btn-primary">
-                Keşfet
-            </a>
-        </div>
-    </div>
+    }
 
 </div>

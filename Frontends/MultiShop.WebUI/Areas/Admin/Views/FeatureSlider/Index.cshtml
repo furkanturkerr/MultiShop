@@ -1,0 +1,125 @@
+@model List<MultiShop.Dtos.CatalogDtos.FeatureSliderDtos.ResultFeatureSliderDto>
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+    <div>
+        <span class="ms-kicker">ANA SAYFA YÖNETİMİ</span>
+        <h1>Sliderlar</h1>
+        <p>Ana sayfada gösterilecek slider içeriklerini buradan yönet.</p>
+    </div>
+
+    <a class="ms-primary"
+       asp-area="Admin"
+       asp-controller="FeatureSlider"
+       asp-action="Create">
+        <i class="fa-solid fa-plus"></i>
+        Yeni Slider
+    </a>
+</section>
+
+<section class="ms-card">
+
+    <div class="ms-table-wrap">
+
+        <table class="ms-table">
+
+            <thead>
+            <tr>
+                <th>Slider</th>
+                <th>Başlık</th>
+                <th>Açıklama</th>
+                <th>Durum</th>
+                <th style="text-align:right">İşlem</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        <div class="ms-cell">
+                            <img src="@item.ImageUrl"
+                                 alt="@item.Title"
+                                 style="width:90px; height:55px; object-fit:cover; border-radius:8px;" />
+                        </div>
+                    </td>
+
+                    <td>
+                        <strong>@item.Title</strong>
+                    </td>
+
+                    <td style="max-width:350px; white-space:normal;">
+                        @item.Description
+                    </td>
+
+                    <td>
+
+                        @if (item.IsActive)
+                        {
+                            <span class="ms-status on">
+                                Aktif
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="ms-status off">
+                                Pasif
+                            </span>
+                        }
+
+                    </td>
+
+                    <td>
+
+                        <div class="ms-actions">
+
+                            <a class="ms-action"
+                               asp-area="Admin"
+                               asp-controller="FeatureSlider"
+                               asp-action="Update"
+                               asp-route-id="@item.FeatureSliderId"
+                               title="Düzenle">
+
+                                <i class="fa-regular fa-pen-to-square"></i>
+
+                            </a>
+
+                            <form method="post"
+                                  asp-area="Admin"
+                                  asp-controller="FeatureSlider"
+                                  asp-action="Delete"
+                                  asp-route-id="@item.FeatureSliderId"
+                                  class="d-inline">
+
+                                @Html.AntiForgeryToken()
+
+                                <button type="submit"
+                                        class="ms-action danger"
+                                        title="Sil">
+
+                                    <i class="fa-regular fa-trash-can"></i>
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+            }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>

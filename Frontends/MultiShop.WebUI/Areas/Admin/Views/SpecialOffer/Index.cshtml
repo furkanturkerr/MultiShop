@@ -1,0 +1,117 @@
+@model List<MultiShop.Dtos.CatalogDtos.SpecialOfferDtos.ResultSpecialOfferDto>
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+    <div>
+        <span class="ms-kicker">ANA SAYFA YÖNETİMİ</span>
+        <h1>Özel Teklifler</h1>
+        <p>Ana sayfadaki kampanya ve özel teklif alanlarını buradan yönet.</p>
+    </div>
+
+    <a class="ms-primary"
+       asp-area="Admin"
+       asp-controller="SpecialOffer"
+       asp-action="Create">
+        <i class="fa-solid fa-plus"></i>
+        Yeni Teklif
+    </a>
+</section>
+
+<section class="ms-card">
+
+    <div class="ms-table-wrap">
+
+        <table class="ms-table">
+
+            <thead>
+            <tr>
+                <th>Görsel</th>
+                <th>Üst Başlık</th>
+                <th>Başlık</th>
+                <th>Durum</th>
+                <th style="text-align:right">İşlem</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        <div class="ms-cell">
+                            <img src="@item.ImageUrl"
+                                 alt="@item.Title"
+                                 style="width:100px; height:60px; object-fit:cover; border-radius:8px;" />
+                        </div>
+                    </td>
+
+                    <td>
+                        @item.SubTitle
+                    </td>
+
+                    <td>
+                        <strong>@item.Title</strong>
+                    </td>
+
+                    <td>
+                        @if (item.IsActive)
+                        {
+                            <span class="ms-status on">Aktif</span>
+                        }
+                        else
+                        {
+                            <span class="ms-status off">Pasif</span>
+                        }
+                    </td>
+
+                    <td>
+                        <div class="ms-actions">
+
+                            <a class="ms-action"
+                               asp-area="Admin"
+                               asp-controller="SpecialOffer"
+                               asp-action="Update"
+                               asp-route-id="@item.SpecialOfferId"
+                               title="Düzenle">
+
+                                <i class="fa-regular fa-pen-to-square"></i>
+
+                            </a>
+
+                            <form method="post"
+                                  asp-area="Admin"
+                                  asp-controller="SpecialOffer"
+                                  asp-action="Delete"
+                                  asp-route-id="@item.SpecialOfferId"
+                                  class="d-inline">
+
+                                @Html.AntiForgeryToken()
+
+                                <button type="submit"
+                                        class="ms-action danger"
+                                        title="Sil">
+
+                                    <i class="fa-regular fa-trash-can"></i>
+
+                                </button>
+
+                            </form>
+
+                        </div>
+                    </td>
+
+                </tr>
+            }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>

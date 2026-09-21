@@ -1,0 +1,196 @@
+@model MultiShop.Dtos.CatalogDtos.FeatureSliderDtos.UpdateFeatureSliderDto
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+
+    <div>
+        <span class="ms-kicker">SLIDER YÖNETİMİ</span>
+        <h1>Sliderı güncelle</h1>
+        <p>Slider bilgilerini düzenleyip değişiklikleri kaydet.</p>
+    </div>
+
+    <div class="ms-head-actions">
+
+        <a class="ms-secondary"
+           asp-area="Admin"
+           asp-controller="FeatureSlider"
+           asp-action="Index">
+
+            Vazgeç
+
+        </a>
+
+        <button class="ms-primary"
+                type="submit"
+                form="featureSliderUpdateForm">
+
+            <i class="fa-solid fa-check"></i>
+            Değişiklikleri Kaydet
+
+        </button>
+
+    </div>
+
+</section>
+
+<form id="featureSliderUpdateForm"
+      class="ms-form-layout"
+      method="post"
+      asp-area="Admin"
+      asp-controller="FeatureSlider"
+      asp-action="Update">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden"
+           asp-for="FeatureSliderId" />
+
+    <div class="ms-form-stack">
+
+        <section class="ms-card ms-form-card">
+
+            <div class="ms-form-title">
+                <h2>Slider bilgileri</h2>
+                <p>Slider üzerinde gösterilecek metinleri güncelle.</p>
+            </div>
+
+            <div class="ms-form-grid">
+
+                <div class="ms-field full">
+
+                    <label asp-for="Title">
+                        Başlık
+                    </label>
+
+                    <input class="ms-input"
+                           asp-for="Title"
+                           placeholder="Örn. Yeni Sezon Koleksiyonu" />
+
+                </div>
+
+                <div class="ms-field full">
+
+                    <label asp-for="Description">
+                        Açıklama
+                    </label>
+
+                    <textarea class="ms-textarea"
+                              asp-for="Description"
+                              placeholder="Slider açıklamasını yazın..."></textarea>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <aside class="ms-form-stack">
+
+        <section class="ms-card ms-form-card">
+
+            <div class="ms-form-title">
+                <h2>Slider görseli</h2>
+                <p>Ana sayfada kullanılacak görseli güncelle.</p>
+            </div>
+
+            <div class="ms-image-preview"
+                 data-product-image-preview>
+
+                @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl"
+                         alt="@Model.Title"
+                         style="width:100%; height:240px; object-fit:cover;" />
+                }
+                else
+                {
+                    <div class="ms-image-preview-inner">
+
+                        <i class="fa-regular fa-image"></i>
+
+                        <strong>
+                            Görsel önizleme
+                        </strong>
+
+                        <span>
+                            URL girdikten sonra görsel burada görünür.
+                        </span>
+
+                    </div>
+                }
+
+            </div>
+
+            <div class="ms-field"
+                 style="margin-top:12px">
+
+                <label asp-for="ImageUrl">
+                    Görsel URL
+                </label>
+
+                <input class="ms-input"
+                       asp-for="ImageUrl"
+                       data-product-image-url
+                       type="url"
+                       placeholder="https://images.unsplash.com/..." />
+
+            </div>
+
+        </section>
+
+        <section class="ms-card ms-form-card">
+
+            <div class="ms-form-title">
+                <h2>Yayın durumu</h2>
+                <p>Sliderın ana sayfada gösterilip gösterilmeyeceğini belirle.</p>
+            </div>
+
+            <div class="ms-switch-row">
+
+                <div>
+                    <strong>Aktif slider</strong>
+                    <span>Ana sayfada gösterilsin.</span>
+                </div>
+
+                <label class="ms-switch">
+
+                    <input asp-for="IsActive"
+                           type="checkbox" />
+
+                    <span class="ms-slider"></span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+        <div class="ms-form-footer">
+
+            <a class="ms-secondary"
+               asp-area="Admin"
+               asp-controller="FeatureSlider"
+               asp-action="Index">
+
+                Vazgeç
+
+            </a>
+
+            <button class="ms-primary"
+                    type="submit">
+
+                <i class="fa-solid fa-check"></i>
+                Değişiklikleri Kaydet
+
+            </button>
+
+        </div>
+
+    </aside>
+
+</form>
