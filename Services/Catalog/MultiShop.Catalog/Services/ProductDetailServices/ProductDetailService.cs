@@ -35,7 +35,8 @@ public class ProductDetailService : IProductDetailService
     {
         var update = Builders<ProductDetail>.Update
             .Set(x => x.ProductDescription, dto.ProductDescription)
-            .Set(x => x.ProductInfo, dto.ProductInfo);
+            .Set(x => x.ProductInfo, dto.ProductInfo)
+            .Set(x => x.ProductId, dto.ProductId);
         await _collection.UpdateOneAsync(x => x.ProductDetailId == dto.ProductDetailId, update);
     }
 
@@ -48,5 +49,11 @@ public class ProductDetailService : IProductDetailService
     public async Task DeleteProductDetailByIdAsync(string id)
     {
         await _collection.DeleteOneAsync(x=>x.ProductDetailId == id);
+    }
+
+    public async Task<GetByIdProductDetailDto> GetProductDetailByProductIdAsync(string productId)
+    {
+        var value = await _collection.Find(x=>x.ProductId == productId).FirstOrDefaultAsync();
+        return _mapper.Map<GetByIdProductDetailDto>(value);
     }
 }

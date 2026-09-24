@@ -7,4 +7,6 @@ public class ResultProductDetailDto
     public string ProductDescription { get; set; }
 
     public string ProductInfo { get; set; }
+    
+    public string ProductId { get; set; }
 }

@@ -1,0 +1,124 @@
+@model MultiShop.Dtos.CatalogDtos.ProductDetailDtos.UpdateProductDetailDto
+
+@{
+    ViewData["Title"] = "Ürün Detayı Güncelle";
+    Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+    <div>
+        <span class="ms-kicker">ÜRÜN YÖNETİMİ</span>
+        <h1>Ürün detayını güncelle</h1>
+        <p>Ürünün açıklama ve detay bilgilerini buradan düzenleyebilirsin.</p>
+    </div>
+</section>
+
+<form method="post"
+      asp-area="Admin"
+      asp-controller="ProductDetail"
+      asp-action="Update">
+
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+
+    <input type="hidden" asp-for="ProductDetailId" />
+    <input type="hidden" asp-for="ProductId" />
+
+    <section class="ms-card ms-form-card">
+
+        <div class="ms-form-title">
+            <h2>Ürün detay bilgileri</h2>
+            <p>Ürün detay sayfasında gösterilecek içerikleri düzenle.</p>
+        </div>
+
+        <div class="ms-form-stack">
+
+            <div class="ms-field">
+                <label asp-for="ProductDescription">
+                    Ürün Açıklaması
+                </label>
+
+                <textarea asp-for="ProductDescription"
+                          class="ms-input product-detail-textarea"
+                          rows="4"
+                          placeholder="Ürün açıklamasını gir..."></textarea>
+
+                <span asp-validation-for="ProductDescription"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="ms-field">
+                <label asp-for="ProductInfo">
+                    Ürün Bilgisi
+                </label>
+
+                <textarea asp-for="ProductInfo"
+                          class="ms-input product-detail-textarea"
+                          rows="6"
+                          placeholder="Ürünün teknik özellikleri ve detaylı bilgilerini gir..."></textarea>
+
+                <span asp-validation-for="ProductInfo"
+                      class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="ms-form-footer">
+
+            <a asp-area="Admin"
+               asp-controller="Product"
+               asp-action="ProductList"
+               class="ms-secondary">
+
+                <i class="fa-solid fa-arrow-left"></i>
+                Vazgeç
+
+            </a>
+
+            <button type="submit"
+                    class="ms-primary">
+
+                <i class="fa-solid fa-check"></i>
+                Değişiklikleri Kaydet
+
+            </button>
+
+        </div>
+
+    </section>
+
+</form>
+
+<style>
+    .product-detail-textarea {
+        width: 100%;
+        min-height: 110px;
+        padding: 18px 16px;
+        line-height: 1.6;
+        resize: vertical;
+        display: block;
+    }
+
+    .product-detail-textarea::placeholder {
+        line-height: 1.6;
+    }
+
+    .ms-field {
+        margin-bottom: 24px;
+    }
+
+    .ms-field label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+    .ms-form-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 12px;
+        margin-top: 24px;
+    }
+</style>

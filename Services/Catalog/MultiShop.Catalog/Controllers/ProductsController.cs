@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Catalog.Dtos.ProductDtos;
+using MultiShop.Catalog.Services.ProductImageServices;
 using MultiShop.Catalog.Services.ProductServices;
 
 namespace MultiShop.Catalog.Controllers
@@ -8,45 +9,54 @@ namespace MultiShop.Catalog.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductService  _ProductService;
+        private readonly IProductService  _productService;
+        private readonly IProductImageService _productImageService;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService, IProductImageService productImageService)
         {
-            _ProductService = productService;
+            _productService = productService;
+            _productImageService = productImageService;
         }
 
         [HttpGet]
         public async Task<IActionResult> ProductList()
         {
-            var values = await _ProductService.GetAllProductsWithCategoryAsync();
+            var values = await _productService.GetAllProductsWithCategoryAsync();
+            return Ok(values);
+        }
+
+        [HttpGet("CategoryId")]
+        public async Task<IActionResult> ProductListByCategoryId(string categoryId)
+        {
+            var values = await _productService.GetProductsByCategoryIdAsync(categoryId);
             return Ok(values);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> ProductById(string id)
         {
-            var value = await _ProductService.GetProductByIdAsync(id);
+            var value = await _productService.GetProductByIdAsync(id);
             return Ok(value);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateProduct(CreateProductDto productDto)
         {
-            await _ProductService.CreateProductAsync(productDto);
+            await _productService.CreateProductAsync(productDto);
             return Ok();
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateProduct(UpdateProductDto productDto)
         {
-            await _ProductService.UpdateProductAsync(productDto);
+            await _productService.UpdateProductAsync(productDto);
             return Ok();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(string id)
         {
-            await _ProductService.DeleteProductByIdAsync(id);
+            await _productService.DeleteProductByIdAsync(id);
             return Ok();
         }
     }

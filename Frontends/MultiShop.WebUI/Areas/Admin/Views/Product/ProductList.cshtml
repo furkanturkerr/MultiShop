@@ -66,7 +66,16 @@
           <td><span class="ms-status on">Aktif</span></td>
           <td>18 Eyl 2026</td>
           <td>
-            <div class="ms-actions"><a class="ms-action" href="#"><i class="fa-regular fa-eye"></i></a>
+            <div class="ms-actions">
+              <a class="ms-action" asp-area="Admin" asp-controller="ProductDetail" asp-action="Index" asp-route-id="@item.ProductId">
+                <i class="fa-regular fa-file-lines"></i>
+              </a>
+              <a class="ms-action" asp-area="Admin" asp-controller="ProductImage" asp-action="Index" asp-route-id="@item.ProductId">
+                <i class="fa-solid fa-camera"></i>
+              </a>
+              <a class="ms-action" href="#">
+                <i class="fa-regular fa-eye"></i>
+              </a>
               <a class="ms-action" asp-area="Admin" asp-controller="Product" asp-action="Update" asp-route-id="@item.ProductId">
                 <i class="fa-regular fa-pen-to-square"></i>
               </a>

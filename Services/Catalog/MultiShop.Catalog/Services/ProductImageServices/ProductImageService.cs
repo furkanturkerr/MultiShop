@@ -37,7 +37,8 @@ public class ProductImageService : IProductImageService
             .Set(x => x.ImageUrl1, dto.ImageUrl1)
             .Set(x => x.ImageUrl2, dto.ImageUrl2)
             .Set(x => x.ImageUrl3, dto.ImageUrl3)
-            .Set(x => x.ProductId, dto.ProductId);
+            .Set(x => x.ProductId, dto.ProductId)
+            .Set(x => x.ImageUrl4, dto.ImageUrl4);
         await _collection.UpdateOneAsync(x => x.ProductImageId == dto.ProductImageId, update);
     }
 
@@ -50,5 +51,11 @@ public class ProductImageService : IProductImageService
     public async Task DeleteProductImageByIdAsync(string id)
     {
         await _collection.DeleteOneAsync(x=>x.ProductImageId == id);
+    }
+
+    public async Task<GetByIdProductImageDto> GetProductImageByProductIdAsync(string productId)
+    {
+        var value = await _collection.Find(x => x.ProductId == productId).FirstOrDefaultAsync();
+        return _mapper.Map<GetByIdProductImageDto>(value);
     }
 }

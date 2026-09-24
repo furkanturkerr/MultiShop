@@ -1,0 +1,340 @@
+@model MultiShop.Dtos.CatalogDtos.ProductImageDtos.UpdateProductImageDto
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+    <div>
+        <span class="ms-kicker">ÜRÜN YÖNETİMİ</span>
+
+        <h1>Ürün görselleri</h1>
+
+        <p>
+            Ürünün detay sayfasında kullanılacak görselleri buradan yönet.
+        </p>
+    </div>
+
+    <div class="ms-head-actions">
+
+        <a class="ms-secondary"
+           asp-area="Admin"
+           asp-controller="Product"
+           asp-action="ProductList">
+            Vazgeç
+        </a>
+
+        <button class="ms-primary"
+                type="submit"
+                form="productImageForm">
+
+            <i class="fa-solid fa-check"></i>
+            Görselleri Kaydet
+
+        </button>
+
+    </div>
+</section>
+
+
+<form id="productImageForm"
+      method="post"
+      asp-area="Admin"
+      asp-controller="ProductImage"
+      asp-action="Update">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden"
+           asp-for="ProductImageId" />
+
+    <input type="hidden"
+           asp-for="ProductId" />
+
+
+    <div class="ms-form-stack">
+
+        <section class="ms-card ms-form-card">
+
+            <div class="ms-form-title">
+                <h2>Ürün görselleri</h2>
+
+                <p>
+                    Ürün için en fazla 4 görsel tanımlayabilirsin.
+                </p>
+            </div>
+
+
+            <div style="
+                display:grid;
+                grid-template-columns:repeat(2, minmax(0, 1fr));
+                gap:20px;
+            ">
+
+                <!-- Görsel 1 -->
+                <div class="ms-field">
+
+                    <label asp-for="ImageUrl1">
+                        1. Görsel
+                    </label>
+
+                    <div class="ms-image-preview"
+                         id="preview-1">
+
+                        @if (!string.IsNullOrWhiteSpace(Model.ImageUrl1))
+                        {
+                            <img src="@Model.ImageUrl1"
+                                 alt="Ürün Görseli 1"
+                                 style="
+                                    width:100%;
+                                    height:240px;
+                                    object-fit:contain;
+                                 " />
+                        }
+                        else
+                        {
+                            <div class="ms-image-preview-inner">
+
+                                <i class="fa-regular fa-image"></i>
+
+                                <strong>
+                                    Görsel önizleme
+                                </strong>
+
+                                <span>
+                                    URL girdikten sonra burada görünür.
+                                </span>
+
+                            </div>
+                        }
+
+                    </div>
+
+                    <input class="ms-input"
+                           asp-for="ImageUrl1"
+                           id="image-1"
+                           type="url"
+                           placeholder="https://..."
+                           style="margin-top:12px;" />
+
+                </div>
+
+
+                <!-- Görsel 2 -->
+                <div class="ms-field">
+
+                    <label asp-for="ImageUrl2">
+                        2. Görsel
+                    </label>
+
+                    <div class="ms-image-preview"
+                         id="preview-2">
+
+                        @if (!string.IsNullOrWhiteSpace(Model.ImageUrl2))
+                        {
+                            <img src="@Model.ImageUrl2"
+                                 alt="Ürün Görseli 2"
+                                 style="
+                                    width:100%;
+                                    height:240px;
+                                    object-fit:contain;
+                                 " />
+                        }
+                        else
+                        {
+                            <div class="ms-image-preview-inner">
+
+                                <i class="fa-regular fa-image"></i>
+
+                                <strong>
+                                    Görsel önizleme
+                                </strong>
+
+                                <span>
+                                    URL girdikten sonra burada görünür.
+                                </span>
+
+                            </div>
+                        }
+
+                    </div>
+
+                    <input class="ms-input"
+                           asp-for="ImageUrl2"
+                           id="image-2"
+                           type="url"
+                           placeholder="https://..."
+                           style="margin-top:12px;" />
+
+                </div>
+
+
+                <!-- Görsel 3 -->
+                <div class="ms-field">
+
+                    <label asp-for="ImageUrl3">
+                        3. Görsel
+                    </label>
+
+                    <div class="ms-image-preview"
+                         id="preview-3">
+
+                        @if (!string.IsNullOrWhiteSpace(Model.ImageUrl3))
+                        {
+                            <img src="@Model.ImageUrl3"
+                                 alt="Ürün Görseli 3"
+                                 style="
+                                    width:100%;
+                                    height:240px;
+                                    object-fit:contain;
+                                 " />
+                        }
+                        else
+                        {
+                            <div class="ms-image-preview-inner">
+
+                                <i class="fa-regular fa-image"></i>
+
+                                <strong>
+                                    Görsel önizleme
+                                </strong>
+
+                                <span>
+                                    URL girdikten sonra burada görünür.
+                                </span>
+
+                            </div>
+                        }
+
+                    </div>
+
+                    <input class="ms-input"
+                           asp-for="ImageUrl3"
+                           id="image-3"
+                           type="url"
+                           placeholder="https://..."
+                           style="margin-top:12px;" />
+
+                </div>
+
+
+                <!-- Görsel 4 -->
+                <div class="ms-field">
+
+                    <label asp-for="ImageUrl4">
+                        4. Görsel
+                    </label>
+
+                    <div class="ms-image-preview"
+                         id="preview-4">
+
+                        @if (!string.IsNullOrWhiteSpace(Model.ImageUrl4))
+                        {
+                            <img src="@Model.ImageUrl4"
+                                 alt="Ürün Görseli 4"
+                                 style="
+                                    width:100%;
+                                    height:240px;
+                                    object-fit:contain;
+                                 " />
+                        }
+                        else
+                        {
+                            <div class="ms-image-preview-inner">
+
+                                <i class="fa-regular fa-image"></i>
+
+                                <strong>
+                                    Görsel önizleme
+                                </strong>
+
+                                <span>
+                                    URL girdikten sonra burada görünür.
+                                </span>
+
+                            </div>
+                        }
+
+                    </div>
+
+                    <input class="ms-input"
+                           asp-for="ImageUrl4"
+                           id="image-4"
+                           type="url"
+                           placeholder="https://..."
+                           style="margin-top:12px;" />
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <div class="ms-form-footer">
+
+            <a class="ms-secondary"
+               asp-area="Admin"
+               asp-controller="Product"
+               asp-action="ProductList">
+                Vazgeç
+            </a>
+
+            <button class="ms-primary"
+                    type="submit">
+
+                <i class="fa-solid fa-check"></i>
+                Görselleri Kaydet
+
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
+
+
+<script>
+    function imagePreview(inputId, previewId) {
+
+        const input = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+
+        input.addEventListener("input", function () {
+
+            const url = this.value.trim();
+
+            if (!url) {
+
+                preview.innerHTML = `
+                    <div class="ms-image-preview-inner">
+                        <i class="fa-regular fa-image"></i>
+                        <strong>Görsel önizleme</strong>
+                        <span>URL girdikten sonra burada görünür.</span>
+                    </div>
+                `;
+
+                return;
+            }
+
+            preview.innerHTML = `
+                <img
+                    src="${url}"
+                    alt="Ürün Görseli"
+                    style="
+                        width:100%;
+                        height:240px;
+                        object-fit:contain;
+                    "
+                />
+            `;
+
+        });
+    }
+
+    imagePreview("image-1", "preview-1");
+    imagePreview("image-2", "preview-2");
+    imagePreview("image-3", "preview-3");
+    imagePreview("image-4", "preview-4");
+</script>

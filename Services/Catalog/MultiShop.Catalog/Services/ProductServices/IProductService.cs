@@ -15,4 +15,6 @@ public interface IProductService
     Task DeleteProductByIdAsync(string id);
     
     Task<List<ResultProductWithCategory>> GetAllProductsWithCategoryAsync();
+    
+    Task<List<ResultProductWithCategory>> GetProductsByCategoryIdAsync(string categoryId);
 }

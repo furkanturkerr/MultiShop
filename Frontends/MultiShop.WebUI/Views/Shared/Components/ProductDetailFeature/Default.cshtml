@@ -1,7 +1,9 @@
+@model MultiShop.Dtos.CatalogDtos.ProductDtos.UpdateProductDto
+
 <div class="col-lg-7 h-auto mb-30">
     <div class="h-100 bg-light p-30">
 
-        <h3>Sony Alpha A6400 Aynasız Fotoğraf Makinesi</h3>
+        <h3>@Model.ProductName</h3>
 
         <div class="d-flex mb-3">
             <div class="text-primary mr-2">
@@ -14,11 +16,10 @@
             <small class="pt-1">(99 Yorum)</small>
         </div>
 
-        <h3 class="font-weight-semi-bold mb-4">32.499 ₺</h3>
+        <h3 class="font-weight-semi-bold mb-4">@Model.ProductPrice ₺</h3>
 
         <p class="mb-4">
-            24.2 MP APS-C sensörü, hızlı otomatik netleme sistemi ve 4K video desteğiyle
-            hem fotoğraf hem de video çekimleri için güçlü bir kullanım sunar.
+            @Model.ProductDescription
         </p>
 
         <div class="d-flex mb-3">

@@ -57,21 +57,21 @@ public class ProductService : IProductService
 
     public async Task<List<ResultProductWithCategory>> GetAllProductsWithCategoryAsync()
     {
-        var products = await _collection
-            .Find(x => true)
-            .ToListAsync();
+        var products = await _collection.Find(x => true).ToListAsync();
 
-        var categories = await _categoryCollection
-            .Find(x => true)
-            .ToListAsync();
+        var categories = await _categoryCollection.Find(x => true).ToListAsync();
 
         foreach (var product in products)
         {
-            product.Category = categories.FirstOrDefault(
-                x => x.CategoryId == product.CategoryId
-            );
+            product.Category = categories.FirstOrDefault(x => x.CategoryId == product.CategoryId);
         }
 
+        return _mapper.Map<List<ResultProductWithCategory>>(products);
+    }
+
+    public async Task<List<ResultProductWithCategory>> GetProductsByCategoryIdAsync(string categoryId)
+    {
+        var products = await _collection.Find(x => x.CategoryId == categoryId).ToListAsync();
         return _mapper.Map<List<ResultProductWithCategory>>(products);
     }
 }

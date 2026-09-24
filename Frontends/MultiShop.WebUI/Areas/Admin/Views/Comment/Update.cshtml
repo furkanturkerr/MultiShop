@@ -1,0 +1,240 @@
+@model MultiShop.Dtos.CommentDtos.UpdateCommentDto
+
+@{
+    ViewData["Title"] = "Yorum Güncelle";
+    Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+    <div>
+        <span class="ms-kicker">YORUM YÖNETİMİ</span>
+        <h1>Yorumu güncelle</h1>
+        <p>Kullanıcı yorumuna ait bilgileri buradan düzenleyebilirsin.</p>
+    </div>
+</section>
+
+<form method="post"
+      asp-area="Admin"
+      asp-controller="Comment"
+      asp-action="Update">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="UserCommentId" />
+    <input type="hidden" asp-for="ProductId" />
+
+    <section class="ms-card ms-form-card">
+
+        <div class="ms-form-title">
+            <h2>Kullanıcı bilgileri</h2>
+            <p>Yorumu gönderen kullanıcıya ait bilgileri düzenle.</p>
+        </div>
+
+        <div class="ms-form-stack">
+
+            <div class="ms-field">
+                <label asp-for="NameSurname">
+                    Ad Soyad
+                </label>
+
+                <input asp-for="NameSurname"
+                       class="ms-input"
+                       placeholder="Ad soyad" />
+
+                <span asp-validation-for="NameSurname"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="ms-field">
+                <label asp-for="Email">
+                    E-posta
+                </label>
+
+                <input asp-for="Email"
+                       type="email"
+                       class="ms-input"
+                       placeholder="ornek@mail.com" />
+
+                <span asp-validation-for="Email"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="ms-field">
+                <label asp-for="ImageUrl">
+                    Profil Görseli
+                </label>
+
+                <input asp-for="ImageUrl"
+                       id="commentImageUrl"
+                       class="ms-input"
+                       placeholder="https://..." />
+
+                <span asp-validation-for="ImageUrl"
+                      class="text-danger"></span>
+
+                <div style="margin-top:15px;">
+                    <img id="commentImagePreview"
+                         src="@Model.ImageUrl"
+                         alt="Profil Görseli"
+                         style="
+                            width:80px;
+                            height:80px;
+                            border-radius:50%;
+                            object-fit:cover;
+                            display:@(string.IsNullOrWhiteSpace(Model.ImageUrl) ? "none" : "block");
+                         " />
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="ms-card ms-form-card"
+             style="margin-top:20px;">
+
+        <div class="ms-form-title">
+            <h2>Yorum bilgileri</h2>
+            <p>Yorum başlığı, içeriği ve puan bilgisini düzenle.</p>
+        </div>
+
+        <div class="ms-form-stack">
+
+            <div class="ms-field">
+                <label asp-for="Comment">
+                    Yorum Başlığı
+                </label>
+
+                <input asp-for="Comment"
+                       class="ms-input"
+                       placeholder="Yorum başlığı" />
+
+                <span asp-validation-for="Comment"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="ms-field">
+                <label asp-for="CommentDetail">
+                    Yorum Detayı
+                </label>
+
+                <textarea asp-for="CommentDetail"
+                          class="ms-input"
+                          rows="6"
+                          placeholder="Yorum detayını yaz..."
+                          style="resize:vertical;"></textarea>
+
+                <span asp-validation-for="CommentDetail"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="ms-field">
+                <label asp-for="Rating">
+                    Puan
+                </label>
+
+                <select asp-for="Rating"
+                        class="ms-input">
+
+                    <option value="1">1 Yıldız</option>
+                    <option value="2">2 Yıldız</option>
+                    <option value="3">3 Yıldız</option>
+                    <option value="4">4 Yıldız</option>
+                    <option value="5">5 Yıldız</option>
+
+                </select>
+
+                <span asp-validation-for="Rating"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="ms-field">
+                <label asp-for="CommentDate">
+                    Yorum Tarihi
+                </label>
+
+                <input asp-for="CommentDate"
+                       type="datetime-local"
+                       class="ms-input" />
+
+                <span asp-validation-for="CommentDate"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="ms-field">
+
+                <label>Yorum Durumu</label>
+
+                <div style="
+                    display:flex;
+                    align-items:center;
+                    gap:10px;
+                    margin-top:10px;
+                ">
+
+                    <input asp-for="IsApproved"
+                           type="checkbox"
+                           style="
+                              width:18px;
+                              height:18px;
+                              cursor:pointer;
+                           " />
+
+                    <label asp-for="IsApproved"
+                           style="
+                              margin:0;
+                              cursor:pointer;
+                           ">
+                        Yorumu onayla
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="ms-form-footer">
+
+            <a asp-area="Admin"
+               asp-controller="Comment"
+               asp-action="Index"
+               class="ms-secondary">
+
+                <i class="fa-solid fa-arrow-left"></i>
+                Vazgeç
+
+            </a>
+
+            <button type="submit"
+                    class="ms-primary">
+
+                <i class="fa-solid fa-check"></i>
+                Değişiklikleri Kaydet
+
+            </button>
+
+        </div>
+
+    </section>
+
+</form>
+
+<script>
+    const imageInput = document.getElementById("commentImageUrl");
+    const imagePreview = document.getElementById("commentImagePreview");
+
+    imageInput.addEventListener("input", function () {
+
+        const url = this.value.trim();
+
+        if (!url) {
+            imagePreview.style.display = "none";
+            return;
+        }
+
+        imagePreview.src = url;
+        imagePreview.style.display = "block";
+    });
+</script>

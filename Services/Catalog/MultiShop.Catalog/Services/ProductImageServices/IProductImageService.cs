@@ -13,4 +13,6 @@ public interface IProductImageService
     Task<GetByIdProductImageDto> GetProductImageByIdAsync(string id);
 
     Task DeleteProductImageByIdAsync(string id);
+    
+    Task<GetByIdProductImageDto> GetProductImageByProductIdAsync(string productId);
 }

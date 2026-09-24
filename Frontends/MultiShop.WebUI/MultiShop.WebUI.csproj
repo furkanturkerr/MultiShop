@@ -25,7 +25,7 @@
       <Folder Include="Areas\Admin\Data\" />
       <Folder Include="Areas\Admin\Models\" />
       <Folder Include="Areas\Admin\Pages\" />
-      <Folder Include="Pages\" />
+      <Folder Include="Pages\Shared\Components\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -34,6 +34,8 @@
 
     <ItemGroup>
       <AdditionalFiles Include="Areas\Admin\Views\Category\Index.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Comment\Index.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Comment\Update.cshtml" />
       <AdditionalFiles Include="Areas\Admin\Views\FeatureSlider\Index.cshtml" />
       <AdditionalFiles Include="Areas\Admin\Views\OfferDiscount\Create.cshtml" />
       <AdditionalFiles Include="Areas\Admin\Views\OfferDiscount\Index.cshtml" />

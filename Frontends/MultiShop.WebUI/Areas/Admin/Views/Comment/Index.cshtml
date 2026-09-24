@@ -1,0 +1,200 @@
+@model List<MultiShop.Dtos.CommentDtos.ResultCommentDto>
+
+@{
+    ViewData["Title"] = "Yorumlar";
+    Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+    <div>
+        <span class="ms-kicker">YORUM YÖNETİMİ</span>
+        <h1>Müşteri yorumları</h1>
+        <p>Kullanıcı yorumlarını görüntüleyebilir, onaylayabilir veya silebilirsin.</p>
+    </div>
+</section>
+
+<section class="ms-card">
+
+    <div class="ms-table-wrap">
+
+        <table class="ms-table">
+
+            <thead>
+            <tr>
+                <th>Kullanıcı</th>
+                <th>Yorum</th>
+                <th>Puan</th>
+                <th>Tarih</th>
+                <th>Durum</th>
+                <th style="text-align:right;">İşlemler</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            <div class="ms-cell">
+
+                                @if (!string.IsNullOrWhiteSpace(item.ImageUrl))
+                                {
+                                    <img src="@item.ImageUrl"
+                                         alt="@item.NameSurname"
+                                         style="
+                                            width:44px;
+                                            height:44px;
+                                            border-radius:50%;
+                                            object-fit:cover;
+                                         " />
+                                }
+                                else
+                                {
+                                    <div style="
+                                        width:44px;
+                                        height:44px;
+                                        border-radius:50%;
+                                        display:flex;
+                                        align-items:center;
+                                        justify-content:center;
+                                        background:#f1f1f1;
+                                        font-weight:700;
+                                    ">
+                                        @(string.IsNullOrWhiteSpace(item.NameSurname)
+                                            ? "?"
+                                            : item.NameSurname.Substring(0, 1).ToUpper())
+                                    </div>
+                                }
+
+                                <div>
+                                    <strong>@item.NameSurname</strong>
+                                    <small>@item.Email</small>
+                                </div>
+
+                            </div>
+                        </td>
+
+                        <td>
+                            <strong>@item.Comment</strong>
+
+                            @if (!string.IsNullOrWhiteSpace(item.CommentDetail))
+                            {
+                                <small style="
+                                    display:block;
+                                    max-width:350px;
+                                    white-space:nowrap;
+                                    overflow:hidden;
+                                    text-overflow:ellipsis;
+                                ">
+                                    @item.CommentDetail
+                                </small>
+                            }
+                        </td>
+
+                        <td>
+                            <div style="white-space:nowrap;">
+
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= item.Rating)
+                                    {
+                                        <i class="fa-solid fa-star"
+                                           style="color:#FFD333;"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa-regular fa-star"
+                                           style="color:#aaa;"></i>
+                                    }
+                                }
+
+                            </div>
+                        </td>
+
+                        <td>
+                            @item.CommentDate.ToString("dd.MM.yyyy")
+                        </td>
+
+                        <td>
+                            @if (item.IsApproved)
+                            {
+                                <span class="ms-status success">
+                                    Onaylandı
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="ms-status warning">
+                                    Bekliyor
+                                </span>
+                            }
+                        </td>
+
+                        <td>
+
+                            <div style="
+                                display:flex;
+                                justify-content:flex-end;
+                                gap:8px;
+                            ">
+
+                                <a class="ms-action"
+                                   asp-area="Admin"
+                                   asp-controller="Comment"
+                                   asp-action="Update"
+                                   asp-route-id="@item.UserCommentId"
+                                   title="Yorumu İncele">
+
+                                    <i class="fa-regular fa-eye"></i>
+
+                                </a>
+
+                                <form method="post"
+                                      asp-area="Admin"
+                                      asp-controller="Comment"
+                                      asp-action="Delete"
+                                      asp-route-id="@item.UserCommentId"
+                                      style="display:inline;">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="submit"
+                                            class="ms-action danger"
+                                            title="Yorumu Sil">
+
+                                        <i class="fa-regular fa-trash-can"></i>
+
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6"
+                        style="text-align:center; padding:40px;">
+
+                        Henüz yorum bulunmuyor.
+
+                    </td>
+                </tr>
+            }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>

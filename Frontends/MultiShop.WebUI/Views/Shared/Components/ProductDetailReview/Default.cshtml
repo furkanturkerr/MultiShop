@@ -1,53 +1,111 @@
-<div class="tab-pane fade" id="tab-pane-3">
+@model MultiShop.WebUI.Models.ProductReviewViewModel
+
+<link rel="stylesheet" href="~/css/product-reviews.css" asp-append-version="true" />
+
+<div class="tab-pane fade @(ViewData["ShowReviews"] is true ? "show active" : "")" id="tab-pane-3">
+    @if (TempData["CommentSuccessMessage"] is string successMessage)
+    {
+        <div class="alert alert-success" role="status">@successMessage</div>
+    }
+
     <div class="row">
         <div class="col-md-6">
-            <h4 class="mb-4">1 review for "Product Name"</h4>
-            <div class="media mb-4">
-                <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                <div class="media-body">
-                    <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
-                    <div class="text-primary mb-2">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <i class="far fa-star"></i>
+            <h4 class="mb-4">@(Model.LoadError is null ? $"{Model.Comments.Count} yorum" : "Yorumlar")</h4>
+
+            @if (Model.LoadError is not null)
+            {
+                <div class="alert alert-warning" role="status">@Model.LoadError</div>
+            }
+            else if (Model.Comments.Count == 0)
+            {
+                <p class="text-muted">Bu ürün için henüz yayımlanmış yorum yok. İlk yorumu sen yazabilirsin.</p>
+            }
+
+            @foreach (var item in Model.Comments)
+            {
+                <article class="media mb-4">
+                    @if (!string.IsNullOrWhiteSpace(item.ImageUrl))
+                    {
+                        <img src="@item.ImageUrl" alt="" class="mr-3 mt-1 review-avatar" loading="lazy">
+                    }
+                    else
+                    {
+                        <span class="mr-3 mt-1 review-avatar review-avatar-placeholder" aria-hidden="true">
+                            @(string.IsNullOrWhiteSpace(item.NameSurname) ? "?" : item.NameSurname.Trim()[0].ToString().ToUpperInvariant())
+                        </span>
+                    }
+
+                    <div class="media-body">
+                        <h6 class="mb-1">@item.NameSurname</h6>
+                        <small class="text-muted">@item.CommentDate.ToString("dd.MM.yyyy")</small>
+                        <div class="text-primary my-2" role="img" aria-label="5 üzerinden @item.Rating puan">
+                            @for (var star = 1; star <= 5; star++)
+                            {
+                                <i class="@(star <= item.Rating ? "fas" : "far") fa-star" aria-hidden="true"></i>
+                            }
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(item.Comment))
+                        {
+                            <h6>@item.Comment</h6>
+                        }
+                        <p class="review-content">@item.CommentDetail</p>
                     </div>
-                    <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam
-                        tempor rebum magna dolores sed sed eirmod ipsum.</p>
-                </div>
-            </div>
+                </article>
+            }
         </div>
+
         <div class="col-md-6">
-            <h4 class="mb-4">Leave a review</h4>
-            <small>Your email address will not be published. Required fields are marked *</small>
-            <div class="d-flex my-3">
-                <p class="mb-0 mr-2">Your Rating * :</p>
-                <div class="text-primary">
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-            </div>
-            <form>
+            <h4 class="mb-3">Yorum yap</h4>
+            <p class="small text-muted">E-posta adresin yayımlanmaz. Yorumun onaylandıktan sonra görünür. * işaretli alanlar zorunludur.</p>
+
+            <form id="product-review-form" method="post" asp-area="" asp-controller="Product" asp-action="AddComment" asp-route-id="@Model.Form.ProductId">
+                <input type="hidden" asp-for="Form.ProductId" />
+                <div asp-validation-summary="All" class="text-danger mb-3" role="alert"></div>
+
+                <fieldset class="form-group">
+                    <legend class="h6">Puanın *</legend>
+                    <div class="review-rating" data-review-rating>
+                        @for (var rating = 1; rating <= 5; rating++)
+                        {
+                            <label class="review-rating-option" for="review-rating-@rating" title="@rating yıldız">
+                                <input class="sr-only" type="radio" asp-for="Form.Rating" id="review-rating-@rating" value="@rating" required />
+                                <i class="@(rating <= Model.Form.Rating ? "fas" : "far") fa-star" aria-hidden="true"></i>
+                                <span class="sr-only">@rating yıldız</span>
+                            </label>
+                        }
+                        <span class="small text-muted ml-2" data-rating-label aria-live="polite">@(Model.Form.Rating > 0 ? $"{Model.Form.Rating} / 5" : "Puan seç")</span>
+                    </div>
+                    <span asp-validation-for="Form.Rating" class="text-danger small"></span>
+                </fieldset>
+
                 <div class="form-group">
-                    <label for="message">Your Review *</label>
-                    <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
+                    <label asp-for="Form.Comment">Yorum başlığı <small class="text-muted">(isteğe bağlı)</small></label>
+                    <input asp-for="Form.Comment" class="form-control" maxlength="120" placeholder="Deneyimini kısaca özetle" />
+                    <span asp-validation-for="Form.Comment" class="text-danger small"></span>
                 </div>
+
                 <div class="form-group">
-                    <label for="name">Your Name *</label>
-                    <input type="text" class="form-control" id="name">
+                    <label asp-for="Form.CommentDetail">Yorumun *</label>
+                    <textarea asp-for="Form.CommentDetail" rows="5" class="form-control" maxlength="4000" required placeholder="Ürünle ilgili deneyimini paylaş"></textarea>
+                    <span asp-validation-for="Form.CommentDetail" class="text-danger small"></span>
                 </div>
+
                 <div class="form-group">
-                    <label for="email">Your Email *</label>
-                    <input type="email" class="form-control" id="email">
+                    <label asp-for="Form.NameSurname">Adın Soyadın *</label>
+                    <input asp-for="Form.NameSurname" class="form-control" autocomplete="name" maxlength="100" required />
+                    <span asp-validation-for="Form.NameSurname" class="text-danger small"></span>
                 </div>
-                <div class="form-group mb-0">
-                    <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
+
+                <div class="form-group">
+                    <label asp-for="Form.Email">E-posta Adresin *</label>
+                    <input asp-for="Form.Email" type="email" class="form-control" autocomplete="email" maxlength="254" required />
+                    <span asp-validation-for="Form.Email" class="text-danger small"></span>
                 </div>
+
+                <button type="submit" class="btn btn-primary px-4" data-review-submit>Yorumu Gönder</button>
             </form>
         </div>
     </div>
 </div>
+
+<script src="~/js/product-reviews.js" asp-append-version="true" defer></script>

@@ -13,4 +13,6 @@ public interface IProductDetailService
     Task<GetByIdProductDetailDto> GetProductDetailByIdAsync(string id);
 
     Task DeleteProductDetailByIdAsync(string id);
+    
+    Task<GetByIdProductDetailDto> GetProductDetailByProductIdAsync(string productId);
 }

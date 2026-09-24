@@ -1,0 +1,38 @@
+#tab-pane-3 .review-avatar {
+    flex: 0 0 45px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#tab-pane-3 .review-avatar-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f1f1;
+    color: #3d464d;
+    font-weight: 600;
+}
+
+#tab-pane-3 .media-body { min-width: 0; }
+#tab-pane-3 .review-content { white-space: pre-line; overflow-wrap: anywhere; }
+#tab-pane-3 .review-rating { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+
+#tab-pane-3 .review-rating-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    color: #a57a00;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#tab-pane-3 .review-rating-option.is-selected { border-color: #a57a00; background: #fff7d6; }
+#tab-pane-3 .review-rating-option:focus-within { outline: 2px solid #3d464d; outline-offset: 2px; }
+#tab-pane-3 .validation-summary-valid { display: none; }
