@@ -14,8 +14,8 @@ public class HomeCategoriesViewComponent : ViewComponent
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.GetAsync("http://localhost:5053/api/Categories");
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.GetAsync("catalog/Categories");
         if (response.IsSuccessStatusCode)
         {
             var jsonData = await response.Content.ReadFromJsonAsync<List<ResultCategoryDto>>();

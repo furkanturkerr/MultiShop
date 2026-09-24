@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CommentDtos;
 
@@ -5,6 +6,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [AutoValidateAntiforgeryToken]
+[Authorize(Roles = "Admin")]
 
 public class CommentController : Controller
 {
@@ -18,8 +20,8 @@ public class CommentController : Controller
     // GET
     public async Task<IActionResult> Index()
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.GetAsync("http://localhost:5025/api/Comments");
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.GetAsync("comment/Comments");
         if (response.IsSuccessStatusCode)
         {
             var jsonData = await response.Content.ReadFromJsonAsync<List<ResultCommentDto>>();
@@ -31,8 +33,8 @@ public class CommentController : Controller
     [HttpGet]
     public async Task<IActionResult> Update(int id)
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.GetAsync($"http://localhost:5025/api/Comments/{id}");
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.GetAsync($"comment/Comments/{id}");
         var jsonData = await response.Content.ReadFromJsonAsync<UpdateCommentDto>();
         return View(jsonData);
     }
@@ -40,8 +42,8 @@ public class CommentController : Controller
     [HttpPost]
     public async Task<IActionResult> Update(UpdateCommentDto dto)
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.PutAsJsonAsync($"http://localhost:5025/api/Comments", dto);
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.PutAsJsonAsync($"comment/Comments", dto);
         if (response.IsSuccessStatusCode)
         {
             return RedirectToAction("Index");
@@ -52,8 +54,9 @@ public class CommentController : Controller
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
     {
-        var client = _httpClientFactory.CreateClient();
-        await client.DeleteAsync($"http://localhost:5025/api/Comments/{id}");
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        using var response = await client.DeleteAsync($"comment/Comments?id={id}");
+        response.EnsureSuccessStatusCode();
         return RedirectToAction("Index");
     }
 }

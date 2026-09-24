@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CatalogDtos.CategoryDtos;
+using MultiShop.WebUI.Infrastructure.Gateway;
 
 namespace MultiShop.WebUI.ViewComponents.Layout;
 
@@ -14,13 +15,18 @@ public class NavbarCategoriesViewComponent : ViewComponent
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.GetAsync("http://localhost:5053/api/Categories");
-        if (response.IsSuccessStatusCode)
+        try
         {
-            var jsonData = await response.Content.ReadFromJsonAsync<List<ResultCategoryDto>>();
-            return View(jsonData);
+            var client = _httpClientFactory.CreateClient("GatewayApi");
+            using var response = await client.GetAsync("catalog/Categories");
+            if (response.IsSuccessStatusCode)
+                return View(await response.Content.ReadFromJsonAsync<List<ResultCategoryDto>>() ?? new());
         }
-        return View();
+        catch (GatewayApiException exception) when (exception.StatusCode != System.Net.HttpStatusCode.Unauthorized ||
+                                                   HttpContext.User.Identity?.IsAuthenticated != true)
+        {
+            // The shared header must also render on login/register and when a service is unavailable.
+        }
+        return View(new List<ResultCategoryDto>());
     }
 }

@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using MultiShop.WebUI.Infrastructure.Gateway;
 using MultiShop.Dtos.CommentDtos;
 
 namespace MultiShop.WebUI.Controllers;
@@ -29,6 +31,7 @@ public class ProductController : Controller
     }
 
     [HttpPost("product/detail/{id}/comment")]
+    [Authorize]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> AddComment(string id,
         [Bind("NameSurname,Email,Comment,CommentDetail,Rating,ProductId", Prefix = "Form")] CreateCommentDto form)
@@ -55,8 +58,8 @@ public class ProductController : Controller
 
         try
         {
-            var client = _httpClientFactory.CreateClient();
-            using var response = await client.PostAsJsonAsync("http://localhost:5025/api/Comments", form);
+            var client = _httpClientFactory.CreateClient("GatewayApi");
+            using var response = await client.PostAsJsonAsync("comment/Comments", form);
             if (response.IsSuccessStatusCode)
             {
                 TempData["CommentSuccessMessage"] = "Yorumun alındı. Onaylandıktan sonra burada yayımlanacak.";
@@ -72,6 +75,11 @@ public class ProductController : Controller
         catch (TaskCanceledException)
         {
             ModelState.AddModelError(string.Empty, "Yorum isteği zaman aşımına uğradı. Tekrar göndermeden önce kaydını kontrol et.");
+        }
+        catch (GatewayApiException exception) when (exception.StatusCode is not
+            (System.Net.HttpStatusCode.Unauthorized or System.Net.HttpStatusCode.Forbidden))
+        {
+            ModelState.AddModelError(string.Empty, "Yorumun kaydedildiğini doğrulayamadık. Biraz sonra tekrar kontrol et.");
         }
 
         return View("Detail", form);

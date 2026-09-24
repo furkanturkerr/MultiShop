@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CatalogDtos.ProductDtos;
 using MultiShop.Dtos.CatalogDtos.ProductImageDtos;
@@ -6,6 +7,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [AutoValidateAntiforgeryToken]
+[Authorize(Roles = "Admin")]
 
 public class ProductImageController : Controller
 {
@@ -19,8 +21,8 @@ public class ProductImageController : Controller
     // GET
     public async Task<IActionResult> Index(string id)
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.GetAsync($"http://localhost:5053/api/ProductImages/ProductImagesByProductId?productId={id}");
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.GetAsync($"catalog/ProductImages/ProductImagesByProductId?productId={id}");
         if (response.IsSuccessStatusCode)
         {
             var jsonData = await response.Content.ReadFromJsonAsync<UpdateProductImageDto>();
@@ -32,8 +34,8 @@ public class ProductImageController : Controller
     [HttpPost]
     public async Task<IActionResult> Update(UpdateProductImageDto dto)
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.PutAsJsonAsync($"http://localhost:5053/api/ProductImages", dto);
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.PutAsJsonAsync($"catalog/ProductImages", dto);
         return RedirectToAction("ProductList", "Product", "Admin");
     }
 }

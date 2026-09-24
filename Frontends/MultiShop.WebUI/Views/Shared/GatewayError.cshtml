@@ -1,0 +1,27 @@
+@model MultiShop.WebUI.Models.GatewayErrorViewModel
+@{ Layout = null; }
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@Model.Title — MultiShop</title>
+    <link rel="stylesheet" href="~/online-shop-website-template/css/style.css" />
+</head>
+<body class="bg-secondary">
+    <main class="container py-5">
+        <div class="bg-light p-4 p-md-5 mx-auto" style="max-width: 600px;">
+            <p class="font-weight-bold">MultiShop · @Model.StatusCode</p>
+            <h1 class="h3">@Model.Title</h1>
+            <p class="my-3">@Model.Message</p>
+            <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">Ana sayfaya dön</a>
+            @if (Model.StatusCode == 403)
+            {
+                <form class="d-inline-block ml-2" method="post" asp-area="" asp-controller="Account" asp-action="Logout">
+                    <button class="btn btn-outline-dark" type="submit">Çıkış yap</button>
+                </form>
+            }
+        </div>
+    </main>
+</body>
+</html>

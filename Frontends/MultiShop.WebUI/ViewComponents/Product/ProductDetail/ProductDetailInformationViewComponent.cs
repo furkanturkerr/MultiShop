@@ -14,8 +14,8 @@ public class ProductDetailInformationViewComponent : ViewComponent
 
     public async Task<IViewComponentResult> InvokeAsync(string id)
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.GetAsync($"http://localhost:5053/api/ProductDetails/ProductDetailsByProductId?productId={id}");
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.GetAsync($"catalog/ProductDetails/ProductDetailsByProductId?productId={id}");
         if (response.IsSuccessStatusCode)
         {
             var jsonData = await response.Content.ReadFromJsonAsync<ResultProductDetailDto>();

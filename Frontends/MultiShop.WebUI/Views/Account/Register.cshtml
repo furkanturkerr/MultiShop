@@ -1,0 +1,476 @@
+@model MultiShop.WebUI.Models.Account.RegisterViewModel
+@{
+ViewData["Title"] = "Kayıt Ol";
+Layout = "_Layout";
+}
+
+<div class="container-fluid auth-page">
+    <div class="container">
+
+        <div class="auth-wrapper">
+
+            <div class="auth-card register-card">
+
+                <div class="auth-head">
+
+                    <div class="auth-logo">
+                        MS
+                    </div>
+
+                    <h2>Yeni Hesap Oluştur</h2>
+
+                    <p>
+                        Hızlı alışveriş, sipariş takibi ve kişisel hesabın için kayıt ol.
+                    </p>
+
+                </div>
+
+                <form method="post"
+                      asp-area=""
+                      asp-controller="Account"
+                      asp-action="Register">
+
+                    <input asp-for="ReturnUrl" type="hidden" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+                    <div class="auth-grid">
+
+                        <div class="auth-field">
+
+                            <label asp-for="Name">Ad</label>
+
+                            <input type="text"
+                                   asp-for="Name"
+                                   class="auth-input"
+                                   placeholder="Adınız"
+                                   autocomplete="given-name"
+                                   required />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+
+                        </div>
+
+                        <div class="auth-field">
+
+                            <label asp-for="Surname">Soyad</label>
+
+                            <input type="text"
+                                   asp-for="Surname"
+                                   class="auth-input"
+                                   placeholder="Soyadınız"
+                                   autocomplete="family-name"
+                                   required />
+                            <span asp-validation-for="Surname" class="text-danger small"></span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label asp-for="Email">E-posta Adresi</label>
+
+                        <input type="email"
+                               asp-for="Email"
+                               class="auth-input"
+                               placeholder="ornek@mail.com"
+                               autocomplete="email"
+                               required />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label for="registerPassword">Şifre</label>
+
+                        <div class="password-field">
+
+                            <input type="password"
+                                   asp-for="Password"
+                                   id="registerPassword"
+                                   class="auth-input"
+                                   placeholder="Şifrenizi oluşturun"
+                                   autocomplete="new-password"
+                                   minlength="6" maxlength="128" aria-describedby="passwordHelp"
+                                   required />
+
+                            <button type="button"
+                                    class="password-toggle"
+                                    aria-controls="registerPassword" aria-pressed="false"
+                                    onclick="togglePassword('registerPassword', this)">
+                                Göster
+                            </button>
+
+                        </div>
+                        <small id="passwordHelp" class="d-block mt-2">En az 6 karakter; büyük harf, küçük harf, rakam ve özel karakter.</small>
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label for="confirmPassword">Şifre Tekrar</label>
+
+                        <div class="password-field">
+
+                            <input type="password"
+                                   asp-for="ConfirmPassword"
+                                   id="confirmPassword"
+                                   class="auth-input"
+                                   placeholder="Şifrenizi tekrar girin"
+                                   autocomplete="new-password"
+                                   required />
+
+                            <button type="button"
+                                    class="password-toggle"
+                                    aria-controls="confirmPassword" aria-pressed="false"
+                                    onclick="togglePassword('confirmPassword', this)">
+                                Göster
+                            </button>
+
+                        </div>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+
+                    </div>
+
+                    <label class="terms">
+
+                        <input type="checkbox"
+                               asp-for="AcceptTerms"
+                               required />
+
+                        <span>
+                            Kullanım koşullarını ve gizlilik politikasını kabul ediyorum.
+                        </span>
+
+                    </label>
+                    <span asp-validation-for="AcceptTerms" class="text-danger small d-block mb-3"></span>
+
+                    <button type="submit"
+                            class="auth-submit">
+                        Hesap Oluştur
+                    </button>
+
+                </form>
+
+                <div class="auth-divider">
+                    <span>veya</span>
+                </div>
+
+                <div class="auth-footer">
+
+                    <span>Zaten hesabın var mı?</span>
+
+                    <a asp-area="" asp-controller="Account"
+                       asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
+                        Giriş Yap
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<style>
+
+    .auth-page {
+        background: #F5F5F5;
+        min-height: 800px;
+    }
+
+    .auth-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        min-height: 780px;
+        padding: 45px 0;
+    }
+
+    .auth-card {
+        width: 100%;
+        max-width: 500px;
+
+        padding: 42px 40px;
+
+        background: #fff;
+
+        border: 1px solid #e2e2e2;
+
+        box-shadow: 0 8px 25px rgba(0, 0, 0, .04);
+    }
+
+    .register-card {
+        max-width: 620px;
+    }
+
+    .auth-head {
+        margin-bottom: 35px;
+        text-align: center;
+    }
+
+    .auth-logo {
+        width: 62px;
+        height: 62px;
+
+        margin: 0 auto 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        background: #FFD333;
+        color: #3D464D;
+
+        font-size: 17px;
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
+
+    .auth-head h2 {
+        margin: 0 0 10px;
+
+        color: #3D464D;
+
+        font-size: 27px;
+        font-weight: 700;
+    }
+
+    .auth-head p {
+        max-width: 420px;
+
+        margin: 0 auto;
+
+        color: #777;
+
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .auth-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    .auth-field {
+        margin-bottom: 22px;
+    }
+
+    .auth-field label {
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: #3D464D;
+
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .auth-input {
+        width: 100%;
+        height: 52px;
+
+        padding: 0 15px;
+
+        border: 1px solid #d8d8d8;
+        border-radius: 0;
+
+        background: #fff;
+
+        color: #3D464D;
+
+        font-size: 15px;
+
+        outline: none;
+
+        transition: border-color .2s, box-shadow .2s;
+    }
+
+    .auth-input::placeholder {
+        color: #999;
+    }
+
+    .auth-input:focus {
+        border-color: #FFD333;
+        box-shadow: 0 0 0 3px rgba(255, 211, 51, .17);
+    }
+
+    .password-field {
+        position: relative;
+    }
+
+    .password-field .auth-input {
+        padding-right: 78px;
+    }
+
+    .password-toggle {
+        position: absolute;
+
+        top: 50%;
+        right: 14px;
+
+        transform: translateY(-50%);
+
+        padding: 5px 0;
+
+        border: none;
+
+        background: transparent;
+        color: #555;
+
+        font-size: 13px;
+        font-weight: 600;
+
+        cursor: pointer;
+    }
+
+    .password-toggle:hover {
+        color: #C79E00;
+    }
+
+    .terms {
+        display: flex;
+        align-items: flex-start;
+
+        gap: 9px;
+
+        margin: 3px 0 25px;
+
+        color: #666;
+
+        font-size: 14px;
+        line-height: 1.5;
+
+        cursor: pointer;
+    }
+
+    .terms input {
+        width: 16px;
+        height: 16px;
+
+        margin-top: 2px;
+
+        accent-color: #FFD333;
+        flex-shrink: 0;
+    }
+
+    .auth-submit {
+        width: 100%;
+        height: 52px;
+
+        border: none;
+
+        background: #FFD333;
+        color: #3D464D;
+
+        font-size: 15px;
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition: .2s;
+    }
+
+    .auth-submit:hover {
+        background: #efc324;
+    }
+
+    .auth-divider {
+        position: relative;
+
+        margin: 30px 0;
+
+        text-align: center;
+    }
+
+    .auth-divider::before {
+        content: "";
+
+        position: absolute;
+
+        left: 0;
+        top: 50%;
+
+        width: 100%;
+        height: 1px;
+
+        background: #ececec;
+    }
+
+    .auth-divider span {
+        position: relative;
+
+        padding: 0 13px;
+
+        background: #fff;
+        color: #aaa;
+
+        font-size: 13px;
+    }
+
+    .auth-footer {
+        text-align: center;
+
+        color: #777;
+        font-size: 14px;
+    }
+
+    .auth-footer a {
+        margin-left: 5px;
+
+        color: #3D464D;
+        font-weight: 700;
+    }
+
+    .auth-footer a:hover {
+        color: #C79E00;
+        text-decoration: none;
+    }
+
+    @@media (max-width: 576px) {
+
+        .auth-card {
+            padding: 30px 22px;
+        }
+
+        .auth-wrapper {
+            padding: 25px 0;
+        }
+
+        .auth-grid {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+    }
+
+</style>
+
+<script>
+
+    function togglePassword(inputId, button) {
+
+        const input = document.getElementById(inputId);
+
+        if (input.type === "password") {
+
+            input.type = "text";
+            button.innerText = "Gizle";
+            button.setAttribute("aria-pressed", "true");
+
+        } else {
+
+            input.type = "password";
+            button.innerText = "Göster";
+            button.setAttribute("aria-pressed", "false");
+        }
+    }
+
+</script>

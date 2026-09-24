@@ -30,6 +30,7 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.23" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.7.3" />
     </ItemGroup>
 
     <ItemGroup>
@@ -44,6 +45,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MultiShop.Dtos\MultiShop.Dtos.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\Auth\Login.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Auth\Register.cshtml" />
     </ItemGroup>
 
 </Project>

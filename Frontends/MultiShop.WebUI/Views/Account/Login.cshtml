@@ -1,0 +1,395 @@
+@model MultiShop.WebUI.Models.Account.LoginViewModel
+@{
+ViewData["Title"] = "Giriş Yap";
+Layout = "_Layout";
+}
+
+<div class="container-fluid auth-page">
+    <div class="container">
+
+        <div class="auth-wrapper">
+
+            <div class="auth-card">
+
+                <div class="auth-head">
+
+                    <div class="auth-logo">
+                        MS
+                    </div>
+
+                    <h2>Hesabına Giriş Yap</h2>
+
+                    <p>
+                        Siparişlerini görüntülemek ve alışverişe devam etmek için giriş yap.
+                    </p>
+
+                </div>
+
+                <form method="post"
+                      asp-area=""
+                      asp-controller="Account"
+                      asp-action="Login">
+
+                    <input asp-for="ReturnUrl" type="hidden" />
+                    @if (TempData["AuthSuccess"] is string successMessage)
+                    {
+                        <div class="alert alert-success" role="status">@successMessage</div>
+                    }
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+                    <div class="auth-field">
+
+                        <label asp-for="Email">E-posta Adresi</label>
+
+                        <input type="email"
+                               asp-for="Email"
+                               class="auth-input"
+                               placeholder="ornek@mail.com"
+                               autocomplete="email"
+                               required />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label for="loginPassword">Şifre</label>
+
+                        <div class="password-field">
+
+                            <input type="password"
+                                   asp-for="Password"
+                                   id="loginPassword"
+                                   class="auth-input"
+                                   placeholder="Şifrenizi girin"
+                                   autocomplete="current-password"
+                                   required />
+
+                            <button type="button"
+                                    class="password-toggle"
+                                    aria-controls="loginPassword" aria-pressed="false"
+                                    onclick="togglePassword('loginPassword', this)">
+                                Göster
+                            </button>
+
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+
+                    </div>
+
+                    <div class="auth-options">
+
+                        <label class="remember">
+
+                            <input type="checkbox"
+                                   asp-for="RememberMe" />
+
+                            <span>Beni hatırla</span>
+
+                        </label>
+
+                    </div>
+
+                    <button type="submit"
+                            class="auth-submit">
+                        Giriş Yap
+                    </button>
+
+                </form>
+
+                <div class="auth-divider">
+                    <span>veya</span>
+                </div>
+
+                <div class="auth-footer">
+
+                    <span>Henüz hesabın yok mu?</span>
+
+                    <a asp-area="" asp-controller="Account"
+                       asp-action="Register" asp-route-returnUrl="@Model.ReturnUrl">
+                        Hesap Oluştur
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<style>
+
+    .auth-page {
+        background: #F5F5F5;
+        min-height: 700px;
+    }
+
+    .auth-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 680px;
+        padding: 45px 0;
+    }
+
+    .auth-card {
+        width: 100%;
+        max-width: 500px;
+        background: #ffffff;
+        border: 1px solid #e2e2e2;
+        padding: 42px 40px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, .04);
+    }
+
+    .auth-head {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .auth-logo {
+        width: 62px;
+        height: 62px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #FFD333;
+        color: #3D464D;
+
+        font-size: 17px;
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
+
+    .auth-head h2 {
+        margin: 0 0 10px;
+        color: #3D464D;
+        font-size: 27px;
+        font-weight: 700;
+    }
+
+    .auth-head p {
+        max-width: 390px;
+        margin: 0 auto;
+        color: #777;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .auth-field {
+        margin-bottom: 22px;
+    }
+
+    .auth-field label {
+        display: block;
+        margin-bottom: 8px;
+
+        color: #3D464D;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .auth-input {
+        width: 100%;
+        height: 52px;
+
+        padding: 0 15px;
+
+        border: 1px solid #d8d8d8;
+        border-radius: 0;
+
+        background: #fff;
+        color: #3D464D;
+
+        font-size: 15px;
+        outline: none;
+
+        transition: border-color .2s, box-shadow .2s;
+    }
+
+    .auth-input::placeholder {
+        color: #999;
+    }
+
+    .auth-input:focus {
+        border-color: #FFD333;
+        box-shadow: 0 0 0 3px rgba(255, 211, 51, .17);
+    }
+
+    .password-field {
+        position: relative;
+    }
+
+    .password-field .auth-input {
+        padding-right: 78px;
+    }
+
+    .password-toggle {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+
+        border: none;
+        padding: 5px 0;
+
+        background: transparent;
+        color: #555;
+
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .password-toggle:hover {
+        color: #C79E00;
+    }
+
+    .auth-options {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 15px;
+        margin: 2px 0 25px;
+
+        font-size: 14px;
+    }
+
+    .remember {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        margin: 0;
+        color: #555;
+        cursor: pointer;
+    }
+
+    .remember input {
+        width: 16px;
+        height: 16px;
+        accent-color: #FFD333;
+    }
+
+    .auth-link {
+        color: #3D464D;
+        font-weight: 600;
+    }
+
+    .auth-link:hover {
+        color: #C79E00;
+        text-decoration: none;
+    }
+
+    .auth-submit {
+        width: 100%;
+        height: 52px;
+
+        border: none;
+
+        background: #FFD333;
+        color: #3D464D;
+
+        font-size: 15px;
+        font-weight: 700;
+
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .auth-submit:hover {
+        background: #efc324;
+    }
+
+    .auth-divider {
+        position: relative;
+        margin: 30px 0;
+        text-align: center;
+    }
+
+    .auth-divider::before {
+        content: "";
+        position: absolute;
+
+        left: 0;
+        top: 50%;
+
+        width: 100%;
+        height: 1px;
+
+        background: #ececec;
+    }
+
+    .auth-divider span {
+        position: relative;
+
+        padding: 0 13px;
+
+        background: #fff;
+        color: #aaa;
+
+        font-size: 13px;
+    }
+
+    .auth-footer {
+        text-align: center;
+        color: #777;
+        font-size: 14px;
+    }
+
+    .auth-footer a {
+        margin-left: 5px;
+
+        color: #3D464D;
+        font-weight: 700;
+    }
+
+    .auth-footer a:hover {
+        color: #C79E00;
+        text-decoration: none;
+    }
+
+    @@media (max-width: 576px) {
+
+        .auth-card {
+            padding: 30px 22px;
+        }
+
+        .auth-wrapper {
+            padding: 25px 0;
+        }
+
+        .auth-options {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+    }
+
+</style>
+
+<script>
+
+    function togglePassword(inputId, button) {
+
+        const input = document.getElementById(inputId);
+
+        if (input.type === "password") {
+
+            input.type = "text";
+            button.innerText = "Gizle";
+            button.setAttribute("aria-pressed", "true");
+
+        } else {
+
+            input.type = "password";
+            button.innerText = "Göster";
+            button.setAttribute("aria-pressed", "false");
+        }
+    }
+
+</script>

@@ -14,8 +14,8 @@ public class HomeVendorViewComponent : ViewComponent
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.GetAsync("http://localhost:5053/api/Brand/status");
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.GetAsync("catalog/Brand/status");
         if (response.IsSuccessStatusCode)
         {
             var jsonData = await response.Content.ReadFromJsonAsync<List<ResultBrandDto>>();

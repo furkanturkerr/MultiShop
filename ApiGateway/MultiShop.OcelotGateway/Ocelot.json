@@ -1,0 +1,148 @@
+{
+  "Routes": [
+    {
+      "UpstreamHttpMethod": ["GET"],
+      "UpstreamPathTemplate": "/services/catalog/{everything}",
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AllowAnonymous": true
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5053
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": ["POST", "PUT", "DELETE"],
+      "UpstreamPathTemplate": "/services/catalog/{everything}",
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKeys": ["OzelotAuthScheme"],
+        "AllowedScopes": []
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5053
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": ["GET", "POST", "DELETE"],
+      "UpstreamPathTemplate": "/services/basket/{everything}",
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKeys": ["OzelotAuthScheme"],
+        "AllowedScopes": []
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5231
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"],
+      "UpstreamPathTemplate": "/services/cargo/{everything}",
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKeys": ["OzelotAuthScheme"],
+        "AllowedScopes": []
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5233
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"],
+      "UpstreamPathTemplate": "/services/comment/{everything}",
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKeys": ["OzelotAuthScheme"],
+        "AllowedScopes": []
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5025
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"],
+      "UpstreamPathTemplate": "/services/discount/{everything}",
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKeys": ["OzelotAuthScheme"],
+        "AllowedScopes": []
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5102
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"],
+      "UpstreamPathTemplate": "/services/order/{everything}",
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKeys": ["OzelotAuthScheme"],
+        "AllowedScopes": []
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5067
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": ["POST"],
+      "UpstreamPathTemplate": "/services/identity/auth/login",
+      "DownstreamPathTemplate": "/api/auth/login",
+      "DownstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AllowAnonymous": true
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5287
+        }
+      ]
+    },
+    {
+      "UpstreamHttpMethod": ["POST"],
+      "UpstreamPathTemplate": "/services/identity/auth/register",
+      "DownstreamPathTemplate": "/api/auth/register",
+      "DownstreamScheme": "http",
+      "AuthenticationOptions": {
+        "AllowAnonymous": true
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5287
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5010"
+  }
+}

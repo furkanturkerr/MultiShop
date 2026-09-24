@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CatalogDtos.SpecialOfferDtos;
 
@@ -5,6 +6,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [AutoValidateAntiforgeryToken]
+[Authorize(Roles = "Admin")]
 
 public class SpecialOfferController : Controller
 {
@@ -18,8 +20,8 @@ public class SpecialOfferController : Controller
     // GET
     public async Task<IActionResult> Index()
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.GetAsync("http://localhost:5053/api/SpecialOffer");
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.GetAsync("catalog/SpecialOffer");
         if (response.IsSuccessStatusCode)
         {
             var jsonData = await response.Content.ReadFromJsonAsync<List<ResultSpecialOfferDto>>();
@@ -36,8 +38,8 @@ public class SpecialOfferController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(CreateSpecialOfferDto dto)
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.PostAsJsonAsync("http://localhost:5053/api/SpecialOffer", dto);
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.PostAsJsonAsync("catalog/SpecialOffer", dto);
         if (response.IsSuccessStatusCode)
         {
             return RedirectToAction("Index");
@@ -48,8 +50,8 @@ public class SpecialOfferController : Controller
     [HttpGet]
     public async Task<IActionResult> Update(string id)
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.GetAsync($"http://localhost:5053/api/SpecialOffer/{id}");
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.GetAsync($"catalog/SpecialOffer/{id}");
         if (response.IsSuccessStatusCode)
         {
             var jsonData = await response.Content.ReadFromJsonAsync<UpdateSpecialOfferDto>();
@@ -61,8 +63,8 @@ public class SpecialOfferController : Controller
     [HttpPost]
     public async Task<IActionResult> Update(UpdateSpecialOfferDto dto)
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.PutAsJsonAsync($"http://localhost:5053/api/SpecialOffer", dto);
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.PutAsJsonAsync($"catalog/SpecialOffer", dto);
         if (response.IsSuccessStatusCode)
         {
             return RedirectToAction("Index");
@@ -73,8 +75,8 @@ public class SpecialOfferController : Controller
     [HttpPost]
     public async Task<IActionResult> Delete(string id)
     {
-        var client = _httpClientFactory.CreateClient();
-        await client.DeleteAsync($"http://localhost:5053/api/SpecialOffer/{id}");
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        await client.DeleteAsync($"catalog/SpecialOffer/{id}");
         return RedirectToAction("Index");
     }
 }

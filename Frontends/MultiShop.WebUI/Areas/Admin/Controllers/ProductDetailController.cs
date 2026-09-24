@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CatalogDtos.ProductDetailDtos;
 
@@ -5,6 +6,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [AutoValidateAntiforgeryToken]
+[Authorize(Roles = "Admin")]
 
 public class ProductDetailController : Controller
 {
@@ -23,8 +25,8 @@ public class ProductDetailController : Controller
             return BadRequest("Ürün kimliği gereklidir.");
         }
 
-        var client = _httpClientFactory.CreateClient();
-        using var response = await client.GetAsync($"http://localhost:5053/api/ProductDetails/ProductDetailsByProductId?productId={Uri.EscapeDataString(id)}");
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        using var response = await client.GetAsync($"catalog/ProductDetails/ProductDetailsByProductId?productId={Uri.EscapeDataString(id)}");
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent ||
             response.StatusCode == System.Net.HttpStatusCode.NotFound)
         {
@@ -53,8 +55,8 @@ public class ProductDetailController : Controller
             return View("Index", dto);
         }
 
-        var client = _httpClientFactory.CreateClient();
-        using var response = await client.PutAsJsonAsync("http://localhost:5053/api/ProductDetails", dto);
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        using var response = await client.PutAsJsonAsync("catalog/ProductDetails", dto);
         if (!response.IsSuccessStatusCode)
         {
             ModelState.AddModelError(string.Empty, "Ürün detayı kaydedilemedi. Bilgileri kontrol edip tekrar dene.");

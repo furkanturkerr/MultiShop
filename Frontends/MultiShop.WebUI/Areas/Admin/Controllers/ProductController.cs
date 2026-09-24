@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MultiShop.Dtos.CatalogDtos.CategoryDtos;
@@ -7,6 +8,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [AutoValidateAntiforgeryToken]
+[Authorize(Roles = "Admin")]
 
 public class ProductController : Controller
 {
@@ -20,8 +22,8 @@ public class ProductController : Controller
     // GET
     public async Task<IActionResult> ProductList()
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.GetAsync("http://localhost:5053/api/Products");
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.GetAsync("catalog/Products");
         if (response.IsSuccessStatusCode)
         {
             var jsonData = await response.Content.ReadFromJsonAsync<List<ResultProductDto>>();
@@ -32,8 +34,8 @@ public class ProductController : Controller
 
     public async Task<IActionResult> Create()
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.GetAsync("http://localhost:5053/api/Categories");
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.GetAsync("catalog/Categories");
         ViewBag.Category = new SelectList(await response.Content.ReadFromJsonAsync<List<ResultCategoryDto>>(),
             "CategoryId", "CategoryName");
         return View();
@@ -42,8 +44,8 @@ public class ProductController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(CreateProductDto dto)
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.PostAsJsonAsync("http://localhost:5053/api/Products", dto);
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.PostAsJsonAsync("catalog/Products", dto);
         if (response.IsSuccessStatusCode)
         {
             return RedirectToAction("ProductList");
@@ -54,10 +56,10 @@ public class ProductController : Controller
     [HttpGet]
     public async Task<IActionResult> Update(string id)
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.GetAsync($"http://localhost:5053/api/Products/{id}");
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.GetAsync($"catalog/Products/{id}");
         var jsonData = await response.Content.ReadFromJsonAsync<UpdateProductDto>();
-        ViewBag.Category = new SelectList(await client.GetFromJsonAsync<List<ResultCategoryDto>>("http://localhost:5053/api/Categories"),
+        ViewBag.Category = new SelectList(await client.GetFromJsonAsync<List<ResultCategoryDto>>("catalog/Categories"),
             "CategoryId", "CategoryName", jsonData.CategoryId);
         return View(jsonData);
     }
@@ -65,8 +67,8 @@ public class ProductController : Controller
     [HttpPost]
     public async Task<IActionResult> Update(UpdateProductDto dto)
     {
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.PutAsJsonAsync($"http://localhost:5053/api/Products", dto);
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        var response = await client.PutAsJsonAsync($"catalog/Products", dto);
         if (response.IsSuccessStatusCode)
         {
             return RedirectToAction("ProductList");
@@ -77,8 +79,8 @@ public class ProductController : Controller
     [HttpPost]
     public async Task<IActionResult> Delete(string id)
     {
-        var client = _httpClientFactory.CreateClient();
-        await client.DeleteAsync($"http://localhost:5053/api/Products/{id}");
+        var client = _httpClientFactory.CreateClient("GatewayApi");
+        await client.DeleteAsync($"catalog/Products/{id}");
         return RedirectToAction("ProductList");
     }
 }
