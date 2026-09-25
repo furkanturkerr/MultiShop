@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CatalogDtos.SpecialOfferDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
@@ -10,24 +11,17 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
 public class SpecialOfferController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ISpecialOfferService _specialOfferService;
 
-    public SpecialOfferController(IHttpClientFactory httpClientFactory)
+    public SpecialOfferController(ISpecialOfferService specialOfferService)
     {
-        _httpClientFactory = httpClientFactory;
+        _specialOfferService = specialOfferService;
     }
 
     // GET
     public async Task<IActionResult> Index()
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync("catalog/SpecialOffer");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<List<ResultSpecialOfferDto>>();
-            return View(jsonData);
-        }
-        return View();
+        return View(await _specialOfferService.GetAllSpecialOfferAsync());
     }
 
     public IActionResult Create()
@@ -38,45 +32,34 @@ public class SpecialOfferController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(CreateSpecialOfferDto dto)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.PostAsJsonAsync("catalog/SpecialOffer", dto);
-        if (response.IsSuccessStatusCode)
+        if (await _specialOfferService.CreateSpecialOfferAsync(dto))
         {
             return RedirectToAction("Index");
         }
-        return View();
+        return View(dto);
     }
 
     [HttpGet]
     public async Task<IActionResult> Update(string id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync($"catalog/SpecialOffer/{id}");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<UpdateSpecialOfferDto>();
-            return View(jsonData);
-        }
-        return View();
+        var value = await _specialOfferService.GetByIdSpecialOfferAsync(id);
+        return value is null ? NotFound() : View(value);
     }
 
     [HttpPost]
     public async Task<IActionResult> Update(UpdateSpecialOfferDto dto)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.PutAsJsonAsync($"catalog/SpecialOffer", dto);
-        if (response.IsSuccessStatusCode)
+        if (await _specialOfferService.UpdateSpecialOfferAsync(dto))
         {
             return RedirectToAction("Index");
         }
-        return View();
+        return View(dto);
     }
 
     [HttpPost]
     public async Task<IActionResult> Delete(string id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        await client.DeleteAsync($"catalog/SpecialOffer/{id}");
+        await _specialOfferService.DeleteSpecialOfferAsync(id);
         return RedirectToAction("Index");
     }
 }

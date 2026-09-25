@@ -1,41 +1,37 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using MultiShop.WebUI.Infrastructure.Gateway;
+using MultiShop.WebUI.Services.Concrete;
+using MultiShop.WebUI.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-var gatewayUrl = builder.Configuration["GatewayApi:BaseUrl"];
-if (!Uri.TryCreate(gatewayUrl, UriKind.Absolute, out var gatewayAddress) ||
-    !gatewayAddress.AbsolutePath.EndsWith('/') || !string.IsNullOrEmpty(gatewayAddress.Query) ||
-    !string.IsNullOrEmpty(gatewayAddress.Fragment) || !string.IsNullOrEmpty(gatewayAddress.UserInfo))
-    throw new InvalidOperationException("GatewayApi:BaseUrl geçerli ve / ile biten bir adres olmalı.");
-if (gatewayAddress.Scheme != Uri.UriSchemeHttps &&
-    !(builder.Environment.IsDevelopment() && gatewayAddress.IsLoopback && gatewayAddress.Scheme == Uri.UriSchemeHttp))
-    throw new InvalidOperationException("Gateway bağlantısı HTTPS kullanmalı.");
+var gatewayUrl = builder.Configuration["GatewayApi:BaseUrl"]!;
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<GatewayTokenHandler>();
 builder.Services.AddHttpClient("GatewayApi", client =>
 {
-    client.BaseAddress = new Uri(gatewayAddress, "services/");
-    client.Timeout = TimeSpan.FromSeconds(15);
-}).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
-{
-    AllowAutoRedirect = false,
-    UseCookies = false
+    client.BaseAddress = new Uri($"{gatewayUrl}services/");
 }).AddHttpMessageHandler<GatewayTokenHandler>();
 
 builder.Services.AddHttpClient("IdentityApi", client =>
 {
-    client.BaseAddress = new Uri(gatewayAddress, "services/identity/");
-    client.Timeout = TimeSpan.FromSeconds(15);
-}).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
-{
-    AllowAutoRedirect = false,
-    UseCookies = false
+    client.BaseAddress = new Uri($"{gatewayUrl}services/identity/");
 });
+
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IBrandService, BrandService>();
+builder.Services.AddScoped<IFeatureSliderService, FeatureSliderService>();
+builder.Services.AddScoped<IFeaturedService, FeaturedService>();
+builder.Services.AddScoped<IOfferDiscountService, OfferDiscountService>();
+builder.Services.AddScoped<ISpecialOfferService, SpecialOfferService>();
+builder.Services.AddScoped<IProductDetailService, ProductDetailService>();
+builder.Services.AddScoped<IProductImageService, ProductImageService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -68,7 +64,6 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
-app.UseMiddleware<GatewayExceptionMiddleware>();
 app.UseAuthorization();
 
 app.MapControllerRoute(

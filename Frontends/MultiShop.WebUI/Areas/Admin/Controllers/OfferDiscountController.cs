@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CatalogDtos.OfferDiscountDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
@@ -10,24 +11,17 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
 public class OfferDiscountController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IOfferDiscountService _offerDiscountService;
 
-    public OfferDiscountController(IHttpClientFactory httpClientFactory)
+    public OfferDiscountController(IOfferDiscountService offerDiscountService)
     {
-        _httpClientFactory = httpClientFactory;
+        _offerDiscountService = offerDiscountService;
     }
 
     // GET
     public async Task<IActionResult> Index()
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync("catalog/OfferDiscount");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<List<ResultOfferDiscountDto>>();
-            return View(jsonData);
-        }
-        return View();
+        return View(await _offerDiscountService.GetAllOfferDiscountAsync());
     }
 
     public IActionResult Create()
@@ -38,45 +32,34 @@ public class OfferDiscountController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(CreateOfferDiscountDto dto)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.PostAsJsonAsync("catalog/OfferDiscount", dto);
-        if (response.IsSuccessStatusCode)
+        if (await _offerDiscountService.CreateOfferDiscountAsync(dto))
         {
             return RedirectToAction("Index");
         }
-        return View();
+        return View(dto);
     }
 
     [HttpGet]
     public async Task<IActionResult> Update(string id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync($"catalog/OfferDiscount/{id}");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<UpdateOfferDiscountDto>();
-            return View(jsonData);
-        }
-        return View();
+        var value = await _offerDiscountService.GetByIdOfferDiscountAsync(id);
+        return value is null ? NotFound() : View(value);
     }
 
     [HttpPost]
     public async Task<IActionResult> Update(UpdateOfferDiscountDto dto)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.PutAsJsonAsync($"catalog/OfferDiscount", dto);
-        if (response.IsSuccessStatusCode)
+        if (await _offerDiscountService.UpdateOfferDiscountAsync(dto))
         {
             return RedirectToAction("Index");
         }
-        return View();
+        return View(dto);
     }
 
     [HttpPost]
     public async Task<IActionResult> Delete(string id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        await client.DeleteAsync($"catalog/OfferDiscount/{id}");
+        await _offerDiscountService.DeleteOfferDiscountAsync(id);
         return RedirectToAction("Index");
     }
 }

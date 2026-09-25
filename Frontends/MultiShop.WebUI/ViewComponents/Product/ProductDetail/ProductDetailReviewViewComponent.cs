@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CommentDtos;
 using MultiShop.WebUI.Models;
-using MultiShop.WebUI.Infrastructure.Gateway;
 
 namespace MultiShop.WebUI.ViewComponents.Product.ProductDetail;
 
@@ -52,12 +51,6 @@ public class ProductDetailReviewViewComponent : ViewComponent
         {
             model.LoadError = "Yorumlar yüklenirken zaman aşımı oluştu.";
         }
-        catch (GatewayApiException exception) when (exception.StatusCode is not
-            (System.Net.HttpStatusCode.Unauthorized or System.Net.HttpStatusCode.Forbidden))
-        {
-            model.LoadError = "Yorumlar şu anda yüklenemiyor. Lütfen daha sonra tekrar dene.";
-        }
-
         return View(model);
     }
 }

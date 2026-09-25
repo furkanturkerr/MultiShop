@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CommentDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
@@ -10,53 +11,41 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
 public class CommentController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ICommentService _commentService;
 
-    public CommentController(IHttpClientFactory httpClientFactory)
+    public CommentController(ICommentService commentService)
     {
-        _httpClientFactory = httpClientFactory;
+        _commentService = commentService;
     }
 
     // GET
     public async Task<IActionResult> Index()
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync("comment/Comments");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<List<ResultCommentDto>>();
-            return View(jsonData);
-        }
-        return View();
+        var values = await _commentService.GetAllCommentAsync();
+        return View(values);
     }
 
     [HttpGet]
     public async Task<IActionResult> Update(int id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync($"comment/Comments/{id}");
-        var jsonData = await response.Content.ReadFromJsonAsync<UpdateCommentDto>();
-        return View(jsonData);
+        var value = await _commentService.GetByIdCommentAsync(id);
+        return value is null ? NotFound() : View(value);
     }
 
     [HttpPost]
     public async Task<IActionResult> Update(UpdateCommentDto dto)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.PutAsJsonAsync($"comment/Comments", dto);
-        if (response.IsSuccessStatusCode)
+        if (await _commentService.UpdateCommentAsync(dto))
         {
             return RedirectToAction("Index");
         }
-        return View();
+        return View(dto);
     }
 
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        using var response = await client.DeleteAsync($"comment/Comments?id={id}");
-        response.EnsureSuccessStatusCode();
+        await _commentService.DeleteCommentAsync(id);
         return RedirectToAction("Index");
     }
 }

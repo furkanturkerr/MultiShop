@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using MultiShop.WebUI.Infrastructure.Gateway;
 using MultiShop.Dtos.CommentDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.Controllers;
 
 public class ProductController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ICommentService _commentService;
 
-    public ProductController(IHttpClientFactory httpClientFactory)
+    public ProductController(ICommentService commentService)
     {
-        _httpClientFactory = httpClientFactory;
+        _commentService = commentService;
     }
 
     // GET
@@ -58,9 +58,7 @@ public class ProductController : Controller
 
         try
         {
-            var client = _httpClientFactory.CreateClient("GatewayApi");
-            using var response = await client.PostAsJsonAsync("comment/Comments", form);
-            if (response.IsSuccessStatusCode)
+            if (await _commentService.CreateCommentAsync(form))
             {
                 TempData["CommentSuccessMessage"] = "Yorumun alındı. Onaylandıktan sonra burada yayımlanacak.";
                 return RedirectToAction(nameof(Detail), "Product", new { id, reviews = true }, "tab-pane-3");
@@ -76,12 +74,6 @@ public class ProductController : Controller
         {
             ModelState.AddModelError(string.Empty, "Yorum isteği zaman aşımına uğradı. Tekrar göndermeden önce kaydını kontrol et.");
         }
-        catch (GatewayApiException exception) when (exception.StatusCode is not
-            (System.Net.HttpStatusCode.Unauthorized or System.Net.HttpStatusCode.Forbidden))
-        {
-            ModelState.AddModelError(string.Empty, "Yorumun kaydedildiğini doğrulayamadık. Biraz sonra tekrar kontrol et.");
-        }
-
         return View("Detail", form);
     }
 }

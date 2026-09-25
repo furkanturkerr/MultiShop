@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.WebUI.Models.Account;
-using MultiShop.WebUI.Models;
 
 namespace MultiShop.WebUI.Controllers;
 
@@ -162,8 +161,7 @@ public class AccountController : Controller
     [HttpGet]
     public IActionResult AccessDenied()
     {
-        Response.StatusCode = StatusCodes.Status403Forbidden;
-        return View("~/Views/Shared/GatewayError.cshtml", new GatewayErrorViewModel { StatusCode = 403 });
+        return StatusCode(StatusCodes.Status403Forbidden, "Bu sayfaya erişim yetkiniz yok.");
     }
 
     [Authorize]

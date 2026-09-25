@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CatalogDtos.BrandDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
@@ -10,24 +11,17 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
 public class BrandController : Controller
 {
-private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IBrandService _brandService;
 
-    public BrandController(IHttpClientFactory httpClientFactory)
+    public BrandController(IBrandService brandService)
     {
-        _httpClientFactory = httpClientFactory;
+        _brandService = brandService;
     }
 
     // GET
     public async Task<IActionResult> Index()
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync("catalog/Brand");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<List<ResultBrandDto>>();
-            return View(jsonData);
-        }
-        return View();
+        return View(await _brandService.GetAllBrandAsync());
     }
 
     public IActionResult Create()
@@ -38,45 +32,34 @@ private readonly IHttpClientFactory _httpClientFactory;
     [HttpPost]
     public async Task<IActionResult> Create(CreateBrandDto dto)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.PostAsJsonAsync("catalog/Brand", dto);
-        if (response.IsSuccessStatusCode)
+        if (await _brandService.CreateBrandAsync(dto))
         {
             return RedirectToAction("Index");
         }
-        return View();
+        return View(dto);
     }
 
     [HttpGet]
     public async Task<IActionResult> Update(string id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync($"catalog/Brand/{id}");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<UpdateBrandDto>();
-            return View(jsonData);
-        }
-        return View();
+        var value = await _brandService.GetByIdBrandAsync(id);
+        return value is null ? NotFound() : View(value);
     }
 
     [HttpPost]
     public async Task<IActionResult> Update(UpdateBrandDto dto)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.PutAsJsonAsync($"catalog/Brand", dto);
-        if (response.IsSuccessStatusCode)
+        if (await _brandService.UpdateBrandAsync(dto))
         {
             return RedirectToAction("Index");
         }
-        return View();
+        return View(dto);
     }
 
     [HttpPost]
     public async Task<IActionResult> Delete(string id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        await client.DeleteAsync($"catalog/Brand/{id}");
+        await _brandService.DeleteBrandAsync(id);
         return RedirectToAction("Index");
     }
 }

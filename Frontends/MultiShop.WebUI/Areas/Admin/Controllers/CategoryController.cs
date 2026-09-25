@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CatalogDtos.CategoryDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
@@ -10,24 +11,18 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
 public class CategoryController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ICategoryService _categoryService;
 
-    public CategoryController(IHttpClientFactory httpClientFactory)
+    public CategoryController(ICategoryService categoryService)
     {
-        _httpClientFactory = httpClientFactory;
+        _categoryService = categoryService;
     }
 
     // GET
     public async Task<IActionResult> Index()
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync("catalog/Categories");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<List<ResultCategoryDto>>();
-            return View(jsonData);
-        }
-        return View();
+        var values = await _categoryService.GetAllCategoryAsync();
+        return View(values);
     }
 
     public IActionResult Create()
@@ -38,45 +33,34 @@ public class CategoryController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(CreateCategoryDto dto)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.PostAsJsonAsync("catalog/Categories", dto);
-        if (response.IsSuccessStatusCode)
+        if (await _categoryService.CreateCategoryAsync(dto))
         {
             return RedirectToAction("Index");
         }
-        return View();
+        return View(dto);
     }
 
     [HttpGet]
     public async Task<IActionResult> Update(string id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync($"catalog/Categories/{id}");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<UpdateCategoryDto>();
-            return View(jsonData);
-        }
-        return View();
+        var value = await _categoryService.GetByIdCategoryAsync(id);
+        return value is null ? NotFound() : View(value);
     }
 
     [HttpPost]
     public async Task<IActionResult> Update(UpdateCategoryDto dto)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.PutAsJsonAsync($"catalog/Categories", dto);
-        if (response.IsSuccessStatusCode)
+        if (await _categoryService.UpdateCategoryAsync(dto))
         {
             return RedirectToAction("Index");
         }
-        return View();
+        return View(dto);
     }
 
     [HttpPost]
     public async Task<IActionResult> Delete(string id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        await client.DeleteAsync($"catalog/Categories/{id}");
+        await _categoryService.DeleteCategoryAsync(id);
         return RedirectToAction("Index");
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CatalogDtos.FeatureSliderDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
@@ -10,24 +11,17 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
 public class FeatureSliderController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IFeatureSliderService _featureSliderService;
 
-    public FeatureSliderController(IHttpClientFactory httpClientFactory)
+    public FeatureSliderController(IFeatureSliderService featureSliderService)
     {
-        _httpClientFactory = httpClientFactory;
+        _featureSliderService = featureSliderService;
     }
 
     // GET
     public async Task<IActionResult> Index()
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync("catalog/FeatureSlider");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<List<ResultFeatureSliderDto>>();
-            return View(jsonData);
-        }
-        return View();
+        return View(await _featureSliderService.GetAllFeatureSliderAsync());
     }
 
     public IActionResult Create()
@@ -38,45 +32,34 @@ public class FeatureSliderController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(CreateFeatureSliderDto dto)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.PostAsJsonAsync("catalog/FeatureSlider", dto);
-        if (response.IsSuccessStatusCode)
+        if (await _featureSliderService.CreateFeatureSliderAsync(dto))
         {
             return RedirectToAction("Index");
         }
-        return View();
+        return View(dto);
     }
 
     [HttpGet]
     public async Task<IActionResult> Update(string id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync($"catalog/FeatureSlider/{id}");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<UpdateFeatureSliderDto>();
-            return View(jsonData);
-        }
-        return View();
+        var value = await _featureSliderService.GetByIdFeatureSliderAsync(id);
+        return value is null ? NotFound() : View(value);
     }
 
     [HttpPost]
     public async Task<IActionResult> Update(UpdateFeatureSliderDto dto)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.PutAsJsonAsync($"catalog/FeatureSlider", dto);
-        if (response.IsSuccessStatusCode)
+        if (await _featureSliderService.UpdateFeatureSliderAsync(dto))
         {
             return RedirectToAction("Index");
         }
-        return View();
+        return View(dto);
     }
 
     [HttpPost]
     public async Task<IActionResult> Delete(string id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        await client.DeleteAsync($"catalog/FeatureSlider/{id}");
+        await _featureSliderService.DeleteFeatureSliderAsync(id);
         return RedirectToAction("Index");
     }
 }

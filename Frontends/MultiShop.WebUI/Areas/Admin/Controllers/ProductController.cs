@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MultiShop.Dtos.CatalogDtos.CategoryDtos;
 using MultiShop.Dtos.CatalogDtos.ProductDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
@@ -12,75 +13,68 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
 public class ProductController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IProductService _productService;
+    private readonly ICategoryService _categoryService;
 
-    public ProductController(IHttpClientFactory httpClientFactory)
+    public ProductController(IProductService productService, ICategoryService categoryService)
     {
-        _httpClientFactory = httpClientFactory;
+        _productService = productService;
+        _categoryService = categoryService;
     }
 
     // GET
     public async Task<IActionResult> ProductList()
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync("catalog/Products");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<List<ResultProductDto>>();
-            return View(jsonData);
-        }
-        return View();
+        var values = await _productService.GetAllProductAsync();
+        return View(values);
     }
 
     public async Task<IActionResult> Create()
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync("catalog/Categories");
-        ViewBag.Category = new SelectList(await response.Content.ReadFromJsonAsync<List<ResultCategoryDto>>(),
-            "CategoryId", "CategoryName");
+        var categories = await _categoryService.GetAllCategoryAsync();
+        ViewBag.Category = new SelectList(categories, "CategoryId", "CategoryName");
         return View();
     }
 
     [HttpPost]
     public async Task<IActionResult> Create(CreateProductDto dto)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.PostAsJsonAsync("catalog/Products", dto);
-        if (response.IsSuccessStatusCode)
+        if (await _productService.CreateProductAsync(dto))
         {
             return RedirectToAction("ProductList");
         }
-        return View();
+        ViewBag.Category = new SelectList(await _categoryService.GetAllCategoryAsync(), "CategoryId", "CategoryName");
+        return View(dto);
     }
 
     [HttpGet]
     public async Task<IActionResult> Update(string id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync($"catalog/Products/{id}");
-        var jsonData = await response.Content.ReadFromJsonAsync<UpdateProductDto>();
-        ViewBag.Category = new SelectList(await client.GetFromJsonAsync<List<ResultCategoryDto>>("catalog/Categories"),
-            "CategoryId", "CategoryName", jsonData.CategoryId);
-        return View(jsonData);
+        var value = await _productService.GetByIdProductAsync(id);
+        if (value is null)
+            return NotFound();
+
+        ViewBag.Category = new SelectList(await _categoryService.GetAllCategoryAsync(),
+            "CategoryId", "CategoryName", value.CategoryId);
+        return View(value);
     }
     
     [HttpPost]
     public async Task<IActionResult> Update(UpdateProductDto dto)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.PutAsJsonAsync($"catalog/Products", dto);
-        if (response.IsSuccessStatusCode)
+        if (await _productService.UpdateProductAsync(dto))
         {
             return RedirectToAction("ProductList");
         }
-        return View();
+        ViewBag.Category = new SelectList(await _categoryService.GetAllCategoryAsync(),
+            "CategoryId", "CategoryName", dto.CategoryId);
+        return View(dto);
     }
 
     [HttpPost]
     public async Task<IActionResult> Delete(string id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        await client.DeleteAsync($"catalog/Products/{id}");
+        await _productService.DeleteProductAsync(id);
         return RedirectToAction("ProductList");
     }
 }

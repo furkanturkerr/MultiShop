@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CatalogDtos.ProductDetailDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
@@ -10,11 +11,11 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
 public class ProductDetailController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IProductDetailService _productDetailService;
 
-    public ProductDetailController(IHttpClientFactory httpClientFactory)
+    public ProductDetailController(IProductDetailService productDetailService)
     {
-        _httpClientFactory = httpClientFactory;
+        _productDetailService = productDetailService;
     }
 
     [HttpGet]
@@ -25,20 +26,7 @@ public class ProductDetailController : Controller
             return BadRequest("Ürün kimliği gereklidir.");
         }
 
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        using var response = await client.GetAsync($"catalog/ProductDetails/ProductDetailsByProductId?productId={Uri.EscapeDataString(id)}");
-        if (response.StatusCode == System.Net.HttpStatusCode.NoContent ||
-            response.StatusCode == System.Net.HttpStatusCode.NotFound)
-        {
-            return NotFound("Ürün detayı bulunamadı.");
-        }
-
-        if (!response.IsSuccessStatusCode)
-        {
-            return StatusCode((int)response.StatusCode, "Ürün detayı yüklenemedi.");
-        }
-
-        var dto = await response.Content.ReadFromJsonAsync<UpdateProductDetailDto>();
+        var dto = await _productDetailService.GetProductDetailByProductIdAsync(id);
         if (dto is null)
         {
             return NotFound("Ürün detayı bulunamadı.");
@@ -55,13 +43,12 @@ public class ProductDetailController : Controller
             return View("Index", dto);
         }
 
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        using var response = await client.PutAsJsonAsync("catalog/ProductDetails", dto);
-        if (!response.IsSuccessStatusCode)
+        if (!await _productDetailService.UpdateProductDetailAsync(dto))
         {
             ModelState.AddModelError(string.Empty, "Ürün detayı kaydedilemedi. Bilgileri kontrol edip tekrar dene.");
             return View("Index", dto);
         }
         
-        return RedirectToAction("ProductList", "Product", new { area = "Admin" });    }
+        return RedirectToAction("ProductList", "Product", new { area = "Admin" });
+    }
 }

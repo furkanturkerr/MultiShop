@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CatalogDtos.FeaturedDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
@@ -10,24 +11,17 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 
 public class FeaturedController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IFeaturedService _featuredService;
 
-    public FeaturedController(IHttpClientFactory httpClientFactory)
+    public FeaturedController(IFeaturedService featuredService)
     {
-        _httpClientFactory = httpClientFactory;
+        _featuredService = featuredService;
     }
 
     // GET
     public async Task<IActionResult> Index()
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync("catalog/Featured");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<List<ResultFeaturedDto>>();
-            return View(jsonData);
-        }
-        return View();
+        return View(await _featuredService.GetAllFeaturedAsync());
     }
 
     public IActionResult Create()
@@ -38,45 +32,34 @@ public class FeaturedController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(CreateFeaturedDto dto)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.PostAsJsonAsync("catalog/Featured", dto);
-        if (response.IsSuccessStatusCode)
+        if (await _featuredService.CreateFeaturedAsync(dto))
         {
             return RedirectToAction("Index");
         }
-        return View();
+        return View(dto);
     }
 
     [HttpGet]
     public async Task<IActionResult> Update(string id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync($"catalog/Featured/{id}");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<UpdateFeaturedDto>();
-            return View(jsonData);
-        }
-        return View();
+        var value = await _featuredService.GetByIdFeaturedAsync(id);
+        return value is null ? NotFound() : View(value);
     }
 
     [HttpPost]
     public async Task<IActionResult> Update(UpdateFeaturedDto dto)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.PutAsJsonAsync($"catalog/Featured", dto);
-        if (response.IsSuccessStatusCode)
+        if (await _featuredService.UpdateFeaturedAsync(dto))
         {
             return RedirectToAction("Index");
         }
-        return View();
+        return View(dto);
     }
 
     [HttpPost]
     public async Task<IActionResult> Delete(string id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        await client.DeleteAsync($"catalog/Featured/{id}");
+        await _featuredService.DeleteFeaturedAsync(id);
         return RedirectToAction("Index");
     }
 }
