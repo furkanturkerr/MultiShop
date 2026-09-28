@@ -21,6 +21,15 @@ public class OfferDiscountService : IOfferDiscountService
         return await response.Content.ReadFromJsonAsync<List<ResultOfferDiscountDto>>() ?? new List<ResultOfferDiscountDto>();
     }
 
+    public async Task<List<ResultOfferDiscountDto>> GetActiveOfferDiscountAsync()
+    {
+        var response = await _client.GetAsync("catalog/OfferDiscount/status");
+        if (!response.IsSuccessStatusCode)
+            return new List<ResultOfferDiscountDto>();
+
+        return await response.Content.ReadFromJsonAsync<List<ResultOfferDiscountDto>>() ?? new List<ResultOfferDiscountDto>();
+    }
+
     public async Task<UpdateOfferDiscountDto?> GetByIdOfferDiscountAsync(string id)
     {
         var response = await _client.GetAsync($"catalog/OfferDiscount/{id}");

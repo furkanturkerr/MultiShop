@@ -1,3 +1,10 @@
+@model MultiShop.Dtos.BasketDtos.BasketTotalDto
+
+<form id="cartAjaxTokenForm" class="d-none">
+    @Html.AntiForgeryToken()
+</form>
+<div id="cartAjaxConfig" data-update-url="@Url.Action("UpdateQuantity", "Cart")"></div>
+
 <div class="container-fluid">
     <div class="row px-xl-5">
         <div class="col-lg-8 table-responsive mb-5">
@@ -14,216 +21,87 @@
 
                 <tbody class="align-middle">
 
-                <tr>
-                    <td class="align-middle text-left">
-                        <img
-                            src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=150&q=85"
-                            alt="Spor Ayakkabı"
-                            style="width: 55px; height: 55px; object-fit: cover; margin-right: 12px;">
-                        Spor Ayakkabı
-                    </td>
 
-                    <td class="align-middle">750 ₺</td>
+                @foreach (var item in Model.BasketItems)
+                {
+                    var imageUrl = string.IsNullOrWhiteSpace(item.ProductImageUrl)
+                        ? "https://placehold.co/150x150/f8f5ef/8a837a?text=Ürün"
+                        : item.ProductImageUrl;
 
-                    <td class="align-middle">
-                        <div class="input-group quantity mx-auto" style="width: 100px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-primary btn-minus">
-                                    <i class="fa fa-minus"></i>
-                                </button>
+                    <tr data-cart-row="@item.ProductId">
+                        <td class="align-middle text-left">
+                            <img
+                                src="@imageUrl"
+                                alt="@item.ProductName"
+                                style="width: 55px; height: 55px; object-fit: cover; margin-right: 12px;">
+                            @item.ProductName
+                        </td>
+
+                        <td class="align-middle">@item.ProductPrice ₺</td>
+
+                        <td class="align-middle">
+                            <div class="input-group cart-quantity mx-auto" style="width: 100px;">
+                                <div class="input-group-btn">
+                                    <button type="button"
+                                            class="btn btn-sm btn-primary js-cart-quantity"
+                                            data-product-id="@item.ProductId"
+                                            data-change="-1"
+                                            disabled="@(item.Quantity <= 1 ? "disabled" : null)"
+                                            aria-label="Ürün adedini azalt">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+
+                                <input type="text"
+                                       class="form-control form-control-sm bg-secondary border-0 text-center js-cart-quantity-value"
+                                       value="@item.Quantity"
+                                       readonly>
+
+                                <div class="input-group-btn">
+                                    <button type="button"
+                                            class="btn btn-sm btn-primary js-cart-quantity"
+                                            data-product-id="@item.ProductId"
+                                            data-change="1"
+                                            aria-label="Ürün adedini artır">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
                             </div>
+                        </td>
 
-                            <input type="text"
-                                   class="form-control form-control-sm bg-secondary border-0 text-center"
-                                   value="1">
+                        <td class="align-middle js-cart-line-total">@((item.ProductPrice * item.Quantity).ToString("N0")) ₺</td>
 
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-primary btn-plus">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-
-                    <td class="align-middle">750 ₺</td>
-
-                    <td class="align-middle">
-                        <button class="btn btn-sm btn-danger">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="align-middle text-left">
-                        <img
-                            src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=150&q=85"
-                            alt="Spor Çanta"
-                            style="width: 55px; height: 55px; object-fit: cover; margin-right: 12px;">
-                        Spor Çanta
-                    </td>
-
-                    <td class="align-middle">220 ₺</td>
-
-                    <td class="align-middle">
-                        <div class="input-group quantity mx-auto" style="width: 100px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-primary btn-minus">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-
-                            <input type="text"
-                                   class="form-control form-control-sm bg-secondary border-0 text-center"
-                                   value="1">
-
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-primary btn-plus">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-
-                    <td class="align-middle">220 ₺</td>
-
-                    <td class="align-middle">
-                        <button class="btn btn-sm btn-danger">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="align-middle text-left">
-                        <img
-                            src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=150&q=85"
-                            alt="Kadın Kazak"
-                            style="width: 55px; height: 55px; object-fit: cover; margin-right: 12px;">
-                        Kadın Kazak
-                    </td>
-
-                    <td class="align-middle">150 ₺</td>
-
-                    <td class="align-middle">
-                        <div class="input-group quantity mx-auto" style="width: 100px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-primary btn-minus">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-
-                            <input type="text"
-                                   class="form-control form-control-sm bg-secondary border-0 text-center"
-                                   value="2">
-
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-primary btn-plus">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-
-                    <td class="align-middle">300 ₺</td>
-
-                    <td class="align-middle">
-                        <button class="btn btn-sm btn-danger">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="align-middle text-left">
-                        <img
-                            src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=150&q=85"
-                            alt="Kadın Elbise"
-                            style="width: 55px; height: 55px; object-fit: cover; margin-right: 12px;">
-                        Kadın Elbise
-                    </td>
-
-                    <td class="align-middle">420 ₺</td>
-
-                    <td class="align-middle">
-                        <div class="input-group quantity mx-auto" style="width: 100px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-primary btn-minus">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-
-                            <input type="text"
-                                   class="form-control form-control-sm bg-secondary border-0 text-center"
-                                   value="1">
-
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-primary btn-plus">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-
-                    <td class="align-middle">420 ₺</td>
-
-                    <td class="align-middle">
-                        <button class="btn btn-sm btn-danger">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="align-middle text-left">
-                        <img
-                            src="https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?auto=format&fit=crop&w=150&q=85"
-                            alt="Erkek Ceket"
-                            style="width: 55px; height: 55px; object-fit: cover; margin-right: 12px;">
-                        Erkek Ceket
-                    </td>
-
-                    <td class="align-middle">510 ₺</td>
-
-                    <td class="align-middle">
-                        <div class="input-group quantity mx-auto" style="width: 100px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-primary btn-minus">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-
-                            <input type="text"
-                                   class="form-control form-control-sm bg-secondary border-0 text-center"
-                                   value="1">
-
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-primary btn-plus">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-
-                    <td class="align-middle">510 ₺</td>
-
-                    <td class="align-middle">
-                        <button class="btn btn-sm btn-danger">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </td>
-                </tr>
+                        <td class="align-middle">
+                            <a asp-area="" asp-controller="Cart" asp-action="RemoveBasketItem" asp-route-productId="@item.ProductId" class="btn btn-sm btn-danger">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
 
                 </tbody>
             </table>
         </div>
 
         <div class="col-lg-4">
-            <form class="mb-30" action="">
+            <div class="alert alert-danger d-none js-cart-error" role="alert"></div>
+
+            @if (TempData["DiscountSuccess"] is string successMessage)
+            {
+                <div class="alert alert-success">@successMessage</div>
+            }
+            @if (TempData["DiscountError"] is string errorMessage)
+            {
+                <div class="alert alert-danger">@errorMessage</div>
+            }
+
+            <form asp-area="" asp-controller="Discount" asp-action="Index" method="post"  class="mb-30">
                 <div class="input-group">
                     <input type="text"
+                           name="code"
                            class="form-control border-0 p-4"
-                           placeholder="Kupon Kodu">
+                           placeholder="Kupon Kodu"
+                           required>
 
                     <div class="input-group-append">
                         <button class="btn btn-primary">
@@ -242,8 +120,16 @@
 
                     <div class="d-flex justify-content-between mb-3">
                         <h6>Ara Toplam</h6>
-                        <h6>2.200 ₺</h6>
+                        <h6 class="js-cart-subtotal">@Model.TotalPrice.ToString("N0") ₺</h6>
                     </div>
+
+                    @if (Model.DiscountRate > 0)
+                    {
+                        <div class="d-flex justify-content-between mb-3">
+                            <h6 class="font-weight-medium">İndirim (%@Model.DiscountRate)</h6>
+                            <h6 class="font-weight-medium text-success js-cart-discount">-@Model.DiscountAmount.ToString("N0") ₺</h6>
+                        </div>
+                    }
 
                     <div class="d-flex justify-content-between">
                         <h6 class="font-weight-medium">Kargo</h6>
@@ -256,7 +142,7 @@
 
                     <div class="d-flex justify-content-between mt-2">
                         <h5>Toplam</h5>
-                        <h5>2.200 ₺</h5>
+                        <h5 class="js-cart-total">@Model.TotalPriceAfterDiscount.ToString("N0") ₺</h5>
                     </div>
 
                     <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">

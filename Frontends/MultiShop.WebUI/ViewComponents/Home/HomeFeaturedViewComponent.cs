@@ -1,26 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
-using MultiShop.Dtos.CatalogDtos.FeaturedDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.ViewComponents.Home;
 
 public class HomeFeaturedViewComponent : ViewComponent
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IFeaturedService _featuredService;
 
-    public HomeFeaturedViewComponent(IHttpClientFactory httpClientFactory)
+    public HomeFeaturedViewComponent(IFeaturedService featuredService)
     {
-        _httpClientFactory = httpClientFactory;
+        _featuredService = featuredService;
     }
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync("catalog/Featured/status");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<List<ResultFeaturedDto>>();
-            return View(jsonData);
-        }
-        return View();
+        return View(await _featuredService.GetActiveFeaturedAsync());
     }
 }

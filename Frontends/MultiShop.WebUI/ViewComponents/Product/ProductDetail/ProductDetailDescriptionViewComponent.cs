@@ -1,26 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
-using MultiShop.Dtos.CatalogDtos.ProductDetailDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.ViewComponents.Product.ProductDetail;
 
 public class ProductDetailDescriptionViewComponent : ViewComponent
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IProductDetailService _productDetailService;
 
-    public ProductDetailDescriptionViewComponent(IHttpClientFactory httpClientFactory)
+    public ProductDetailDescriptionViewComponent(IProductDetailService productDetailService)
     {
-        _httpClientFactory = httpClientFactory;
+        _productDetailService = productDetailService;
     }
 
     public async Task<IViewComponentResult> InvokeAsync(string id)
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync($"catalog/ProductDetails/ProductDetailsByProductId?productId={id}");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<ResultProductDetailDto>();
-            return View(jsonData);
-        }
-        return View();
+        return View(await _productDetailService.GetResultProductDetailByProductIdAsync(id));
     }
 }

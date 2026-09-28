@@ -21,6 +21,16 @@ public class CommentService : ICommentService
         return await response.Content.ReadFromJsonAsync<List<ResultCommentDto>>() ?? new List<ResultCommentDto>();
     }
 
+    public async Task<List<ResultCommentDto>> GetCommentByProductIdAsync(string productId)
+    {
+        var address = $"comment/Comments/CommentByProductId?productId={Uri.EscapeDataString(productId)}";
+        var response = await _client.GetAsync(address);
+        if (!response.IsSuccessStatusCode || response.StatusCode == System.Net.HttpStatusCode.NoContent)
+            return new List<ResultCommentDto>();
+
+        return await response.Content.ReadFromJsonAsync<List<ResultCommentDto>>() ?? new List<ResultCommentDto>();
+    }
+
     public async Task<UpdateCommentDto?> GetByIdCommentAsync(int id)
     {
         var response = await _client.GetAsync($"comment/Comments/{id}");

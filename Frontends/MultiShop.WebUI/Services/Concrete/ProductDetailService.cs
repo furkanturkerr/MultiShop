@@ -23,6 +23,17 @@ public class ProductDetailService : IProductDetailService
         return await response.Content.ReadFromJsonAsync<UpdateProductDetailDto>();
     }
 
+    public async Task<ResultProductDetailDto?> GetResultProductDetailByProductIdAsync(string productId)
+    {
+        var address = $"catalog/ProductDetails/ProductDetailsByProductId?productId={Uri.EscapeDataString(productId)}";
+        var response = await _client.GetAsync(address);
+
+        if (!response.IsSuccessStatusCode)
+            return null;
+
+        return await response.Content.ReadFromJsonAsync<ResultProductDetailDto>();
+    }
+
     public async Task<bool> UpdateProductDetailAsync(UpdateProductDetailDto dto)
     {
         var response = await _client.PutAsJsonAsync("catalog/ProductDetails", dto);

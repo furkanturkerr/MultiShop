@@ -1,4 +1,4 @@
-namespace MultiShop.Basket.Dtos;
+namespace MultiShop.Dtos.BasketDtos;
 
 public class BasketItemDto
 {

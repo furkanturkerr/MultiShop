@@ -32,6 +32,8 @@ builder.Services.AddScoped<ISpecialOfferService, SpecialOfferService>();
 builder.Services.AddScoped<IProductDetailService, ProductDetailService>();
 builder.Services.AddScoped<IProductImageService, ProductImageService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IBasketService, BasketService>();
+builder.Services.AddScoped<IDiscountService, DiscountService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

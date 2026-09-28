@@ -1,26 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
-using MultiShop.Dtos.CatalogDtos.FeatureSliderDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.ViewComponents.Home;
 
 public class HomeCarouselViewComponent : ViewComponent
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IFeatureSliderService _featureSliderService;
 
-    public HomeCarouselViewComponent(IHttpClientFactory httpClientFactory)
+    public HomeCarouselViewComponent(IFeatureSliderService featureSliderService)
     {
-        _httpClientFactory = httpClientFactory;
+        _featureSliderService = featureSliderService;
     }
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync("catalog/FeatureSlider/status");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<List<ResultFeatureSliderDto>>();
-            return View(jsonData);
-        }
-        return View();
+        return View(await _featureSliderService.GetActiveFeatureSliderAsync());
     }
 }

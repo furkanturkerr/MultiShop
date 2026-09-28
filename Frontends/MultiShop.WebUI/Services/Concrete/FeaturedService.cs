@@ -21,6 +21,15 @@ public class FeaturedService : IFeaturedService
         return await response.Content.ReadFromJsonAsync<List<ResultFeaturedDto>>() ?? new List<ResultFeaturedDto>();
     }
 
+    public async Task<List<ResultFeaturedDto>> GetActiveFeaturedAsync()
+    {
+        var response = await _client.GetAsync("catalog/Featured/status");
+        if (!response.IsSuccessStatusCode)
+            return new List<ResultFeaturedDto>();
+
+        return await response.Content.ReadFromJsonAsync<List<ResultFeaturedDto>>() ?? new List<ResultFeaturedDto>();
+    }
+
     public async Task<UpdateFeaturedDto?> GetByIdFeaturedAsync(string id)
     {
         var response = await _client.GetAsync($"catalog/Featured/{id}");

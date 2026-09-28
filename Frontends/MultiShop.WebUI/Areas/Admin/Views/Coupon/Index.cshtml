@@ -1,0 +1,105 @@
+@model List<MultiShop.Dtos.DiscountDtos.ResultCouponDto>
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+    <div>
+        <span class="ms-kicker">SATIŞ YÖNETİMİ</span>
+        <h1>Kuponlar</h1>
+        <p>Sepette kullanılabilecek indirim kodlarını ve geçerlilik tarihlerini yönet.</p>
+    </div>
+    <a class="ms-primary" asp-area="Admin" asp-controller="Coupon" asp-action="Create">
+        <i class="fa-solid fa-plus"></i> Yeni Kupon
+    </a>
+</section>
+
+@if (TempData["CouponSuccess"] is string successMessage)
+{
+    <div class="alert alert-success">@successMessage</div>
+}
+@if (TempData["CouponError"] is string errorMessage)
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+
+<section class="ms-card">
+    <div class="ms-toolbar">
+        <div class="ms-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" placeholder="Kupon ara...">
+        </div>
+        <div class="ms-toolbar-meta">@Model.Count kupon</div>
+    </div>
+
+    <div class="ms-table-wrap">
+        <table class="ms-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Kupon Kodu</th>
+                <th>İndirim</th>
+                <th>Son Kullanım</th>
+                <th>Durum</th>
+                <th style="text-align:right">İşlem</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (Model.Count == 0)
+            {
+                <tr>
+                    <td colspan="6">Henüz kupon oluşturulmadı.</td>
+                </tr>
+            }
+            @foreach (var item in Model)
+            {
+                var expired = item.ValidDate <= DateTime.Now;
+                <tr>
+                    <td><span class="ms-code">#@item.CouponId</span></td>
+                    <td><strong>@item.Code</strong></td>
+                    <td>%@item.Rate</td>
+                    <td>@item.ValidDate.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>
+                        @if (item.IsActive && !expired)
+                        {
+                            <span class="ms-status on">Aktif</span>
+                        }
+                        else if (expired)
+                        {
+                            <span class="ms-status off">Süresi Doldu</span>
+                        }
+                        else
+                        {
+                            <span class="ms-status off">Pasif</span>
+                        }
+                    </td>
+                    <td>
+                        <div class="ms-actions">
+                            <a class="ms-action"
+                               asp-area="Admin"
+                               asp-controller="Coupon"
+                               asp-action="Update"
+                               asp-route-id="@item.CouponId"
+                               title="Düzenle">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
+                            <form method="post"
+                                  asp-area="Admin"
+                                  asp-controller="Coupon"
+                                  asp-action="Delete"
+                                  asp-route-id="@item.CouponId"
+                                  class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="ms-action danger" title="Sil">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</section>

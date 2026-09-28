@@ -21,6 +21,15 @@ public class FeatureSliderService : IFeatureSliderService
         return await response.Content.ReadFromJsonAsync<List<ResultFeatureSliderDto>>() ?? new List<ResultFeatureSliderDto>();
     }
 
+    public async Task<List<ResultFeatureSliderDto>> GetActiveFeatureSliderAsync()
+    {
+        var response = await _client.GetAsync("catalog/FeatureSlider/status");
+        if (!response.IsSuccessStatusCode)
+            return new List<ResultFeatureSliderDto>();
+
+        return await response.Content.ReadFromJsonAsync<List<ResultFeatureSliderDto>>() ?? new List<ResultFeatureSliderDto>();
+    }
+
     public async Task<UpdateFeatureSliderDto?> GetByIdFeatureSliderAsync(string id)
     {
         var response = await _client.GetAsync($"catalog/FeatureSlider/{id}");

@@ -1,26 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
-using MultiShop.Dtos.CatalogDtos.SpecialOfferDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.ViewComponents.Home;
 
 public class HomeSpacialOfferViewComponent : ViewComponent
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ISpecialOfferService _specialOfferService;
 
-    public HomeSpacialOfferViewComponent(IHttpClientFactory httpClientFactory)
+    public HomeSpacialOfferViewComponent(ISpecialOfferService specialOfferService)
     {
-        _httpClientFactory = httpClientFactory;
+        _specialOfferService = specialOfferService;
     }
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync("catalog/SpecialOffer/status");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<List<ResultSpecialOfferDto>>();
-            return View(jsonData);
-        }
-        return View();
+        return View(await _specialOfferService.GetActiveSpecialOfferAsync());
     }
 }

@@ -21,6 +21,15 @@ public class SpecialOfferService : ISpecialOfferService
         return await response.Content.ReadFromJsonAsync<List<ResultSpecialOfferDto>>() ?? new List<ResultSpecialOfferDto>();
     }
 
+    public async Task<List<ResultSpecialOfferDto>> GetActiveSpecialOfferAsync()
+    {
+        var response = await _client.GetAsync("catalog/SpecialOffer/status");
+        if (!response.IsSuccessStatusCode)
+            return new List<ResultSpecialOfferDto>();
+
+        return await response.Content.ReadFromJsonAsync<List<ResultSpecialOfferDto>>() ?? new List<ResultSpecialOfferDto>();
+    }
+
     public async Task<UpdateSpecialOfferDto?> GetByIdSpecialOfferAsync(string id)
     {
         var response = await _client.GetAsync($"catalog/SpecialOffer/{id}");

@@ -1,26 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
-using MultiShop.Dtos.CatalogDtos.BrandDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.ViewComponents.Home;
 
 public class HomeVendorViewComponent : ViewComponent
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IBrandService _brandService;
 
-    public HomeVendorViewComponent(IHttpClientFactory httpClientFactory)
+    public HomeVendorViewComponent(IBrandService brandService)
     {
-        _httpClientFactory = httpClientFactory;
+        _brandService = brandService;
     }
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var client = _httpClientFactory.CreateClient("GatewayApi");
-        var response = await client.GetAsync("catalog/Brand/status");
-        if (response.IsSuccessStatusCode)
-        {
-            var jsonData = await response.Content.ReadFromJsonAsync<List<ResultBrandDto>>();
-            return View(jsonData);
-        }
-        return View();
+        return View(await _brandService.GetActiveBrandAsync());
     }
 }

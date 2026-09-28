@@ -1,4 +1,4 @@
-namespace MultiShop.Basket.Dtos;
+namespace MultiShop.Dtos.BasketDtos;
 
 public class BasketTotalDto
 {
@@ -10,4 +10,7 @@ public class BasketTotalDto
     {
         get => BasketItems.Sum(x => x.ProductPrice * x.Quantity);
     }
+
+    public decimal DiscountAmount => TotalPrice * (DiscountRate ?? 0) / 100;
+    public decimal TotalPriceAfterDiscount => TotalPrice - DiscountAmount;
 }

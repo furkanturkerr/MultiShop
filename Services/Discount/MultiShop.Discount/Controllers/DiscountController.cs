@@ -33,6 +33,13 @@ namespace MultiShop.Discount.Controllers
             return Ok(value);
         }
 
+        [HttpGet("GetCouponByCode")]
+        public async Task<IActionResult> GetDiscountCodeDetailByCode(string code)
+        {
+            var value = await _discountService.GetDiscountCodeDetailByCode(code);
+            return Ok(value);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateCouponDto dto)
         {

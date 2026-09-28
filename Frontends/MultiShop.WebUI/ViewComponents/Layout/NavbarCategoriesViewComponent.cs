@@ -1,25 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CatalogDtos.CategoryDtos;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.ViewComponents.Layout;
 
 public class NavbarCategoriesViewComponent : ViewComponent
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ICategoryService _categoryService;
 
-    public NavbarCategoriesViewComponent(IHttpClientFactory httpClientFactory)
+    public NavbarCategoriesViewComponent(ICategoryService categoryService)
     {
-        _httpClientFactory = httpClientFactory;
+        _categoryService = categoryService;
     }
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
         try
         {
-            var client = _httpClientFactory.CreateClient("GatewayApi");
-            using var response = await client.GetAsync("catalog/Categories");
-            if (response.IsSuccessStatusCode)
-                return View(await response.Content.ReadFromJsonAsync<List<ResultCategoryDto>>() ?? new());
+            return View(await _categoryService.GetAllCategoryAsync());
         }
         catch (HttpRequestException)
         {

@@ -21,8 +21,21 @@ public class ProductService : IProductService
         return await response.Content.ReadFromJsonAsync<List<ResultProductDto>>() ?? new List<ResultProductDto>();
     }
 
+    public async Task<List<ResultProductDto>> GetProductByCategoryIdAsync(string categoryId)
+    {
+        var address = $"catalog/Products/CategoryId?categoryId={Uri.EscapeDataString(categoryId)}";
+        var response = await _client.GetAsync(address);
+        if (!response.IsSuccessStatusCode)
+            return new List<ResultProductDto>();
+
+        return await response.Content.ReadFromJsonAsync<List<ResultProductDto>>() ?? new List<ResultProductDto>();
+    }
+
     public async Task<UpdateProductDto?> GetByIdProductAsync(string id)
     {
+        if (string.IsNullOrWhiteSpace(id))
+            return null;
+
         var response = await _client.GetAsync($"catalog/Products/{id}");
         if (!response.IsSuccessStatusCode)
             return null;

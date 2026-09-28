@@ -15,7 +15,14 @@ public class BasketService : IBasketService
     public async Task<BasketTotalDto> GetBasketAsync(string userId)
     {
         var existBasket = await _redisService.GetDb().StringGetAsync(userId);
-        return JsonSerializer.Deserialize<BasketTotalDto>(existBasket);
+
+        if (existBasket.IsNullOrEmpty)
+        {
+            return new BasketTotalDto { UserId = userId };
+        }
+
+        return JsonSerializer.Deserialize<BasketTotalDto>(existBasket!)
+               ?? new BasketTotalDto { UserId = userId };
     }
 
     public async Task SaveBasketAsync(BasketTotalDto basket)

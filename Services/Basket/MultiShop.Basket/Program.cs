@@ -12,25 +12,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-// ----------------------------------------------------
-// BASKET SERVICES
-// ----------------------------------------------------
-
 builder.Services.AddScoped<IBasketService, BasketService>();
+builder.Services.AddScoped<RedisService>();
 
-
-// ----------------------------------------------------
-// CURRENT USER / LOGIN SERVICE
-// ----------------------------------------------------
 
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<ILoginService, LoginService>();
 
-
-// ----------------------------------------------------
-// REDIS
-// ----------------------------------------------------
 
 builder.Services.Configure<RedisSettings>(
     builder.Configuration.GetSection("RedisSettings"));
@@ -51,11 +40,6 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(_ =>
         $"{redisSettings.Host}:{redisSettings.Port}");
 });
 
-
-// ----------------------------------------------------
-// JWT AUTHENTICATION
-// ----------------------------------------------------
-
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 
 var jwtKey = jwtSettings["Key"];
@@ -70,6 +54,7 @@ builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.MapInboundClaims = false;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -95,11 +80,6 @@ builder.Services.AddAuthorization();
 
 
 var app = builder.Build();
-
-
-// ----------------------------------------------------
-// HTTP PIPELINE
-// ----------------------------------------------------
 
 if (app.Environment.IsDevelopment())
 {

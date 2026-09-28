@@ -21,6 +21,15 @@ public class BrandService : IBrandService
         return await response.Content.ReadFromJsonAsync<List<ResultBrandDto>>() ?? new List<ResultBrandDto>();
     }
 
+    public async Task<List<ResultBrandDto>> GetActiveBrandAsync()
+    {
+        var response = await _client.GetAsync("catalog/Brand/status");
+        if (!response.IsSuccessStatusCode)
+            return new List<ResultBrandDto>();
+
+        return await response.Content.ReadFromJsonAsync<List<ResultBrandDto>>() ?? new List<ResultBrandDto>();
+    }
+
     public async Task<UpdateBrandDto?> GetByIdBrandAsync(string id)
     {
         var response = await _client.GetAsync($"catalog/Brand/{id}");

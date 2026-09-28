@@ -1,16 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.CommentDtos;
 using MultiShop.WebUI.Models;
+using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.ViewComponents.Product.ProductDetail;
 
 public class ProductDetailReviewViewComponent : ViewComponent
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ICommentService _commentService;
 
-    public ProductDetailReviewViewComponent(IHttpClientFactory httpClientFactory)
+    public ProductDetailReviewViewComponent(ICommentService commentService)
     {
-        _httpClientFactory = httpClientFactory;
+        _commentService = commentService;
     }
 
     public async Task<IViewComponentResult> InvokeAsync(string id, CreateCommentDto? form = null)
@@ -28,20 +29,8 @@ public class ProductDetailReviewViewComponent : ViewComponent
 
         try
         {
-            var client = _httpClientFactory.CreateClient("GatewayApi");
-            using var response = await client.GetAsync($"comment/Comments/CommentByProductId?productId={Uri.EscapeDataString(id)}");
-            if (response.IsSuccessStatusCode)
-            {
-                if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
-                {
-                    var comments = await response.Content.ReadFromJsonAsync<List<ResultCommentDto>>() ?? new();
-                    model.Comments = comments.Where(x => x.IsApproved).OrderByDescending(x => x.CommentDate).ToList();
-                }
-            }
-            else
-            {
-                model.LoadError = "Yorumlar şu anda yüklenemiyor. Lütfen daha sonra tekrar dene.";
-            }
+            var comments = await _commentService.GetCommentByProductIdAsync(id);
+            model.Comments = comments.Where(x => x.IsApproved).OrderByDescending(x => x.CommentDate).ToList();
         }
         catch (HttpRequestException)
         {
