@@ -1,0 +1,32 @@
+@model int
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Sipariş Alındı";
+}
+
+<div class="container-fluid py-5" style="background:#f5f5f5; min-height:560px;">
+    <div class="container">
+        <div class="mx-auto bg-white border text-center p-5" style="max-width:680px;">
+            <div class="mx-auto mb-4 d-flex align-items-center justify-content-center rounded-circle bg-success text-white"
+                 style="width:72px;height:72px;font-size:30px;">
+                <i class="fas fa-check"></i>
+            </div>
+
+            <p class="text-uppercase text-muted small font-weight-bold mb-2">Siparişiniz alındı</p>
+            <h2 class="mb-3">Teşekkürler!</h2>
+            <p class="text-muted mb-4">
+                Siparişiniz başarıyla oluşturuldu ve hazırlık sırasına alındı.
+            </p>
+
+            <div class="bg-light border py-3 px-4 mb-4">
+                <span class="text-muted">Sipariş numarası</span>
+                <strong class="d-block mt-1" style="font-size:22px;">#@Model.ToString("D6")</strong>
+            </div>
+
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary px-5 py-3 font-weight-bold">
+                Alışverişe Devam Et
+            </a>
+        </div>
+    </div>
+</div>

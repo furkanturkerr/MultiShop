@@ -1,8 +1,6 @@
-using MediatR;
+namespace MultiShop.Dtos.OrderDtos.OrderingDtos;
 
-namespace MultiShop.Order.Application.Features.Mediator.Commands.OrderingCommands;
-
-public class CreateOrderingCommand : IRequest<int>
+public class CreateOrderingDto
 {
     public string UserId { get; set; } = string.Empty;
     public int AddressId { get; set; }

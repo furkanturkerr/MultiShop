@@ -1,0 +1,134 @@
+@model MultiShop.WebUI.Models.Order.OrderCheckoutViewModel
+
+<div class="col-lg-8">
+    <section class="checkout-panel">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-4"></div>
+
+        @if (Model.SavedAddresses.Count > 0)
+        {
+            <div class="checkout-section-heading">
+                <div>
+                    <h2>Teslimat adresi</h2>
+                    <p>Siparişini göndereceğimiz kayıtlı adresi seç.</p>
+                </div>
+                <span class="checkout-count">@Model.SavedAddresses.Count adres</span>
+            </div>
+
+            <div class="address-grid mb-3">
+                @foreach (var address in Model.SavedAddresses)
+                {
+                    <label class="address-choice" for="address-@address.AddressId">
+                        <input type="radio"
+                               asp-for="SelectedAddressId"
+                               id="address-@address.AddressId"
+                               value="@address.AddressId" />
+                        <span class="address-choice-body">
+                            <span class="address-choice-title">
+                                <strong>@(string.IsNullOrWhiteSpace(address.Description) ? "Kayıtlı adres" : address.Description)</strong>
+                                <span>@address.Name @address.Surname</span>
+                            </span>
+                            <p>@address.Detail1</p>
+                            @if (!string.IsNullOrWhiteSpace(address.Detail2))
+                            {
+                                <p>@address.Detail2</p>
+                            }
+                            <p>@address.District / @address.City</p>
+                            <p class="address-phone">@address.Phone</p>
+                        </span>
+                    </label>
+                }
+
+                <label class="address-choice new-address-choice" for="address-new">
+                    <input type="radio" asp-for="SelectedAddressId" id="address-new" value="0" />
+                    <span class="address-choice-body">
+                        <span class="address-choice-title mb-1">
+                            <strong>Yeni adres kullan</strong>
+                        </span>
+                        <p>Bu sipariş için farklı bir teslimat adresi ekle.</p>
+                    </span>
+                </label>
+            </div>
+        }
+        else
+        {
+            <input asp-for="SelectedAddressId" type="hidden" value="0" />
+            <div class="checkout-section-heading">
+                <div>
+                    <h2>Teslimat adresi</h2>
+                    <p>Siparişinin ulaşacağı adresi eksiksiz yaz.</p>
+                </div>
+            </div>
+        }
+
+        <span asp-validation-for="SelectedAddressId" class="text-danger"></span>
+
+        <div id="new-address-fields" class="new-address-fields" @(Model.SavedAddresses.Count == 0 || Model.SelectedAddressId == 0 ? null : "hidden")>
+            @if (Model.SavedAddresses.Count > 0)
+            {
+                <div class="new-address-heading">
+                    <h3>Yeni adres bilgileri</h3>
+                    <p>Bu adres hesabına kaydedilecek ve sonraki siparişlerinde kullanılabilecek.</p>
+                </div>
+            }
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label asp-for="Address.Name">Ad</label>
+                    <input asp-for="Address.Name" class="form-control" placeholder="Adınız">
+                    <span asp-validation-for="Address.Name" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label asp-for="Address.Surname">Soyad</label>
+                    <input asp-for="Address.Surname" class="form-control" placeholder="Soyadınız">
+                    <span asp-validation-for="Address.Surname" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label asp-for="Address.Email">E-posta</label>
+                    <input asp-for="Address.Email" class="form-control" placeholder="ornek@email.com">
+                    <span asp-validation-for="Address.Email" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label asp-for="Address.Phone">Telefon Numarası</label>
+                    <input asp-for="Address.Phone" class="form-control" placeholder="+90 555 555 55 55">
+                    <span asp-validation-for="Address.Phone" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label asp-for="Address.Country">Ülke</label>
+                    <input asp-for="Address.Country" class="form-control" placeholder="Türkiye">
+                    <span asp-validation-for="Address.Country" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label asp-for="Address.City">Şehir</label>
+                    <input asp-for="Address.City" class="form-control" placeholder="İstanbul">
+                    <span asp-validation-for="Address.City" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label asp-for="Address.District">İlçe</label>
+                    <input asp-for="Address.District" class="form-control" placeholder="Kadıköy">
+                    <span asp-validation-for="Address.District" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label asp-for="Address.Description">Adres Başlığı</label>
+                    <input asp-for="Address.Description" class="form-control" placeholder="Ev, İş">
+                </div>
+
+                <div class="col-md-12 form-group">
+                    <label asp-for="Address.Detail1">Açık Adres</label>
+                    <textarea asp-for="Address.Detail1" class="form-control" rows="3" placeholder="Mahalle, cadde ve sokak bilgisi"></textarea>
+                    <span asp-validation-for="Address.Detail1" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-12 form-group mb-0">
+                    <label asp-for="Address.Detail2">Bina, Kat, Daire</label>
+                    <input asp-for="Address.Detail2" class="form-control" placeholder="Bina no, kat ve daire bilgisi">
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

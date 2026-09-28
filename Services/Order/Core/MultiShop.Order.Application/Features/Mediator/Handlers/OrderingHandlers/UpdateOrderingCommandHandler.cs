@@ -17,9 +17,12 @@ public class UpdateOrderingCommandHandler : IRequestHandler<UpdateOrderingComman
     public async Task Handle(UpdateOrderingCommand request, CancellationToken cancellationToken)
     {
         var values = await _orderingRepository.GetByIdAsync(request.OrderingId);
+        values.AddressId = request.AddressId;
+        values.OrderStatus = request.OrderStatus;
+        values.PaymentMethod = request.PaymentMethod;
         values.TotalPrice = request.TotalPrice;
         values.UserId = request.UserId;
-        values.OrderDate = DateTime.Now;
+        values.OrderDate = request.OrderDate;
         values.OrderingId = request.OrderingId;
         await _orderingRepository.UpdateAsync(values);
     }

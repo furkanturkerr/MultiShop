@@ -1,6 +1,6 @@
-namespace MultiShop.Order.Application.Features.Commands.AddressCommands;
+namespace MultiShop.Dtos.OrderDtos.OrderAddressDtos;
 
-public class UpdateAddressCommand
+public class UpdateOrderAddressDto
 {
     public int AddressId { get; set; }
     public string UserId { get; set; } = string.Empty;

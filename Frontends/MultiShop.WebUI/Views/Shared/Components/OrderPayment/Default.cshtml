@@ -1,0 +1,107 @@
+@model MultiShop.WebUI.Models.Order.OrderCheckoutViewModel
+
+@{
+    var currentYear = DateTime.UtcNow.Year;
+}
+
+<section class="checkout-panel payment-card">
+        <div class="payment-header">
+            <div>
+                <h2>Kart ile ödeme</h2>
+                <p>Kredi veya banka kartı · Tek çekim</p>
+            </div>
+            <span class="payment-header-icon"><i class="fas fa-credit-card"></i></span>
+        </div>
+
+        <div class="payment-card-preview">
+            <div class="payment-card-brand">
+                <small>MULTISHOP</small>
+                <i class="fas fa-wifi fa-rotate-90"></i>
+            </div>
+            <div id="card-preview-number" class="payment-card-number">•••• •••• •••• ••••</div>
+            <div class="payment-card-meta">
+                <div>
+                    <small>KART SAHİBİ</small>
+                    <span id="card-preview-holder">AD SOYAD</span>
+                </div>
+                <div class="text-right">
+                    <small>SON KULLANMA</small>
+                    <span id="card-preview-expiry">AA / YY</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CardHolderName">Kart Üzerindeki İsim</label>
+            <input asp-for="CardHolderName"
+                   class="form-control"
+                   placeholder="AD SOYAD"
+                   autocomplete="cc-name" />
+            <span asp-validation-for="CardHolderName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CardNumber">Kart Numarası</label>
+            <input asp-for="CardNumber"
+                   class="form-control"
+                   placeholder="0000 0000 0000 0000"
+                   inputmode="numeric"
+                   maxlength="23"
+                   autocomplete="cc-number" />
+            <span asp-validation-for="CardNumber" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-4 form-group">
+                <label asp-for="ExpiryMonth">Ay</label>
+                <select asp-for="ExpiryMonth" class="custom-select" autocomplete="cc-exp-month">
+                    <option value="">Ay</option>
+                    @for (var month = 1; month <= 12; month++)
+                    {
+                        <option value="@month.ToString("00")">@month.ToString("00")</option>
+                    }
+                </select>
+                <span asp-validation-for="ExpiryMonth" class="text-danger small"></span>
+            </div>
+
+            <div class="col-4 form-group">
+                <label asp-for="ExpiryYear">Yıl</label>
+                <select asp-for="ExpiryYear" class="custom-select" autocomplete="cc-exp-year">
+                    <option value="">Yıl</option>
+                    @for (var year = currentYear; year < currentYear + 10; year++)
+                    {
+                        <option value="@((year % 100).ToString("00"))">@year</option>
+                    }
+                </select>
+                <span asp-validation-for="ExpiryYear" class="text-danger small"></span>
+            </div>
+
+            <div class="col-4 form-group">
+                <label asp-for="Cvv">CVV</label>
+                <input asp-for="Cvv"
+                       class="form-control"
+                       placeholder="123"
+                       inputmode="numeric"
+                       maxlength="4"
+                       autocomplete="cc-csc" />
+                <span asp-validation-for="Cvv" class="text-danger small"></span>
+            </div>
+        </div>
+
+        <div class="custom-control custom-checkbox mb-4">
+            <input asp-for="AcceptTerms" class="custom-control-input" />
+            <label class="custom-control-label small" asp-for="AcceptTerms">
+                Ön bilgilendirme ve mesafeli satış koşullarını kabul ediyorum.
+            </label>
+            <span asp-validation-for="AcceptTerms" class="text-danger d-block small"></span>
+        </div>
+
+        <div class="secure-note mb-4">
+            <i class="fas fa-lock text-success mt-1"></i>
+            <span>Kart bilgileriniz siparişe kaydedilmez. Bu eğitim akışında gerçek bir tahsilat yapılmaz.</span>
+        </div>
+
+        <button type="submit" class="btn btn-block checkout-submit font-weight-bold py-3">
+            Siparişi tamamla <i class="fas fa-arrow-right"></i>
+        </button>
+</section>

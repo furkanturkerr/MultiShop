@@ -20,8 +20,11 @@ public class GetOrderingQueryHandler : IRequestHandler<GetOrderingQuery, List<Ge
         var values = await _orderingRepository.GetAllAsync();
         return values.Select(x=> new GetOrderingQueryResult
         {
+            AddressId = x.AddressId,
+            OrderStatus = x.OrderStatus,
             OrderingId = x.OrderingId,
             OrderDate = x.OrderDate,
+            PaymentMethod = x.PaymentMethod,
             TotalPrice = x.TotalPrice,
             UserId = x.UserId
         }).ToList();

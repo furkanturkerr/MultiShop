@@ -1,0 +1,339 @@
+@model MultiShop.WebUI.Models.Order.OrderCheckoutViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<main class="checkout-page">
+    <div class="checkout-shell">
+        <header class="checkout-heading">
+            <div>
+                <span class="checkout-kicker">GÜVENLİ ÖDEME</span>
+                <h1>Siparişini tamamla</h1>
+                <p>Adresini seç, kart bilgilerini gir ve siparişini oluştur.</p>
+            </div>
+            <a asp-controller="Cart" asp-action="Index" class="back-to-cart">
+                <i class="fas fa-arrow-left"></i>
+                Sepete dön
+            </a>
+        </header>
+
+        <div class="checkout-steps" aria-label="Sipariş adımları">
+            <div class="checkout-step is-complete">
+                <span><i class="fas fa-check"></i></span>
+                <div><strong>Sepet</strong><small>Ürünlerin hazır</small></div>
+            </div>
+            <div class="checkout-step is-active">
+                <span>2</span>
+                <div><strong>Adres ve ödeme</strong><small>Bilgilerini tamamla</small></div>
+            </div>
+            <div class="checkout-step">
+                <span>3</span>
+                <div><strong>Sipariş onayı</strong><small>İşlem tamamlandı</small></div>
+            </div>
+        </div>
+
+        <form asp-controller="Order" asp-action="Index" method="post" id="checkout-form">
+            <div class="row checkout-layout">
+            @await Component.InvokeAsync("OrderDetail", new { model = Model })
+
+                <aside class="col-lg-4 checkout-sidebar">
+                    <div class="checkout-sidebar-inner">
+                        @await Component.InvokeAsync("OrderSummary")
+                        @await Component.InvokeAsync("OrderPayment", new { model = Model })
+                    </div>
+                </aside>
+            </div>
+        </form>
+    </div>
+</main>
+
+<style>
+    .checkout-page {
+        --checkout-ink: #3d464d;
+        --checkout-muted: #6c757d;
+        --checkout-border: #dfe3e6;
+        --checkout-paper: #ffffff;
+        --checkout-accent: #ffd333;
+        --checkout-accent-dark: #e8bd20;
+        min-height: 100vh;
+        padding: 46px 0 80px;
+        color: var(--checkout-ink);
+        background: #f5f5f5;
+    }
+    .checkout-shell { width: min(1380px, calc(100% - 48px)); margin: 0 auto; }
+    .checkout-heading {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 30px;
+        margin-bottom: 28px;
+    }
+    .checkout-kicker {
+        display: block;
+        margin-bottom: 8px;
+        color: #a47b00;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .18em;
+    }
+    .checkout-heading h1 { margin: 0 0 7px; font-size: clamp(32px, 4vw, 52px); line-height: 1; letter-spacing: -.04em; }
+    .checkout-heading p { margin: 0; color: var(--checkout-muted); font-size: 16px; }
+    .back-to-cart { color: var(--checkout-ink); font-weight: 700; text-decoration: none; white-space: nowrap; }
+    .back-to-cart i { margin-right: 8px; color: #c59600; }
+    .back-to-cart:hover { color: #a47b00; text-decoration: none; }
+    .checkout-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin-bottom: 26px;
+        overflow: hidden;
+        background: var(--checkout-paper);
+        border: 1px solid var(--checkout-border);
+        border-radius: 14px;
+    }
+    .checkout-step {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 17px 22px;
+        color: #99948d;
+        border-right: 1px solid var(--checkout-border);
+    }
+    .checkout-step:last-child { border-right: 0; }
+    .checkout-step > span {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 34px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        border: 1px solid var(--checkout-border);
+        font-weight: 700;
+    }
+    .checkout-step strong, .checkout-step small { display: block; }
+    .checkout-step strong { font-size: 14px; }
+    .checkout-step small { margin-top: 2px; color: #97928b; font-size: 12px; }
+    .checkout-step.is-complete > span { background: #347054; border-color: #347054; color: #fff; }
+    .checkout-step.is-active { color: var(--checkout-ink); background: #fffbee; }
+    .checkout-step.is-active > span { border-color: var(--checkout-accent); background: var(--checkout-accent); color: var(--checkout-ink); }
+    .checkout-layout { margin-right: -10px; margin-left: -10px; }
+    .checkout-layout > [class*="col-"] { padding-right: 10px; padding-left: 10px; }
+    .checkout-panel {
+        background: var(--checkout-paper);
+        border: 1px solid var(--checkout-border);
+        border-radius: 16px;
+        padding: 30px;
+    }
+    .checkout-section-heading {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 24px;
+    }
+    .checkout-section-heading h2 { margin: 0 0 5px; font-size: 21px; font-weight: 700; letter-spacing: -.02em; }
+    .checkout-section-heading p { margin: 0; color: var(--checkout-muted); font-size: 14px; }
+    .checkout-count {
+        padding: 7px 11px;
+        color: var(--checkout-muted);
+        background: #f1f3f4;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+    .address-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .address-choice { position: relative; display: block; min-width: 0; margin: 0; cursor: pointer; }
+    .address-choice input { position: absolute; opacity: 0; pointer-events: none; }
+    .address-choice-body {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 176px;
+        padding: 20px 48px 20px 20px;
+        overflow: hidden;
+        border: 1px solid var(--checkout-border);
+        border-radius: 12px;
+        background: #fff;
+        transition: border-color .15s, box-shadow .15s, transform .15s;
+    }
+    .address-choice-body::after {
+        content: '';
+        position: absolute;
+        top: 19px;
+        right: 18px;
+        width: 19px;
+        height: 19px;
+        border: 1px solid #bbb4aa;
+        border-radius: 50%;
+        background: #fff;
+    }
+    .address-choice input:checked + .address-choice-body {
+        border-color: var(--checkout-accent);
+        box-shadow: 0 8px 24px rgba(61, 70, 77, .08), inset 0 0 0 1px var(--checkout-accent);
+    }
+    .address-choice input:checked + .address-choice-body::after {
+        content: '\2713';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--checkout-ink);
+        border-color: var(--checkout-accent);
+        background: var(--checkout-accent);
+        font-size: 11px;
+        font-weight: 700;
+    }
+    .address-choice:hover .address-choice-body { border-color: #aeb6bc; transform: translateY(-1px); }
+    .address-choice input:focus-visible + .address-choice-body { outline: 3px solid rgba(255, 211, 51, .32); outline-offset: 2px; }
+    .address-choice-title { display: block; margin-bottom: 12px; }
+    .address-choice-title strong { display: block; margin-bottom: 3px; color: var(--checkout-ink); font-size: 16px; }
+    .address-choice-title span { display: block; color: var(--checkout-muted); font-size: 12px; }
+    .address-choice p { margin: 0 0 3px; overflow-wrap: anywhere; color: #67625c; font-size: 14px; line-height: 1.45; }
+    .address-choice .address-phone { margin-top: auto; padding-top: 11px; color: var(--checkout-ink); font-weight: 600; }
+    .new-address-choice .address-choice-body { justify-content: center; min-height: 176px; background: #f8f9fa; }
+    .new-address-choice .address-choice-title strong { color: var(--checkout-ink); }
+    .new-address-fields { margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--checkout-border); }
+    .new-address-heading { margin-bottom: 18px; }
+    .new-address-heading h3 { margin: 0 0 4px; font-size: 17px; }
+    .new-address-heading p { margin: 0; color: var(--checkout-muted); font-size: 13px; }
+    .checkout-page label:not(.address-choice):not(.custom-control-label) { color: #55514b; font-size: 13px; font-weight: 700; }
+    .checkout-page .form-control,
+    .checkout-page .custom-select {
+        height: 48px;
+        padding: 10px 13px;
+        color: var(--checkout-ink);
+        border: 1px solid var(--checkout-border);
+        border-radius: 8px;
+        background-color: #fff;
+    }
+    .checkout-page textarea.form-control { height: auto; min-height: 100px; resize: vertical; }
+    .checkout-page .form-control:focus,
+    .checkout-page .custom-select:focus {
+        border-color: var(--checkout-accent);
+        box-shadow: 0 0 0 3px rgba(255, 211, 51, .25);
+    }
+    .checkout-sidebar-inner { position: sticky; top: 20px; }
+    .order-summary-card { margin-bottom: 16px; }
+    .order-summary-products { padding-bottom: 16px; border-bottom: 1px solid var(--checkout-border); }
+    .order-summary-product { display: flex; justify-content: space-between; gap: 18px; margin-bottom: 11px; color: #5f5a54; font-size: 14px; }
+    .order-summary-product:last-child { margin-bottom: 0; }
+    .order-summary-product strong { flex: 0 0 auto; color: var(--checkout-ink); }
+    .order-summary-lines { padding: 17px 0; border-bottom: 1px solid var(--checkout-border); }
+    .order-summary-line { display: flex; justify-content: space-between; gap: 18px; margin-bottom: 11px; color: #5f5a54; font-size: 14px; }
+    .order-summary-line:last-child { margin-bottom: 0; }
+    .order-summary-total { display: flex; align-items: baseline; justify-content: space-between; padding-top: 18px; }
+    .order-summary-total strong:first-child { font-size: 16px; }
+    .order-summary-total strong:last-child { font-size: 24px; letter-spacing: -.03em; }
+    .payment-card { padding: 25px; }
+    .payment-header { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+    .payment-header h2 { margin: 0 0 3px; font-size: 20px; }
+    .payment-header p { margin: 0; color: var(--checkout-muted); font-size: 13px; }
+    .payment-header-icon {
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #a47b00;
+        border: 1px solid #f0dc88;
+        border-radius: 50%;
+        background: #fff9df;
+    }
+    .payment-card-preview {
+        min-height: 154px;
+        border-radius: 14px;
+        padding: 21px;
+        margin-bottom: 24px;
+        color: #fff;
+        background:
+            radial-gradient(circle at 88% 8%, rgba(255,211,51,.18), transparent 34%),
+            linear-gradient(135deg, #3d464d, #24292d);
+        box-shadow: 0 12px 28px rgba(61, 70, 77, .18);
+    }
+    .payment-card-preview small { color: rgba(255,255,255,.68); }
+    .payment-card-brand { display: flex; align-items: center; justify-content: space-between; }
+    .payment-card-brand i { color: var(--checkout-accent); }
+    .payment-card-number { margin: 25px 0 18px; font-size: 17px; letter-spacing: 2px; }
+    .payment-card-meta { display: flex; justify-content: space-between; gap: 16px; }
+    .payment-card-meta span { display: block; margin-top: 2px; font-size: 12px; font-weight: 700; letter-spacing: .05em; }
+    .secure-note { display: flex; align-items: flex-start; gap: 9px; color: #777; font-size: 13px; line-height: 1.45; }
+    .checkout-submit {
+        border: 0;
+        border-radius: 9px;
+        color: var(--checkout-ink);
+        background: var(--checkout-accent);
+        transition: background .15s, transform .15s;
+    }
+    .checkout-submit:hover { color: var(--checkout-ink); background: var(--checkout-accent-dark); }
+    .checkout-submit:active { transform: translateY(1px); }
+    .checkout-submit i { margin-left: 8px; }
+    .checkout-page .custom-control-input:checked ~ .custom-control-label::before {
+        border-color: var(--checkout-accent);
+        background-color: var(--checkout-accent);
+    }
+
+    @@media (max-width: 991.98px) {
+        .checkout-page { padding-top: 32px; }
+        .checkout-sidebar { margin-top: 20px; }
+        .checkout-sidebar-inner { position: static; }
+    }
+    @@media (max-width: 767.98px) {
+        .checkout-shell { width: min(100% - 28px, 1380px); }
+        .checkout-heading { align-items: flex-start; flex-direction: column; gap: 16px; }
+        .checkout-heading h1 { font-size: 34px; }
+        .checkout-steps { grid-template-columns: 1fr; }
+        .checkout-step { padding: 13px 16px; border-right: 0; border-bottom: 1px solid var(--checkout-border); }
+        .checkout-step:last-child { border-bottom: 0; }
+        .address-grid { grid-template-columns: 1fr; }
+        .checkout-panel { padding: 21px; border-radius: 12px; }
+        .address-choice-body { min-height: 158px; }
+        .payment-card { padding: 21px; }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addressRadios = document.querySelectorAll('input[name="SelectedAddressId"]');
+        const newAddressFields = document.getElementById('new-address-fields');
+        const cardNumber = document.getElementById('CardNumber');
+        const cardHolder = document.getElementById('CardHolderName');
+        const expiryMonth = document.getElementById('ExpiryMonth');
+        const expiryYear = document.getElementById('ExpiryYear');
+        const previewNumber = document.getElementById('card-preview-number');
+        const previewHolder = document.getElementById('card-preview-holder');
+        const previewExpiry = document.getElementById('card-preview-expiry');
+
+        function toggleAddressFields() {
+            const selected = document.querySelector('input[name="SelectedAddressId"]:checked');
+            if (newAddressFields)
+                newAddressFields.hidden = selected && selected.value !== '0';
+        }
+
+        addressRadios.forEach(radio => radio.addEventListener('change', toggleAddressFields));
+        toggleAddressFields();
+
+        if (cardNumber) {
+            cardNumber.addEventListener('input', function () {
+                const digits = this.value.replace(/\D/g, '').slice(0, 19);
+                this.value = digits.replace(/(.{4})/g, '$1 ').trim();
+                if (previewNumber)
+                    previewNumber.textContent = this.value || '•••• •••• •••• ••••';
+            });
+        }
+
+        if (cardHolder && previewHolder) {
+            cardHolder.addEventListener('input', function () {
+                previewHolder.textContent = this.value.trim().toUpperCase() || 'AD SOYAD';
+            });
+        }
+
+        function updateExpiryPreview() {
+            if (previewExpiry)
+                previewExpiry.textContent = `${expiryMonth?.value || 'AA'} / ${expiryYear?.value || 'YY'}`;
+        }
+
+        expiryMonth?.addEventListener('change', updateExpiryPreview);
+        expiryYear?.addEventListener('change', updateExpiryPreview);
+    });
+</script>

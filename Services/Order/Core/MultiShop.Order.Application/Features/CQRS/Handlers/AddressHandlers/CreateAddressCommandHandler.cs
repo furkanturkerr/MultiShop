@@ -13,14 +13,24 @@ public class CreateAddressCommandHandler
         _addressRepository = addressRepository;
     }
 
-    public async Task Handle(CreateAddressCommand createAddressCommand)
+    public async Task<int> Handle(CreateAddressCommand createAddressCommand)
     {
-        await _addressRepository.CreateAsync(new Address
+        var address = new Address
         {
             UserId = createAddressCommand.UserId,
-            City = createAddressCommand.City,
+            Name = createAddressCommand.Name,
+            Surname = createAddressCommand.Surname,
+            Email = createAddressCommand.Email,
+            Phone = createAddressCommand.Phone,
+            Country = createAddressCommand.Country,
             District = createAddressCommand.District,
-            Detail = createAddressCommand.Detail,
-        });
+            City = createAddressCommand.City,
+            Detail1 = createAddressCommand.Detail1,
+            Detail2 = createAddressCommand.Detail2,
+            Description = createAddressCommand.Description
+        };
+
+        await _addressRepository.CreateAsync(address);
+        return address.AddressId;
     }
 }

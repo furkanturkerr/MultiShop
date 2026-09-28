@@ -20,6 +20,7 @@ public class CreateOrderDetailCommandHandler
             ProductId = command.ProductId,
             ProductAmount = command.ProductAmount,
             ProductName = command.ProductName,
+            ProductPrice = command.ProductPrice,
             ProductTotalPrice = command.ProductTotalPrice,
             OrderingId = command.OrderingId
         });

@@ -41,8 +41,8 @@ namespace MultiShop.Order.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateAddressCommand command)
         {
-            await _createAddressCommandHandler.Handle(command);
-            return Ok();
+            var addressId = await _createAddressCommandHandler.Handle(command);
+            return Ok(addressId);
         }
 
         [HttpPut]

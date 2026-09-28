@@ -1,0 +1,46 @@
+@model MultiShop.Dtos.BasketDtos.BasketTotalDto
+
+<section class="checkout-panel order-summary-card">
+    <div class="checkout-section-heading">
+        <div>
+            <h2>Sipariş özeti</h2>
+            <p>@Model.BasketItems.Sum(x => x.Quantity) ürün</p>
+        </div>
+    </div>
+
+    <div class="order-summary-products">
+
+        @foreach (var item in Model.BasketItems)
+        {
+            <div class="order-summary-product">
+                <span>@item.ProductName <span class="text-muted">× @item.Quantity</span></span>
+                <strong>@((item.ProductPrice * item.Quantity).ToString("N0")) ₺</strong>
+            </div>
+        }
+    </div>
+
+    <div class="order-summary-lines">
+        <div class="order-summary-line">
+            <span>Ara toplam</span>
+            <strong>@Model.TotalPrice.ToString("N0") ₺</strong>
+        </div>
+
+        @if (Model.DiscountRate > 0)
+        {
+            <div class="order-summary-line">
+                <span>İndirim (%@Model.DiscountRate)</span>
+                <strong class="text-success">-@Model.DiscountAmount.ToString("N0") ₺</strong>
+            </div>
+        }
+
+        <div class="order-summary-line">
+            <span>Kargo</span>
+            <strong class="text-success">Ücretsiz</strong>
+        </div>
+    </div>
+
+    <div class="order-summary-total">
+        <strong>Ödenecek toplam</strong>
+        <strong>@Model.TotalPriceAfterDiscount.ToString("N0") ₺</strong>
+    </div>
+</section>

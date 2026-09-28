@@ -20,8 +20,11 @@ public class GetOrderingByIdHandler : IRequestHandler<GetOrderingByIdQuery, GetO
         var value = await _orderingRepository.GetByIdAsync(request.Id);
         return new GetOrderingByIdQueryResult
         {
+            AddressId = value.AddressId,
+            OrderStatus = value.OrderStatus,
             OrderingId = value.OrderingId,
             OrderDate = value.OrderDate,
+            PaymentMethod = value.PaymentMethod,
             TotalPrice = value.TotalPrice,
             UserId = value.UserId
         };

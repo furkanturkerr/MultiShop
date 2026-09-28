@@ -3,8 +3,15 @@ namespace MultiShop.Order.Application.Features.Results.AddressResults;
 public class GetAddressByIdQueryResult
 {
     public int AddressId { get; set; }
-    public string UserId { get; set; }
-    public string District { get; set; }
-    public string City { get; set; }
-    public string Detail { get; set; }
+    public string UserId { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Surname { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string Phone { get; set; } = string.Empty;
+    public string Country { get; set; } = string.Empty;
+    public string District { get; set; } = string.Empty;
+    public string City { get; set; } = string.Empty;
+    public string Detail1 { get; set; } = string.Empty;
+    public string Detail2 { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
 }

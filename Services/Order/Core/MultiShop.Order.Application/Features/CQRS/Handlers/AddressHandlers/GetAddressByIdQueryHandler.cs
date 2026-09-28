@@ -20,10 +20,17 @@ public class GetAddressByIdQueryHandler
         return new GetAddressByIdQueryResult
         {
             AddressId = values.AddressId,
+            UserId = values.UserId,
+            Name = values.Name,
+            Surname = values.Surname,
+            Email = values.Email,
+            Phone = values.Phone,
+            Country = values.Country,
             District = values.District,
-            Detail = values.Detail,
             City = values.City,
-            UserId = values.UserId
+            Detail1 = values.Detail1,
+            Detail2 = values.Detail2,
+            Description = values.Description
         };
     }
 }
