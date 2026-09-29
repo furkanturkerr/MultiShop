@@ -1,0 +1,83 @@
+@{
+    var pageTitle = ViewData["Title"]?.ToString() ?? "Hesabım";
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var displayName = User.Identity?.Name ?? "MultiShop müşterisi";
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@pageTitle - MultiShop</title>
+
+    <link href="~/online-shop-website-template/img/favicon.ico" rel="icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="~/online-shop-website-template/css/style.css" rel="stylesheet">
+    <link href="~/css/user-area.css" rel="stylesheet" asp-append-version="true">
+</head>
+<body class="user-area-body">
+    <partial name="~/Views/Shared/Partials/_Navbar.cshtml" />
+
+    <main class="user-area-page">
+        <div class="user-area-shell">
+            <aside class="user-sidebar" aria-label="Hesap menüsü">
+                <div class="user-profile-card">
+                    <span class="user-avatar" aria-hidden="true">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    <div>
+                        <small>Hoş geldin</small>
+                        <strong>@displayName</strong>
+                    </div>
+                </div>
+
+                <nav class="user-menu">
+                    <a class="@(currentController == "Order" ? "active" : null)"
+                       asp-area="User" asp-controller="Order" asp-action="OrderHistory">
+                        <i class="fas fa-box-open"></i>
+                        <span>Siparişlerim</span>
+                    </a>
+                    <a asp-area="" asp-controller="Cart" asp-action="Index">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Sepetim</span>
+                    </a>
+                    <a asp-area="" asp-controller="Home" asp-action="Index">
+                        <i class="fas fa-store"></i>
+                        <span>Alışverişe dön</span>
+                    </a>
+                    <a asp-area="" asp-controller="Contact" asp-action="Index">
+                        <i class="fas fa-headset"></i>
+                        <span>Yardım ve iletişim</span>
+                    </a>
+                </nav>
+
+                <div class="user-sidebar-help">
+                    <i class="far fa-question-circle"></i>
+                    <div>
+                        <strong>Bir sorun mu var?</strong>
+                        <span>Siparişinle ilgili bize ulaşabilirsin.</span>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="user-content">
+                @RenderBody()
+            </section>
+        </div>
+    </main>
+
+    <partial name="~/Views/Shared/Partials/_Footer.cshtml" />
+
+    <a href="#" class="btn btn-primary back-to-top" aria-label="Sayfanın başına dön">
+        <i class="fa fa-angle-double-up"></i>
+    </a>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="~/online-shop-website-template/lib/easing/easing.min.js"></script>
+    <script src="~/online-shop-website-template/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

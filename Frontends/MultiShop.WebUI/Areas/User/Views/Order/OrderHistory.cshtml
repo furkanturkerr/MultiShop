@@ -1,0 +1,169 @@
+@using System.Globalization
+@model List<MultiShop.Dtos.OrderDtos.OrderingDtos.ResultOrderByUserIdDto>
+
+@functions {
+    private static string StatusClass(string status)
+    {
+        return (status ?? string.Empty).Trim().ToLowerInvariant() switch
+        {
+            "delivered" or "teslim edildi" => "delivered",
+            "shipped" or "kargoda" or "kargoya verildi" => "shipping",
+            "cancelled" or "canceled" or "iptal edildi" => "cancelled",
+            _ => "processing"
+        };
+    }
+
+    private static string StatusText(string status)
+    {
+        return (status ?? string.Empty).Trim().ToLowerInvariant() switch
+        {
+            "pending" or "processing" => "Hazırlanıyor",
+            "shipped" => "Kargoya verildi",
+            "delivered" => "Teslim edildi",
+            "cancelled" or "canceled" => "İptal edildi",
+            "" => "Hazırlanıyor",
+            _ => status ?? "Hazırlanıyor"
+        };
+    }
+
+    private static string PaymentText(string paymentMethod)
+    {
+        return (paymentMethod ?? string.Empty).Trim().ToLowerInvariant() switch
+        {
+            "creditcard" or "card" => "Kredi / banka kartı",
+            "cashondelivery" => "Kapıda ödeme",
+            "banktransfer" => "Banka havalesi",
+            _ => string.IsNullOrWhiteSpace(paymentMethod) ? "Belirtilmedi" : paymentMethod
+        };
+    }
+}
+
+@{
+    ViewData["Title"] = "Siparişlerim";
+    var tr = CultureInfo.GetCultureInfo("tr-TR");
+}
+
+<header class="order-history-heading">
+    <div>
+        <span class="user-page-kicker">HESABIM</span>
+        <h1>Siparişlerim</h1>
+        <p>Geçmiş siparişlerini ve ürün detaylarını buradan takip edebilirsin.</p>
+    </div>
+    <span class="order-count">@Model.Count sipariş</span>
+</header>
+
+@if (Model.Count == 0)
+{
+    <div class="empty-orders">
+        <span class="empty-orders-icon"><i class="fas fa-box-open"></i></span>
+        <h2>Henüz siparişin yok</h2>
+        <p>Binlerce ürün arasından ihtiyacın olanı bulup ilk siparişini oluşturabilirsin.</p>
+        <a class="user-primary-button" asp-area="" asp-controller="Product" asp-action="Index">
+            Alışverişe başla
+        </a>
+    </div>
+}
+else
+{
+    <div class="order-list">
+        @foreach (var order in Model)
+        {
+            var productCount = order.OrderDetails.Sum(x => x.ProductAmount);
+
+            <details class="order-card">
+                <summary class="order-card-summary">
+                    <div class="order-main-info">
+                        <span class="order-box-icon"><i class="fas fa-box"></i></span>
+                        <div>
+                            <small>Sipariş numarası</small>
+                            <strong>#@order.OrderingId</strong>
+                        </div>
+                    </div>
+
+                    <div class="order-summary-item order-date">
+                        <small>Sipariş tarihi</small>
+                        <strong>@order.OrderDate.ToString("dd MMMM yyyy", tr)</strong>
+                        <span>@order.OrderDate.ToString("HH:mm", tr)</span>
+                    </div>
+
+                    <div class="order-summary-item order-products-count">
+                        <small>Ürün</small>
+                        <strong>@productCount adet</strong>
+                    </div>
+
+                    <div class="order-summary-item order-total">
+                        <small>Toplam</small>
+                        <strong>@order.TotalPrice.ToString("C", tr)</strong>
+                    </div>
+
+                    <span class="order-status @StatusClass(order.OrderStatus)">
+                        @StatusText(order.OrderStatus)
+                    </span>
+
+                    <span class="order-toggle" aria-hidden="true">
+                        <span>Detay</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </span>
+                </summary>
+
+                <div class="order-card-body">
+                    <div class="order-detail-title">
+                        <h2>Sipariş içeriği</h2>
+                        <span>@order.OrderDetails.Count farklı ürün</span>
+                    </div>
+
+                    @if (order.OrderDetails.Count == 0)
+                    {
+                        <div class="order-detail-empty">
+                            Bu siparişe ait ürün detayı bulunamadı.
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="order-products">
+                            @foreach (var product in order.OrderDetails)
+                            {
+                                <div class="order-product-row">
+                                    <span class="order-product-visual" aria-hidden="true">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </span>
+                                    <div class="order-product-name">
+                                        <a asp-area="" asp-controller="Product" asp-action="Detail"
+                                           asp-route-id="@product.ProductId">@product.ProductName</a>
+                                    </div>
+                                    <div class="order-product-price">
+                                        <small>Birim fiyat</small>
+                                        <strong>@product.ProductPrice.ToString("C", tr)</strong>
+                                    </div>
+                                    <div class="order-product-quantity">
+                                        <small>Adet</small>
+                                        <strong>@product.ProductAmount</strong>
+                                    </div>
+                                    <div class="order-product-total">
+                                        <small>Ürün toplamı</small>
+                                        <strong>@product.ProductTotalPrice.ToString("C", tr)</strong>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+
+                    <footer class="order-card-footer">
+                        <div>
+                            <small>Ödeme yöntemi</small>
+                            <strong><i class="far fa-credit-card"></i> @PaymentText(order.PaymentMethod)</strong>
+                        </div>
+                        <div>
+                            <small>Teslimat adresi</small>
+                            <strong><i class="fas fa-map-marker-alt"></i> Kayıtlı teslimat adresi</strong>
+                        </div>
+                        <div class="order-footer-total">
+                            <small>Ödenen toplam</small>
+                            <strong>@order.TotalPrice.ToString("C", tr)</strong>
+                        </div>
+                    </footer>
+                </div>
+            </details>
+        }
+    </div>
+}

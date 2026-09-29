@@ -3,6 +3,7 @@ namespace MultiShop.Cargo.Dto.CargoCustomerDtos;
 public class ResultCargoCustomerDto
 {
     public int CargoCustomerId { get; set; }
+    public string UserCustomerId { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public string Surname { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;

@@ -1,9 +1,30 @@
+@{
+  var adminController = ViewContext.RouteData.Values["controller"]?.ToString();
+  var adminLayoutTitle = ViewData["Title"]?.ToString() ?? adminController switch
+  {
+    "Category" => "Kategoriler",
+    "Product" => "Ürünler",
+    "ProductDetail" => "Ürün Detayı",
+    "ProductImage" => "Ürün Görselleri",
+    "Brand" => "Markalar",
+    "Coupon" => "Kuponlar",
+    "OfferDiscount" => "İndirim Alanları",
+    "SpecialOffer" => "Özel Teklifler",
+    "FeatureSlider" => "Ana Sayfa Sliderı",
+    "Featured" => "Vitrin Özellikleri",
+    "Comment" => "Ürün Yorumları",
+    "CargoCompany" => "Kargo Şirketleri",
+    "CargoCustomer" => "Müşteri Adresleri",
+    _ => "Yönetim Paneli"
+  };
+  ViewData["Title"] = adminLayoutTitle;
+}
 <!doctype html>
 <html lang="tr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Kategoriler | MultiShop Admin</title>
+  <title>@adminLayoutTitle | MultiShop Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">

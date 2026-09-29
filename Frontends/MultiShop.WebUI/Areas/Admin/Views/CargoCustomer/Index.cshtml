@@ -1,0 +1,84 @@
+@model List<MultiShop.Dtos.CargoDtos.CargoCustomerDtos.ResultCargoCustomerDto>
+
+@{
+    ViewData["Title"] = "Müşteri Adresleri";
+    Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+    <div>
+        <span class="ms-kicker">MÜŞTERİ İŞLEMLERİ</span>
+        <h1>Müşteri Adresleri</h1>
+        <p>Kargo teslimatında kullanılacak müşteri iletişim ve adres kayıtlarını görüntüle.</p>
+    </div>
+</section>
+
+<section class="ms-card">
+    <div class="ms-toolbar">
+        <div>
+            <strong>Kayıtlı müşteriler</strong>
+            <small style="display:block; margin-top:4px; color:var(--muted);">
+                Kargo servisine kaydedilmiş teslimat adresleri
+            </small>
+        </div>
+        <div class="ms-toolbar-meta">@Model.Count kayıt</div>
+    </div>
+
+    <div class="ms-table-wrap">
+        <table class="ms-table">
+            <thead>
+            <tr>
+                <th>Müşteri</th>
+                <th>İletişim</th>
+                <th>Şehir / İlçe</th>
+                <th>Adres</th>
+                <th style="width:140px;">Kullanıcı</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (Model.Count == 0)
+            {
+                <tr>
+                    <td colspan="5">
+                        <div style="padding:34px 0; text-align:center; color:var(--muted);">
+                            <i class="fa-regular fa-address-book" style="display:block; margin-bottom:10px; font-size:24px;"></i>
+                            Henüz kargo müşterisi kaydı bulunmuyor.
+                        </div>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var item in Model)
+                {
+                    var userIdText = item.UserCustomerId.Length > 10
+                        ? $"{item.UserCustomerId[..10]}…"
+                        : item.UserCustomerId;
+
+                    <tr>
+                        <td>
+                            <div class="ms-cell">
+                                <span class="ms-cell-icon"><i class="fa-solid fa-user"></i></span>
+                                <div>
+                                    <strong>@item.Name @item.Surname</strong>
+                                    <small>Kargo müşteri no: #@item.CargoCustomerId</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <strong style="display:block; color:var(--ink);">@item.PhoneNumber</strong>
+                            <small style="display:block; margin-top:4px; color:var(--muted);">@item.Email</small>
+                        </td>
+                        <td>
+                            <strong style="display:block; color:var(--ink);">@item.City</strong>
+                            <small style="display:block; margin-top:4px; color:var(--muted);">@item.District</small>
+                        </td>
+                        <td style="min-width:260px; white-space:normal; line-height:1.55;">@item.Address</td>
+                        <td><span class="ms-code" title="@item.UserCustomerId">@userIdText</span></td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+</section>

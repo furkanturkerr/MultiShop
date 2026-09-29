@@ -1,12 +1,14 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using MultiShop.MessageBus;
 using MultiShop.Order.Application.Features.Handlers.AddressHandlers;
 using MultiShop.Order.Application.Features.Handlers.OrderDetailHandlers;
 using MultiShop.Order.Application.Interfaces;
 using MultiShop.Order.Application.Services;
 using MultiShop.Order.Persistence.Context;
 using MultiShop.Order.Persistence.Repositories;
+using MultiShop.Order.WebApi.LoginServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<OrderContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ILoginService, LoginService>();
 
 builder.Services.AddScoped<GetAddressByIdQueryHandler>();
 builder.Services.AddScoped<GetAddressQueryHandler>();
@@ -32,12 +36,23 @@ builder.Services.AddScoped<CreateOrderDetailCommandHandler>();
 builder.Services.AddScoped<UpdateOrderDetailCommandHandler>();
 builder.Services.AddScoped<RemoveOrderDetailCommandHandler>();
 
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
+var rabbitMqSettings = builder.Configuration
+    .GetSection("RabbitMQ")
+    .Get<RabbitMqSettings>()
+    ?? throw new InvalidOperationException("RabbitMQ ayarları bulunamadı.");
+
+builder.Services.AddSingleton(rabbitMqSettings);
+builder.Services.AddSingleton<IRabbitMqPublisher, RabbitMqPublisher>();
+
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.MapInboundClaims = false;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,

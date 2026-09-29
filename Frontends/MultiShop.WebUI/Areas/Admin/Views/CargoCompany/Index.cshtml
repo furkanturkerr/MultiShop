@@ -1,0 +1,107 @@
+@model List<MultiShop.Dtos.CargoDtos.CargoCompanyDtos.ResultCargoCompanyDto>
+
+@{
+    ViewData["Title"] = "Kargo Şirketleri";
+    Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+    <div>
+        <span class="ms-kicker">LOJİSTİK YÖNETİMİ</span>
+        <h1>Kargo Şirketleri</h1>
+        <p>Sipariş teslimatlarında kullanılacak kargo firmalarını buradan yönet.</p>
+    </div>
+
+    <a class="ms-primary" asp-area="Admin" asp-controller="CargoCompany" asp-action="Create">
+        <i class="fa-solid fa-plus"></i>
+        Yeni Kargo Şirketi
+    </a>
+</section>
+
+@if (TempData["CargoCompanySuccess"] is string successMessage)
+{
+    <div class="alert alert-success">@successMessage</div>
+}
+@if (TempData["CargoCompanyError"] is string errorMessage)
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+
+<section class="ms-card">
+    <div class="ms-toolbar">
+        <div>
+            <strong>Kayıtlı firmalar</strong>
+            <small style="display:block; margin-top:4px; color:var(--muted);">
+                Siparişlerde seçilebilecek teslimat sağlayıcıları
+            </small>
+        </div>
+        <div class="ms-toolbar-meta">@Model.Count şirket</div>
+    </div>
+
+    <div class="ms-table-wrap">
+        <table class="ms-table">
+            <thead>
+            <tr>
+                <th style="width:110px;">ID</th>
+                <th>Kargo Şirketi</th>
+                <th style="text-align:right; width:150px;">İşlem</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (Model.Count == 0)
+            {
+                <tr>
+                    <td colspan="3">
+                        <div style="padding:28px 0; text-align:center; color:var(--muted);">
+                            Henüz kargo şirketi eklenmedi.
+                        </div>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><span class="ms-code">#@item.CargoCompanyId</span></td>
+                        <td>
+                            <div class="ms-cell">
+                                <span class="ms-category-icon">
+                                    <i class="fa-solid fa-truck-fast"></i>
+                                </span>
+                                <div>
+                                    <strong>@item.CompanyName</strong>
+                                    <small style="display:block; margin-top:4px;">Teslimat sağlayıcısı</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="ms-actions">
+                                <a class="ms-action"
+                                   asp-area="Admin"
+                                   asp-controller="CargoCompany"
+                                   asp-action="Update"
+                                   asp-route-id="@item.CargoCompanyId"
+                                   title="Düzenle">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+
+                                <form method="post"
+                                      asp-area="Admin"
+                                      asp-controller="CargoCompany"
+                                      asp-action="Delete"
+                                      asp-route-id="@item.CargoCompanyId">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="ms-action danger" title="Sil">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+</section>

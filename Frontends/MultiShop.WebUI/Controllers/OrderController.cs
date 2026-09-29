@@ -98,8 +98,7 @@ public class OrderController : Controller
         {
             AddressId = addressId.Value,
             PaymentMethod = "Kredi/Banka Kartı",
-            TotalPrice = basket.TotalPriceAfterDiscount,
-            UserId = userId
+            TotalPrice = basket.TotalPriceAfterDiscount
         });
 
         if (orderingId is null)

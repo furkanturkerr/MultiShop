@@ -27,4 +27,15 @@ public class OrderService : IOrderService
         var response = await _client.PostAsJsonAsync("order/OrderDetails", dto);
         return response.IsSuccessStatusCode;
     }
+
+    public async Task<List<ResultOrderByUserIdDto>> GetMyOrdersAsync()
+    {
+        var response =
+            await _client.GetFromJsonAsync<List<ResultOrderByUserIdDto>>("order/Orderings/my");
+
+        if (response == null)
+            return new List<ResultOrderByUserIdDto>();
+
+        return response;
+    }
 }

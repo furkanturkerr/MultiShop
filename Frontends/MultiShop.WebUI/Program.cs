@@ -36,6 +36,8 @@ builder.Services.AddScoped<IBasketService, BasketService>();
 builder.Services.AddScoped<IDiscountService, DiscountService>();
 builder.Services.AddScoped<IOrderAddressService, OrderAddressService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ICargoCompanyService, CargoCompanyService>();
+builder.Services.AddScoped<ICargoCustomerService, CargoCustomerService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

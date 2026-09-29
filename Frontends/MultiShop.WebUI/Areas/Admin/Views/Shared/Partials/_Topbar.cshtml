@@ -1,5 +1,9 @@
+@{
+    var adminPageTitle = ViewData["Title"]?.ToString() ?? "Yönetim Paneli";
+}
+
 <header class="ms-topbar">
-    <div class="ms-topbar-title"><span>MultiShop Yönetim</span><strong>Kategoriler</strong></div>
+    <div class="ms-topbar-title"><span>MultiShop Yönetim</span><strong>@adminPageTitle</strong></div>
     <div class="ms-topbar-actions">
         <button class="ms-icon-btn"><i class="fa-regular fa-bell"></i><span class="ms-notification-dot"></span></button>
         <div class="ms-profile">

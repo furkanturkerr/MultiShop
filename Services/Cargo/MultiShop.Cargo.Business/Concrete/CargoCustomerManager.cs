@@ -29,6 +29,12 @@ public class CargoCustomerManager : ICargoCustomerService
         return _mapper.Map<ResultCargoCustomerDto>(value);
     }
 
+    public async Task<ResultCargoCustomerDto?> TGetByUserCustomerIdAsync(string userCustomerId)
+    {
+        var value = await _cargoCustomerDal.GetByUserCustomerIdAsync(userCustomerId);
+        return value is null ? null : _mapper.Map<ResultCargoCustomerDto>(value);
+    }
+
     public async Task TInsertAsync(CreateCargoCustomerDto dto)
     {
         var value = _mapper.Map<CargoCustomer>(dto);

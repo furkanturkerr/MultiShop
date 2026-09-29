@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Cargo.Business.Abstract;
 using MultiShop.Cargo.Dto.CargoCustomerDtos;
+using MultiShop.Cargo.WebApi.LoginServices;
 
 namespace MultiShop.Cargo.WebApi.Controllers;
 
@@ -9,10 +11,12 @@ namespace MultiShop.Cargo.WebApi.Controllers;
 public class CargoCustomersController : ControllerBase
 {
     private readonly ICargoCustomerService _cargoCustomerService;
+    private readonly ILoginService _loginService;
 
-    public CargoCustomersController(ICargoCustomerService cargoCustomerService)
+    public CargoCustomersController(ICargoCustomerService cargoCustomerService, ILoginService loginService)
     {
         _cargoCustomerService = cargoCustomerService;
+        _loginService = loginService;
     }
 
     [HttpGet]
@@ -31,6 +35,14 @@ public class CargoCustomersController : ControllerBase
             return NotFound();
 
         return Ok(value);
+    }
+
+    [Authorize]
+    [HttpGet("me")]
+    public async Task<IActionResult> GetMyCargoCustomer()
+    {
+        var value = await _cargoCustomerService.TGetByUserCustomerIdAsync(_loginService.GetUserId);
+        return value is null ? NotFound() : Ok(value);
     }
 
     [HttpPost]

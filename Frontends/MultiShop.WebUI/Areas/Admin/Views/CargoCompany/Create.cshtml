@@ -1,0 +1,82 @@
+@model MultiShop.Dtos.CargoDtos.CargoCompanyDtos.CreateCargoCompanyDto
+
+@{
+    ViewData["Title"] = "Yeni Kargo Şirketi";
+    Layout = "_AdminLayout";
+}
+
+<section class="ms-page-head">
+    <div>
+        <span class="ms-kicker">LOJİSTİK YÖNETİMİ</span>
+        <h1>Yeni kargo şirketi</h1>
+        <p>Sipariş teslimatlarında kullanılacak yeni firmayı sisteme ekle.</p>
+    </div>
+
+    <div class="ms-head-actions">
+        <a class="ms-secondary" asp-area="Admin" asp-controller="CargoCompany" asp-action="Index">
+            Vazgeç
+        </a>
+        <button class="ms-primary" type="submit" form="cargoCompanyCreateForm">
+            <i class="fa-solid fa-check"></i>
+            Şirketi Kaydet
+        </button>
+    </div>
+</section>
+
+<form id="cargoCompanyCreateForm"
+      class="ms-form-layout"
+      method="post"
+      asp-area="Admin"
+      asp-controller="CargoCompany"
+      asp-action="Create">
+    @Html.AntiForgeryToken()
+
+    <div class="ms-form-stack">
+        <section class="ms-card ms-form-card">
+            <div class="ms-form-title">
+                <h2>Şirket bilgileri</h2>
+                <p>Yönetim ve sipariş ekranlarında gösterilecek firma adını gir.</p>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="ms-form-grid">
+                <div class="ms-field full">
+                    <label asp-for="CompanyName">Kargo şirketi adı</label>
+                    <input class="ms-input"
+                           asp-for="CompanyName"
+                           maxlength="100"
+                           autocomplete="off"
+                           placeholder="Örn. Yurtiçi Kargo">
+                    <span asp-validation-for="CompanyName" class="text-danger"></span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <aside class="ms-form-stack">
+        <section class="ms-card ms-form-card">
+            <div class="ms-form-title">
+                <h2>Firma kaydı</h2>
+                <p>Kaydettiğin firma teslimat sağlayıcısı listesinde yer alır.</p>
+            </div>
+
+            <div class="ms-switch-row">
+                <div>
+                    <strong><i class="fa-solid fa-truck-fast" style="margin-right:7px;"></i> Kargo sağlayıcısı</strong>
+                    <span>Şirket adı daha sonra güncellenebilir.</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="ms-form-footer">
+            <a class="ms-secondary" asp-area="Admin" asp-controller="CargoCompany" asp-action="Index">
+                Vazgeç
+            </a>
+            <button class="ms-primary" type="submit">
+                <i class="fa-solid fa-check"></i>
+                Şirketi Kaydet
+            </button>
+        </div>
+    </aside>
+</form>

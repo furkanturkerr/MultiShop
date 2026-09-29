@@ -7,6 +7,7 @@ using MultiShop.Cargo.Business.Concrete;
 using MultiShop.Cargo.DataAccess.Abstract;
 using MultiShop.Cargo.DataAccess.Concrete;
 using MultiShop.Cargo.DataAccess.EntityFramework;
+using MultiShop.Cargo.WebApi.LoginServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +45,8 @@ builder.Services.AddScoped<ICargoDetailService, CargoDetailManager>();
 builder.Services.AddScoped<ICargoCompanyService, CargoCompanyManager>();
 builder.Services.AddScoped<ICargoCustomerService, CargoCustomerManager>();
 builder.Services.AddScoped<ICargoOperationService, CargoOperationManager>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ILoginService, LoginService>();
 
 
 // --------------------
@@ -63,6 +66,7 @@ builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.MapInboundClaims = false;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,

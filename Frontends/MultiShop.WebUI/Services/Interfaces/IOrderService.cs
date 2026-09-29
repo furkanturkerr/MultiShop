@@ -7,4 +7,5 @@ public interface IOrderService
 {
     Task<int?> CreateOrderingAsync(CreateOrderingDto dto);
     Task<bool> CreateOrderDetailAsync(CreateOrderDetailDto dto);
+    Task<List<ResultOrderByUserIdDto>> GetMyOrdersAsync();
 }
