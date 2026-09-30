@@ -28,13 +28,17 @@
                         ? "https://placehold.co/150x150/f8f5ef/8a837a?text=Ürün"
                         : item.ProductImageUrl;
 
-                    <tr data-cart-row="@item.ProductId">
+                    <tr data-cart-row="@item.BasketItemId">
                         <td class="align-middle text-left">
                             <img
                                 src="@imageUrl"
                                 alt="@item.ProductName"
                                 style="width: 55px; height: 55px; object-fit: cover; margin-right: 12px;">
                             @item.ProductName
+                            @foreach (var option in item.SelectedOptions)
+                            {
+                                <small class="d-block text-muted">@option.Key: @option.Value</small>
+                            }
                         </td>
 
                         <td class="align-middle">@item.ProductPrice ₺</td>
@@ -44,7 +48,7 @@
                                 <div class="input-group-btn">
                                     <button type="button"
                                             class="btn btn-sm btn-primary js-cart-quantity"
-                                            data-product-id="@item.ProductId"
+                                            data-basket-item-id="@item.BasketItemId"
                                             data-change="-1"
                                             disabled="@(item.Quantity <= 1 ? "disabled" : null)"
                                             aria-label="Ürün adedini azalt">
@@ -60,7 +64,7 @@
                                 <div class="input-group-btn">
                                     <button type="button"
                                             class="btn btn-sm btn-primary js-cart-quantity"
-                                            data-product-id="@item.ProductId"
+                                            data-basket-item-id="@item.BasketItemId"
                                             data-change="1"
                                             aria-label="Ürün adedini artır">
                                         <i class="fa fa-plus"></i>
@@ -72,7 +76,7 @@
                         <td class="align-middle js-cart-line-total">@((item.ProductPrice * item.Quantity).ToString("N0")) ₺</td>
 
                         <td class="align-middle">
-                            <a asp-area="" asp-controller="Cart" asp-action="RemoveBasketItem" asp-route-productId="@item.ProductId" class="btn btn-sm btn-danger">
+                            <a asp-area="" asp-controller="Cart" asp-action="RemoveBasketItem" asp-route-basketItemId="@item.BasketItemId" class="btn btn-sm btn-danger">
                                 <i class="fa fa-times"></i>
                             </a>
                         </td>

@@ -21,12 +21,6 @@ public class ProductDetailReviewViewComponent : ViewComponent
             Form = form ?? new CreateCommentDto { ProductId = id }
         };
 
-        if (HttpContext.User.Identity?.IsAuthenticated != true)
-        {
-            model.LoadError = "Yorumları görüntülemek için giriş yap.";
-            return View(model);
-        }
-
         try
         {
             var comments = await _commentService.GetCommentByProductIdAsync(id);

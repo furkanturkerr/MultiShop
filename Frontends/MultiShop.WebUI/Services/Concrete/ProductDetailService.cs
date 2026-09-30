@@ -17,7 +17,7 @@ public class ProductDetailService : IProductDetailService
         var address = $"catalog/ProductDetails/ProductDetailsByProductId?productId={Uri.EscapeDataString(productId)}";
         var response = await _client.GetAsync(address);
 
-        if (!response.IsSuccessStatusCode)
+        if (!response.IsSuccessStatusCode || response.StatusCode == System.Net.HttpStatusCode.NoContent)
             return null;
 
         return await response.Content.ReadFromJsonAsync<UpdateProductDetailDto>();
@@ -28,7 +28,7 @@ public class ProductDetailService : IProductDetailService
         var address = $"catalog/ProductDetails/ProductDetailsByProductId?productId={Uri.EscapeDataString(productId)}";
         var response = await _client.GetAsync(address);
 
-        if (!response.IsSuccessStatusCode)
+        if (!response.IsSuccessStatusCode || response.StatusCode == System.Net.HttpStatusCode.NoContent)
             return null;
 
         return await response.Content.ReadFromJsonAsync<ResultProductDetailDto>();

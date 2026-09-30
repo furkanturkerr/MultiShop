@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Catalog.Dtos.FeatureSldierDtos;
@@ -17,6 +18,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> CategoryList()
         {
             var values = await _sliderService.GetAllFeatureSliderAsync();
@@ -24,6 +26,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet("status")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetFeatureSliderActiveStatus()
         {
             var values = await _sliderService.GetSliderByStatusAsync();
@@ -31,6 +34,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> CategoryById(string id)
         {
             var value = await _sliderService.GetFeatureSliderByIdAsync(id);
@@ -38,6 +42,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateCategory(CreateFeatureSliderDto categoryDto)
         {
             await _sliderService.CreateFeatureSliderAsync(categoryDto);
@@ -45,6 +50,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateCategory(UpdateFeatureSliderDto categoryDto)
         {
             await _sliderService.UpdateFeatureSliderAsync(categoryDto);
@@ -52,6 +58,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCategory(string id)
         {
             await _sliderService.DeleteFeatureSliderByIdAsync(id);

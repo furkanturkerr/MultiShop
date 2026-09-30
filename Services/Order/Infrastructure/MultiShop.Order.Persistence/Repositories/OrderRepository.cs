@@ -23,4 +23,12 @@ public class OrderRepository : Repository<Ordering>, IOrderRepository
             .OrderByDescending(x => x.OrderDate)
             .ToListAsync();
     }
+
+    public async Task<Ordering?> GetOrderWithDetailsAsync(int id)
+    {
+        return await _orderContext.Orderings
+            .AsNoTracking()
+            .Include(x => x.OrderDetails)
+            .FirstOrDefaultAsync(x => x.OrderingId == id);
+    }
 }

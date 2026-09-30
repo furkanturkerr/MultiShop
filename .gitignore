@@ -6,3 +6,10 @@ riderModule.iml
 
 
 appsettings*.json.DS_Store
+
+# Yerel ayarlar ve gizli bilgiler
+.env
+.env.*
+!.env.example
+appsettings.Local.json
+*.DotSettings.user

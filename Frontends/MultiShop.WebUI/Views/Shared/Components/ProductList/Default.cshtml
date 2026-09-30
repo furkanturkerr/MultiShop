@@ -1,66 +1,48 @@
 @model List<MultiShop.Dtos.CatalogDtos.ProductDtos.ResultProductDto>
+@using System.Globalization
 
-@if (Model != null && Model.Any())
+@if (Model.Any())
 {
     foreach (var item in Model)
     {
-        <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-            <div class="product-item bg-light mb-4">
+        <div class="col-lg-4 col-sm-6 mb-4" data-product-id="@item.ProductId">
+            <article class="product-item bg-light catalog-product h-100">
                 <div class="product-img position-relative overflow-hidden">
-                    <img class="img-fluid w-100"
-                         src="@item.ProductImageUrl"
-                         alt="@item.ProductName">
-
+                    <a asp-area="" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" aria-label="@item.ProductName ürününü incele">
+                        <img class="img-fluid w-100" src="@item.ProductImageUrl" alt="@item.ProductName" loading="lazy" />
+                    </a>
                     <div class="product-action">
-                        <a class="btn btn-outline-dark btn-square" href="">
+                        <a class="btn btn-outline-dark btn-square" asp-area="" asp-controller="Cart" asp-action="AddBasketItem" asp-route-productId="@item.ProductId" aria-label="@item.ProductName ürününü sepete ekle">
                             <i class="fa fa-shopping-cart"></i>
                         </a>
-
-                        <a class="btn btn-outline-dark btn-square" href="">
-                            <i class="far fa-heart"></i>
-                        </a>
-
-                        <a class="btn btn-outline-dark btn-square" href="">
-                            <i class="fa fa-sync-alt"></i>
-                        </a>
-
-                        <a class="btn btn-outline-dark btn-square" href="">
+                        <a class="btn btn-outline-dark btn-square" asp-area="" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" aria-label="Ürünü incele">
                             <i class="fa fa-search"></i>
                         </a>
                     </div>
                 </div>
-
-                <div class="text-center py-4">
-                    <a class="h6 text-decoration-none text-truncate" href="">
-                        @item.ProductName
+                <div class="catalog-product-info">
+                    @if (!string.IsNullOrWhiteSpace(item.CategoryName))
+                    {
+                        <p class="catalog-product-category">@item.CategoryName</p>
+                    }
+                    <a class="catalog-product-name" asp-area="" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId">@item.ProductName</a>
+                    <p class="catalog-product-price" data-price="@item.ProductPrice.ToString(CultureInfo.InvariantCulture)">@item.ProductPrice.ToString("N2", CultureInfo.GetCultureInfo("tr-TR")) <small>₺</small></p>
+                    <a class="btn btn-primary btn-block" asp-area="" asp-controller="Cart" asp-action="AddBasketItem" asp-route-productId="@item.ProductId">
+                        <i class="fa fa-shopping-cart mr-2"></i>Sepete ekle
                     </a>
-
-                    <div class="d-flex align-items-center justify-content-center mt-2">
-                        <h5>@item.ProductPrice ₺</h5>
-
-                        <h6 class="text-muted ml-2">
-                            <del>5.299 ₺</del>
-                        </h6>
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-center mb-1">
-                        <small class="fa fa-star text-primary mr-1"></small>
-                        <small class="fa fa-star text-primary mr-1"></small>
-                        <small class="fa fa-star text-primary mr-1"></small>
-                        <small class="fa fa-star text-primary mr-1"></small>
-                        <small class="fa fa-star text-primary mr-1"></small>
-                        <small>(99)</small>
-                    </div>
                 </div>
-            </div>
+            </article>
         </div>
     }
 }
 else
 {
     <div class="col-12">
-        <div class="bg-light text-center p-5">
-            <h5>Bu kategoride ürün bulunamadı.</h5>
+        <div class="bg-light text-center catalog-empty">
+            <i class="fa fa-search mb-3" aria-hidden="true"></i>
+            <h2>Aradığın ürün bulunamadı</h2>
+            <p>Arama kelimesini veya fiyat aralığını değiştirerek tekrar deneyebilirsin.</p>
+            <a class="btn btn-primary" asp-area="" asp-controller="Product" asp-action="Index" asp-route-id="">Tüm ürünleri göster</a>
         </div>
     </div>
 }

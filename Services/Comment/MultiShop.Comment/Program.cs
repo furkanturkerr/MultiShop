@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,7 +14,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddProblemDetails();
 
-builder.Services.AddDbContext<CommentContext>();
+builder.Services.AddDbContext<CommentContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
@@ -20,8 +23,12 @@ var jwtSettings = builder.Configuration.GetSection("Jwt");
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.MapInboundClaims = false;
         options.TokenValidationParameters = new TokenValidationParameters
         {
+            RequireSignedTokens = true,
+            RequireExpirationTime = true,
+            ValidAlgorithms = new[] { SecurityAlgorithms.HmacSha256 },
             ValidateIssuer = true,
             ValidIssuer = jwtSettings["Issuer"],
 
@@ -41,7 +48,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .RequireAssertion(context => !string.IsNullOrWhiteSpace(context.User.FindFirst("sub")?.Value))
+        .Build();
+    options.DefaultPolicy = policy;
+    options.FallbackPolicy = policy;
+});
 
 var app = builder.Build();
 

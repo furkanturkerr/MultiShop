@@ -1,19 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
-using MultiShop.WebUI.Services.Interfaces;
+using MultiShop.Dtos.CatalogDtos.ProductDtos;
 
 namespace MultiShop.WebUI.ViewComponents.Product;
 
 public class ProductListViewComponent : ViewComponent
 {
-    private readonly IProductService _productService;
-
-    public ProductListViewComponent(IProductService productService)
+    public IViewComponentResult Invoke(List<ResultProductDto> products)
     {
-        _productService = productService;
-    }
-
-    public async Task<IViewComponentResult> InvokeAsync(string categoryId)
-    {
-        return View(await _productService.GetProductByCategoryIdAsync(categoryId));
+        return View(products);
     }
 }

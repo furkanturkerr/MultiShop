@@ -6,6 +6,7 @@ using MultiShop.Cargo.WebApi.LoginServices;
 
 namespace MultiShop.Cargo.WebApi.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class CargoCustomersController : ControllerBase
@@ -20,6 +21,7 @@ public class CargoCustomersController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin,Manager")]
     public async Task<IActionResult> GetAll()
     {
         var values = await _cargoCustomerService.TGetAllAsync();
@@ -27,6 +29,7 @@ public class CargoCustomersController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize(Roles = "Admin,Manager")]
     public async Task<IActionResult> GetById(int id)
     {
         var value = await _cargoCustomerService.TGetByIdAsync(id);
@@ -46,6 +49,7 @@ public class CargoCustomersController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin,Manager")]
     public async Task<IActionResult> Create(CreateCargoCustomerDto dto)
     {
         await _cargoCustomerService.TInsertAsync(dto);
@@ -53,6 +57,7 @@ public class CargoCustomersController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize(Roles = "Admin,Manager")]
     public async Task<IActionResult> Update(UpdateCargoCustomerDto dto)
     {
         await _cargoCustomerService.TUpdateAsync(dto);
@@ -60,6 +65,7 @@ public class CargoCustomersController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin,Manager")]
     public async Task<IActionResult> Delete(int id)
     {
         await _cargoCustomerService.TDeleteAsync(id);

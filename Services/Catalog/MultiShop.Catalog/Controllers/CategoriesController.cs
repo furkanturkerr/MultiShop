@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Catalog.Dtos.CategoryDtos;
 using MultiShop.Catalog.Services.CategoryServices;
@@ -16,6 +17,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> CategoryList()
         {
             var values = await _categoryService.GetAllCategoriesAsync();
@@ -23,6 +25,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> CategoryById(string id)
         {
             var value = await _categoryService.GetCategoryByIdAsync(id);
@@ -30,6 +33,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateCategory(CreateCategoryDto categoryDto)
         {
             await _categoryService.CreateCategoryAsync(categoryDto);
@@ -37,6 +41,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateCategory(UpdateCategoryDto categoryDto)
         {
             await _categoryService.UpdateCategoryAsync(categoryDto);
@@ -44,6 +49,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCategory(string id)
         {
             await _categoryService.DeleteCategoryByIdAsync(id);

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Catalog.Dtos.BrandDtos;
@@ -17,6 +18,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> BrandList()
         {
             var values = await _brandService.GetAllBrandAsync();
@@ -24,6 +26,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet("status")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetBrandActiveStatus()
         {
             var values = await _brandService.GetBrandByStatusAsync();
@@ -31,6 +34,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> BrandById(string id)
         {
             var value = await _brandService.GetBrandByIdAsync(id);
@@ -38,6 +42,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateBrand(CreateBrandDto brandDto)
         {
             await _brandService.CreateBrandAsync(brandDto);
@@ -45,6 +50,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateBrand(UpdateBrandDto brandDto)
         {
             await _brandService.UpdateBrandAsync(brandDto);
@@ -52,6 +58,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteBrand(string id)
         {
             await _brandService.DeleteBrandByIdAsync(id);

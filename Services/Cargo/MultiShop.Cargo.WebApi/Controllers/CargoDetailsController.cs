@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Cargo.Business.Abstract;
 using MultiShop.Cargo.Dto.CargoDetailDtos;
 
 namespace MultiShop.Cargo.WebApi.Controllers;
 
+[Authorize(Roles = "Admin,Manager")]
 [ApiController]
 [Route("api/[controller]")]
 public class CargoDetailsController : ControllerBase

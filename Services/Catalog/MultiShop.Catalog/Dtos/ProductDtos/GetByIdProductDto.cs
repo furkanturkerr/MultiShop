@@ -13,4 +13,5 @@ public class GetByIdProductDto
     public string ProductImageUrl { get; set; }
 
     public string CategoryId { get; set; }
+    public List<ProductOptionDto> Options { get; set; } = new();
 }

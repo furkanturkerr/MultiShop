@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MultiShop.Dtos.OrderDtos.OrderAddressDtos;
 using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.Areas.Admin.Controllers;
@@ -8,15 +9,24 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 [Authorize(Roles = "Admin,Manager")]
 public class CargoCustomerController : Controller
 {
-    private readonly ICargoCustomerService _cargoCustomerService;
+    private readonly IOrderAddressService _addressService;
 
-    public CargoCustomerController(ICargoCustomerService cargoCustomerService)
+    public CargoCustomerController(IOrderAddressService addressService)
     {
-        _cargoCustomerService = cargoCustomerService;
+        _addressService = addressService;
     }
 
     public async Task<IActionResult> Index()
     {
-        return View(await _cargoCustomerService.GetAllAsync());
+        try
+        {
+            var addresses = await _addressService.GetAllOrderAddressesAsync();
+            return View(addresses.OrderByDescending(x => x.AddressId).ToList());
+        }
+        catch (HttpRequestException)
+        {
+            ViewData["LoadError"] = "Müşteri adresleri alınamadı. Order servisi ve Gateway bağlantısını kontrol et.";
+            return View(new List<ResultOrderAddressDto>());
+        }
     }
 }

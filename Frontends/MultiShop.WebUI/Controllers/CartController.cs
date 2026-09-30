@@ -8,12 +8,10 @@ namespace MultiShop.WebUI.Controllers;
 [Authorize]
 public class CartController : Controller
 {
-    private readonly IProductService _productService;
     private readonly IBasketService _basketService;
 
-    public CartController(IProductService productService, IBasketService basketService)
+    public CartController(IBasketService basketService)
     {
-        _productService = productService;
         _basketService = basketService;
     }
 
@@ -28,40 +26,42 @@ public class CartController : Controller
         if (string.IsNullOrWhiteSpace(productId))
             return BadRequest();
 
-        var values = await _productService.GetByIdProductAsync(productId);
-        if (values is null)
-            return NotFound();
+        if (!await _basketService.AddProductAsync(new AddBasketItemDto { ProductId = productId }))
+            return RedirectToAction("Detail", "Product", new { id = productId });
 
-        var items = new BasketItemDto
-        {
-            ProductId = values.ProductId,
-            ProductName = values.ProductName,
-            ProductImageUrl = values.ProductImageUrl,
-            ProductPrice = values.ProductPrice,
-            Quantity = 1
-        };
-        await _basketService.AddBasketItemAsync(items);
-        return RedirectToAction("Index");
-    }
-
-    public async Task<IActionResult> RemoveBasketItem(string productId)
-    {
-        await _basketService.RemoveBasketItemAsync(productId);
         return RedirectToAction("Index");
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> UpdateQuantity(string productId, int quantity)
+    public async Task<IActionResult> AddSelectedItem(AddBasketItemDto selection)
     {
-        if (string.IsNullOrWhiteSpace(productId) || quantity is < 1 or > 99)
+        if (!ModelState.IsValid || !await _basketService.AddProductAsync(selection))
+        {
+            TempData["ProductSelectionError"] = "Ürünün tüm seçeneklerini seçip tekrar deneyin.";
+            return RedirectToAction("Detail", "Product", new { id = selection.ProductId });
+        }
+        return RedirectToAction("Index");
+    }
+
+    public async Task<IActionResult> RemoveBasketItem(string basketItemId)
+    {
+        await _basketService.RemoveBasketItemAsync(basketItemId);
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UpdateQuantity(string basketItemId, int quantity)
+    {
+        if (string.IsNullOrWhiteSpace(basketItemId) || quantity is < 1 or > 99)
             return BadRequest(new { success = false, message = "Ürün adedi 1 ile 99 arasında olmalıdır." });
 
-        var basket = await _basketService.UpdateBasketItemQuantityAsync(productId, quantity);
+        var basket = await _basketService.UpdateBasketItemQuantityAsync(basketItemId, quantity);
         if (basket is null)
             return NotFound(new { success = false, message = "Sepetteki ürün bulunamadı." });
 
-        var basketItem = basket.BasketItems.First(x => x.ProductId == productId);
+        var basketItem = basket.BasketItems.First(x => x.BasketItemId == basketItemId);
 
         return Json(new
         {

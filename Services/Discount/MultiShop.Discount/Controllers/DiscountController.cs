@@ -7,6 +7,7 @@ namespace MultiShop.Discount.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     
     public class DiscountController : ControllerBase
     {
@@ -22,6 +23,8 @@ namespace MultiShop.Discount.Controllers
         public async Task<IActionResult> GetAll()
         {
             var values = await _discountService.GetAllCouponsAsync();
+            if (!User.IsInRole("Admin") && !User.IsInRole("Manager"))
+                values = values.Where(x => x.IsActive && x.ValidDate >= DateTime.Today && x.Rate > 0 && x.Rate <= 100).ToList();
             return Ok(values);
         }
 
@@ -41,6 +44,7 @@ namespace MultiShop.Discount.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Create(CreateCouponDto dto)
         {
             await _discountService.CreateCouponAsync(dto);
@@ -48,6 +52,7 @@ namespace MultiShop.Discount.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Update(UpdateCouponDto dto)
         {
             await _discountService.UpdateCouponAsync(dto);
@@ -55,6 +60,7 @@ namespace MultiShop.Discount.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Delete(int id)
         {
             await _discountService.DeleteCouponAsync(id);

@@ -1,13 +1,28 @@
 @model List<MultiShop.Dtos.CatalogDtos.ProductDtos.ResultProductDto>
 
-<div class="container-fluid pt-5 pb-3">
+<style>
+    .home-products .product-img img {
+        display: block;
+        height: 260px;
+        object-fit: contain;
+        background: #fff;
+    }
+
+    @@media (max-width: 575px) {
+        .home-products .product-img img {
+            height: 220px;
+        }
+    }
+</style>
+
+<div class="container-fluid pt-5 pb-3 home-products">
     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
         <span class="bg-secondary pr-3">Öne Çıkan Ürünler</span>
     </h2>
 
     <div class="row px-xl-5">
         
-        @foreach (var item in Model)
+        @foreach (var item in Model.Take(8))
         {
             
             decimal x = ((@item.ProductPrice / 100) *15 ) + @item.ProductPrice;
@@ -23,20 +38,14 @@
                         <a class="btn btn-outline-dark btn-square" asp-area="" asp-controller="Cart" asp-action="AddBasketItem" asp-route-productId="@item.ProductId" >
                             <i class="fa fa-shopping-cart"></i>
                         </a>
-                        <a class="btn btn-outline-dark btn-square" href="">
-                            <i class="far fa-heart"></i>
-                        </a>
-                        <a class="btn btn-outline-dark btn-square" href="">
-                            <i class="fa fa-sync-alt"></i>
-                        </a>
-                        <a class="btn btn-outline-dark btn-square" href="">
+                        <a class="btn btn-outline-dark btn-square" asp-area="" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" aria-label="Ürünü incele">
                             <i class="fa fa-search"></i>
                         </a>
                     </div>
                 </div>
 
                 <div class="text-center py-4">
-                    <a asp-area="" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" class="h6 text-decoration-none text-truncate" >
+                    <a asp-area="" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" class="h6 d-block text-decoration-none text-truncate" title="@item.ProductName">
                         @item.ProductName
                     </a>
 

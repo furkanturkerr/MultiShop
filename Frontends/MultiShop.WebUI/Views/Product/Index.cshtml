@@ -1,83 +1,41 @@
-@model dynamic
+@model MultiShop.WebUI.Models.Product.ProductListViewModel
 
 @{
     Layout = "_Layout";
+    var filters = Model.Filters;
+    var selectedCategory = Model.Categories.FirstOrDefault(category => category.CategoryId == filters.CategoryId);
+    var title = selectedCategory?.CategoryName ?? "Tüm Ürünler";
 }
 
-<div class="container-fluid">
+<link rel="stylesheet" href="~/css/product-catalog.css" asp-append-version="true" />
+
+<div class="container-fluid catalog-page">
     <div class="row px-xl-5">
         <div class="col-12">
-            <nav class="breadcrumb bg-light mb-30">
-                <a class="breadcrumb-item text-dark" href="#">Home</a>
-                <a class="breadcrumb-item text-dark" href="#">Shop</a>
-                <span class="breadcrumb-item active">Shop List</span>
+            <nav class="breadcrumb bg-light mb-4" aria-label="Gezinti">
+                <a class="breadcrumb-item text-dark" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
+                @if (selectedCategory is not null)
+                {
+                    <a class="breadcrumb-item text-dark" asp-area="" asp-controller="Product" asp-action="Index" asp-route-id="">Mağaza</a>
+                }
+                <span class="breadcrumb-item active" aria-current="page">@title</span>
             </nav>
-        </div>
-    </div>
-</div>
-
-
-<div class="container-fluid">
-    <div class="row px-xl-5">
-        <div class="col-lg-3 col-md-4">
-
-            @await Component.InvokeAsync("ProductPriceFilter")
-
-            @await Component.InvokeAsync("ProductColorFilter")
-
-            @await Component.InvokeAsync("ProductSizeFilter")
-
-        </div>
-
-        <div class="col-lg-9 col-md-8">
-            <div class="row pb-3">
-                <div class="col-12 pb-1">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div>
-                            <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
-                            <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
-                        </div>
-                        <div class="ml-2">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                                        data-toggle="dropdown">Sırala
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">En Yeni</a>
-                                    <a class="dropdown-item" href="#">En Popüler</a>
-                                    <a class="dropdown-item" href="#">En Yüksek Puan</a>
-                                </div>
-                            </div>
-                            <div class="btn-group ml-2">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                                        data-toggle="dropdown">Gösterim
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">10</a>
-                                    <a class="dropdown-item" href="#">20</a>
-                                    <a class="dropdown-item" href="#">30</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="catalog-heading">
+                <div>
+                    <span class="catalog-eyebrow">MULTISHOP MAĞAZA</span>
+                    <h1>@title</h1>
+                    <p>İhtiyacına uygun ürünleri keşfet, seçeneklerini daralt.</p>
                 </div>
-
-
-
-                @await Component.InvokeAsync("ProductList", new { categoryId = ViewBag.Id })                
-
-                <div class="col-12">
-                    <nav>
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled"><a class="page-link" href="#">Önceki</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Sonraki</a></li>
-                        </ul>
-                    </nav>
-                </div>
+                <span class="catalog-total">@Model.TotalCount ürün</span>
             </div>
         </div>
+        <partial name="_Filters" model="Model" />
+        <main class="col-lg-9 col-md-8">
+            <partial name="_Toolbar" model="Model" />
+            <div class="row catalog-grid">
+                @await Component.InvokeAsync("ProductList", new { products = Model.Products })
+            </div>
+            <partial name="_Pagination" model="Model" />
+        </main>
     </div>
 </div>

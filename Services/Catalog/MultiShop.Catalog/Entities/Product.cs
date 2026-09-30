@@ -21,6 +21,8 @@ public class Product
     [BsonRepresentation(BsonType.ObjectId)]
     public string CategoryId { get; set; }
 
+    public List<ProductOption> Options { get; set; } = new();
+
     [BsonIgnore] 
     public Category Category { get; set; }
 }

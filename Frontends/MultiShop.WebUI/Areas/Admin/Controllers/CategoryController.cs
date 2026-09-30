@@ -27,16 +27,18 @@ public class CategoryController : Controller
 
     public IActionResult Create()
     {
-        return View();
+        return View(new CreateCategoryDto());
     }
 
     [HttpPost]
     public async Task<IActionResult> Create(CreateCategoryDto dto)
     {
-        if (await _categoryService.CreateCategoryAsync(dto))
+        if (ModelState.IsValid && await _categoryService.CreateCategoryAsync(dto))
         {
             return RedirectToAction("Index");
         }
+        if (ModelState.IsValid)
+            ModelState.AddModelError(string.Empty, "Kategori kaydedilemedi. Lütfen tekrar deneyin.");
         return View(dto);
     }
 
@@ -50,10 +52,12 @@ public class CategoryController : Controller
     [HttpPost]
     public async Task<IActionResult> Update(UpdateCategoryDto dto)
     {
-        if (await _categoryService.UpdateCategoryAsync(dto))
+        if (ModelState.IsValid && await _categoryService.UpdateCategoryAsync(dto))
         {
             return RedirectToAction("Index");
         }
+        if (ModelState.IsValid)
+            ModelState.AddModelError(string.Empty, "Kategori kaydedilemedi. Lütfen tekrar deneyin.");
         return View(dto);
     }
 

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -69,6 +70,9 @@ builder.Services
         options.MapInboundClaims = false;
         options.TokenValidationParameters = new TokenValidationParameters
         {
+            RequireSignedTokens = true,
+            RequireExpirationTime = true,
+            ValidAlgorithms = new[] { SecurityAlgorithms.HmacSha256 },
             ValidateIssuer = true,
             ValidIssuer = jwtSettings["Issuer"],
 
@@ -88,7 +92,15 @@ builder.Services
         };
     });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .RequireAssertion(context => !string.IsNullOrWhiteSpace(context.User.FindFirst("sub")?.Value))
+        .Build();
+    options.DefaultPolicy = policy;
+    options.FallbackPolicy = policy;
+});
 
 
 var app = builder.Build();

@@ -14,9 +14,11 @@ public class GetAddressByIdQueryHandler
         _addressRepository = addressRepository;
     }
 
-    public async Task<GetAddressByIdQueryResult> Handler(GetAddressByIdQuery query)
+    public async Task<GetAddressByIdQueryResult?> Handler(GetAddressByIdQuery query)
     {
         var values = await _addressRepository.GetByIdAsync(query.Id);
+        if (values is null)
+            return null;
         return new GetAddressByIdQueryResult
         {
             AddressId = values.AddressId,

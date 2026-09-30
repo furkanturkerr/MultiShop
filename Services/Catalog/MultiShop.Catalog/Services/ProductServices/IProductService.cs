@@ -4,13 +4,15 @@ namespace MultiShop.Catalog.Services.ProductServices;
 
 public interface IProductService
 {
+    Task<ProductListResultDto> GetFilteredProductsAsync(ProductFilterDto filters, CancellationToken cancellationToken = default);
+
     Task<List<ResultProductDto>> GetAllCategoriesAsync();
 
-    Task CreateProductAsync(CreateProductDto dto);
+    Task<bool> CreateProductAsync(CreateProductDto dto);
 
-    Task UpdateProductAsync(UpdateProductDto dto);
+    Task<bool> UpdateProductAsync(UpdateProductDto dto);
 
-    Task<GetByIdProductDto> GetProductByIdAsync(string id);
+    Task<GetByIdProductDto?> GetProductByIdAsync(string id);
 
     Task DeleteProductByIdAsync(string id);
     

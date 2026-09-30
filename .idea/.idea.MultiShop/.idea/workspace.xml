@@ -33,46 +33,158 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a23ce34b-932c-455d-908f-0a29ca40f879" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/CargoDtos/CargoCompanyDtos/CreateCargoCompanyDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/CargoDtos/CargoCompanyDtos/ResultCargoCompanyDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/CargoDtos/CargoCompanyDtos/UpdateCargoCompanyDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/OrderDtos/OrderingDtos/ResultOrderByUserIdDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/User/Controllers/OrderController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/User/Views/Order/OrderHistory.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Handlers/OrderingHandlers/GetOrderByUserIdQueryHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Queries/OrderingQueries/GetOrderByUserIdQuery.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Results/OrderingResults/GetOrderByUserQueryResult.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Interfaces/IOrderRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/Order/Infrastructure/MultiShop.Order.Persistence/Repositories/OrderRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/MultiShop.Basket.Tests/BasketTotalDtoTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/MultiShop.Basket.Tests/BasketsControllerTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/MultiShop.IdentityServer.Tests/Controllers/AuthControllerTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/MultiShop.IdentityServer.Tests/Services/JwtTokenServiceTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/MultiShop.Order.Application.Tests/CreateOrderingCommandHandlerTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/MultiShop.Order.Application.Tests/GetOrderingByIdHandlerTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MultiShop/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MultiShop/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/OrderDtos/OrderingDtos/CreateOrderingDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/OrderDtos/OrderingDtos/CreateOrderingDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApiGateway/MultiShop.OcelotGateway/Ocelot.json" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGateway/MultiShop.OcelotGateway/Ocelot.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/BasketDtos/BasketItemDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/BasketDtos/BasketItemDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/CatalogDtos/CategoryDtos/CreateCategoryDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/CatalogDtos/CategoryDtos/CreateCategoryDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/CatalogDtos/CategoryDtos/ResultCategoryDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/CatalogDtos/CategoryDtos/ResultCategoryDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/CatalogDtos/CategoryDtos/UpdateCategoryDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/CatalogDtos/CategoryDtos/UpdateCategoryDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/CatalogDtos/ProductDtos/CreateProductDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/CatalogDtos/ProductDtos/CreateProductDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/CatalogDtos/ProductDtos/UpdateProductDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.Dtos/CatalogDtos/ProductDtos/UpdateProductDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Controllers/CargoCustomerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Controllers/CargoCustomerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Controllers/CategoryController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Controllers/CategoryController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Controllers/ProductController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Controllers/ProductController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/CargoCustomer/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/CargoCustomer/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Category/Create.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Category/Create.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Category/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Category/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Category/Update.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Category/Update.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Product/Create.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Product/Create.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Product/ProductList.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Product/ProductList.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Product/Update.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Product/Update.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Shared/Partials/_Sidebar.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Shared/Partials/_Sidebar.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Shared/Partials/_Topbar.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Shared/Partials/_Topbar.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Shared/_AdminLayout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Areas/Admin/Views/Shared/_AdminLayout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Controllers/CartController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Controllers/CartController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Controllers/OrderController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Controllers/OrderController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Controllers/ProductController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Controllers/ProductController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/MultiShop.WebUI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/MultiShop.WebUI.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Concrete/BasketService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Concrete/BasketService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Concrete/OrderAddressService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Concrete/OrderAddressService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Concrete/OrderService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Concrete/OrderService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Concrete/ProductDetailService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Concrete/ProductDetailService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Concrete/ProductImageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Concrete/ProductImageService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Concrete/ProductService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Concrete/ProductService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Interfaces/IBasketService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Interfaces/IBasketService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Interfaces/IOrderService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Interfaces/IOrderService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Interfaces/IProductService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Services/Interfaces/IProductService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/ViewComponents/Product/ProductDetail/ProductDetailFeatureViewComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/ViewComponents/Product/ProductDetail/ProductDetailFeatureViewComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/ViewComponents/Product/ProductDetail/ProductDetailImagesViewComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/ViewComponents/Product/ProductDetail/ProductDetailImagesViewComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/ViewComponents/Product/ProductDetail/ProductDetailReviewViewComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/ViewComponents/Product/ProductDetail/ProductDetailReviewViewComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/ViewComponents/Product/ProductListViewComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/ViewComponents/Product/ProductListViewComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Product/Detail.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Product/Detail.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Product/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Product/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/CartProductList/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/CartProductList/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/HomeCarousel/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/HomeCarousel/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/HomeCategories/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/HomeCategories/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/HomeOffer/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/HomeOffer/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/HomeProducts/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/HomeProducts/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/HomeSpacialOffer/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/HomeSpacialOffer/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/NavbarCategories/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/NavbarCategories/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/OrderSummary/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/OrderSummary/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/ProductDetailDescription/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/ProductDetailDescription/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/ProductDetailFeature/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/ProductDetailFeature/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/ProductDetailImages/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/ProductDetailImages/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/ProductDetailInformation/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/ProductDetailInformation/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/ProductList/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Components/ProductList/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Partials/_Footer.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Partials/_Footer.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Partials/_Navbar.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/Views/Shared/Partials/_Navbar.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/wwwroot/multishop-admin-modern-v5/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/wwwroot/multishop-admin-modern-v5/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/wwwroot/online-shop-website-template/js/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontends/MultiShop.WebUI/wwwroot/online-shop-website-template/js/cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IdentityServer/MultiShop.IdentityServer/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IdentityServer/MultiShop.IdentityServer/Controllers/AuthController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IdentityServer/MultiShop.IdentityServer/MultiShop.IdentityServer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/IdentityServer/MultiShop.IdentityServer/MultiShop.IdentityServer.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IdentityServer/MultiShop.IdentityServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IdentityServer/MultiShop.IdentityServer/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IdentityServer/MultiShop.IdentityServer/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/IdentityServer/MultiShop.IdentityServer/appsettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MultiShop.sln" beforeDir="false" afterPath="$PROJECT_DIR$/MultiShop.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.Business/Abstract/ICargoCustomerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.Business/Abstract/ICargoCustomerService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.Business/Concrete/CargoCustomerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.Business/Concrete/CargoCustomerManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.DataAccess/Abstract/ICargoCustomerDal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.DataAccess/Abstract/ICargoCustomerDal.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.DataAccess/Concrete/CargoContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.DataAccess/Concrete/CargoContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.DataAccess/EntityFramework/EfCargoCustomerDal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.DataAccess/EntityFramework/EfCargoCustomerDal.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.DataAccess/Migrations/CargoContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.DataAccess/Migrations/CargoContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.Dtos/CargoCustomerDtos/CreateCargoCustomerDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.Dtos/CargoCustomerDtos/CreateCargoCustomerDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.Dtos/CargoCustomerDtos/ResultCargoCustomerDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.Dtos/CargoCustomerDtos/ResultCargoCustomerDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.Dtos/CargoCustomerDtos/UpdateCargoCustomerDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.Dtos/CargoCustomerDtos/UpdateCargoCustomerDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.Entities/Concrete/CargoCustomer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.Entities/Concrete/CargoCustomer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Basket/MultiShop.Basket/Controllers/BasketsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Basket/MultiShop.Basket/Controllers/BasketsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Basket/MultiShop.Basket/Dtos/BasketItemDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Basket/MultiShop.Basket/Dtos/BasketItemDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Basket/MultiShop.Basket/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Basket/MultiShop.Basket/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Basket/MultiShop.Basket/Settings/BasketService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Basket/MultiShop.Basket/Settings/BasketService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Basket/MultiShop.Basket/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Basket/MultiShop.Basket/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/Controllers/CargoCompaniesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/Controllers/CargoCompaniesController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/Controllers/CargoCustomersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/Controllers/CargoCustomersController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/Controllers/CargoDetailsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/Controllers/CargoDetailsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/Controllers/CargoOperationsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/Controllers/CargoOperationsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/Controllers/}.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/Controllers/}.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/MultiShop.Cargo.WebApi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/MultiShop.Cargo.WebApi.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Cargo/MultiShop.Cargo.WebApi/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/BrandController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/BrandController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/CategoriesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/CategoriesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/FeatureSliderController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/FeatureSliderController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/FeaturedController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/FeaturedController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/OfferDiscountController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/OfferDiscountController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/ProductDetailsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/ProductDetailsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/ProductImagesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/ProductImagesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/ProductsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/ProductsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/SpecialOfferController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Controllers/SpecialOfferController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Dtos/CategoryDtos/CreateCategoryDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Dtos/CategoryDtos/CreateCategoryDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Dtos/CategoryDtos/GetByIdCategoryDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Dtos/CategoryDtos/GetByIdCategoryDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Dtos/CategoryDtos/ResultCategoryDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Dtos/CategoryDtos/ResultCategoryDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Dtos/CategoryDtos/UpdateCategoryDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Dtos/CategoryDtos/UpdateCategoryDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Dtos/ProductDtos/CreateProductDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Dtos/ProductDtos/CreateProductDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Dtos/ProductDtos/GetByIdProductDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Dtos/ProductDtos/GetByIdProductDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Dtos/ProductDtos/UpdateProductDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Dtos/ProductDtos/UpdateProductDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Entities/Category.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Entities/Category.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Entities/Product.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Entities/Product.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Mapping/GeneralMapping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Mapping/GeneralMapping.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/MultiShop.Catalog.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/MultiShop.Catalog.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Services/CategoryServices/CategoryService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Services/CategoryServices/CategoryService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Services/ProductServices/IProductService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Services/ProductServices/IProductService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Services/ProductServices/ProductService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/Services/ProductServices/ProductService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Catalog/MultiShop.Catalog/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Comment/MultiShop.Comment/Context/CommentContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Comment/MultiShop.Comment/Context/CommentContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Comment/MultiShop.Comment/Controllers/CommentsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Comment/MultiShop.Comment/Controllers/CommentsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Comment/MultiShop.Comment/MultiShop.Comment.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Comment/MultiShop.Comment/MultiShop.Comment.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Comment/MultiShop.Comment/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Comment/MultiShop.Comment/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Comment/MultiShop.Comment/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Comment/MultiShop.Comment/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discount/Controllers/DiscountController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Discount/MultiShop.Discount/Controllers/DiscountController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discount/MultiShop.Discount.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Discount/MultiShop.Discount/MultiShop.Discount.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discount/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Discount/MultiShop.Discount/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discount/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Discount/MultiShop.Discount/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Components/App.razor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Components/Layout/MainLayout.razor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Components/Layout/MainLayout.razor.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Components/Layout/NavMenu.razor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Components/Layout/NavMenu.razor.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Components/Pages/Counter.razor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Components/Pages/Error.razor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Components/Pages/Home.razor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Components/Pages/Weather.razor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Components/Routes.razor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Components/_Imports.razor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Migrations/20260904200403_Initial.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Migrations/20260904200403_Initial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Migrations/DapperContextModelSnapshot.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/MultiShop.Discounts.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Properties/launchSettings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/appsettings.Development.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/appsettings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/wwwroot/app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/wwwroot/bootstrap/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/wwwroot/bootstrap/bootstrap.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/wwwroot/favicon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Message/MultiShop.OrderCreatedConsumer/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Message/MultiShop.OrderCreatedConsumer/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/CQRS/Handlers/AddressHandlers/GetAddressByIdQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/CQRS/Handlers/AddressHandlers/GetAddressByIdQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Commands/OrderingCommands/CreateOrderingCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Commands/OrderingCommands/CreateOrderingCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Handlers/OrderingHandlers/CreateOrderingCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Handlers/OrderingHandlers/CreateOrderingCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Interfaces/IOrderRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Interfaces/IOrderRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Order/Infrastructure/MultiShop.Order.Persistence/Context/OrderContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Order/Infrastructure/MultiShop.Order.Persistence/Context/OrderContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Order/Infrastructure/MultiShop.Order.Persistence/Repositories/OrderRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Order/Infrastructure/MultiShop.Order.Persistence/Repositories/OrderRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Order/Presentation/MultiShop.Order.WebApi/Controllers/AddressesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Order/Presentation/MultiShop.Order.WebApi/Controllers/AddressesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Order/Presentation/MultiShop.Order.WebApi/Controllers/OrderDetailsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Order/Presentation/MultiShop.Order.WebApi/Controllers/OrderDetailsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Order/Presentation/MultiShop.Order.WebApi/Controllers/OrderingsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Order/Presentation/MultiShop.Order.WebApi/Controllers/OrderingsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Order/Presentation/MultiShop.Order.WebApi/MultiShop.Order.WebApi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Order/Presentation/MultiShop.Order.WebApi/MultiShop.Order.WebApi.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Order/Presentation/MultiShop.Order.WebApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Order/Presentation/MultiShop.Order.WebApi/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Order/Presentation/MultiShop.Order.WebApi/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Order/Presentation/MultiShop.Order.WebApi/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.infrastructure.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.infrastructure.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +195,7 @@
     <option name="firstShow" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="21" />
+    <option name="cachedIndexableFilesCount" value="10" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -308,9 +420,6 @@
     <setting file="file://$PROJECT_DIR$/Services/Discount/MultiShop.Discount/Entities/Coupon.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Services/Discount/MultiShop.Discount/Services/DiscountService.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Services/Discount/MultiShop.Discount/Services/IDiscountService.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Components/Layout/NavMenu.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/Program.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Services/Discount/MultiShop.Discounts/appsettings.json" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Commands/OrderingCommands/CreateOrderingCommand.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Commands/OrderingCommands/RemoveOrderingCommand.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Commands/OrderingCommands/UpdateOrderingCommand.cs" root0="FORCE_HIGHLIGHTING" />
@@ -322,11 +431,9 @@
     <setting file="file://$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Handlers/OrderingHandlers/UpdateOrderingCommandHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Queries/OrderingQueries/GetOrderingByIdQuery.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Queries/OrderingQueries/GetOrderingQuery.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Queries/OrderingQueries/OrderByUserId.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Results/OrderingResults/GetOrderByUserQueryResult.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Results/OrderingResults/GetOrderingByIdQueryResult.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Features/Mediator/Results/OrderingResults/GetOrderingQueryResult.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Interfaces/IOrderService.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Interfaces/IRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Application/Services/ServiceRegistiration.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Services/Order/Core/MultiShop.Order.Domain/Entities/Address.cs" root0="FORCE_HIGHLIGHTING" />
@@ -335,6 +442,17 @@
     <setting file="file://$PROJECT_DIR$/Services/Order/Infrastructure/MultiShop.Order.Persistence/Context/OrderContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Services/Order/Infrastructure/MultiShop.Order.Persistence/Repositories/OrderRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Services/Order/Infrastructure/MultiShop.Order.Persistence/Repositories/Repository.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Tests/MultiShop.Basket.Tests/BasketTotalDtoTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Tests/MultiShop.Basket.Tests/BasketsControllerTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Tests/MultiShop.IdentityServer.Tests/Controllers/AuthControllerTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Tests/MultiShop.IdentityServer.Tests/Services/JwtTokenServiceTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Tests/MultiShop.IdentityServer.Tests/UnitTest1.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Tests/MultiShop.Order.Application.Tests/CreateOrderingCommandHandlerTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Tests/MultiShop.Order.Application.Tests/GetOrderingByIdHandlerTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///Users/furkanturker/RiderProjects/MultiShop/Frontends/MultiShop.WebUI/Controllers/ProductController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/furkanturker/RiderProjects/MultiShop/Frontends/MultiShop.WebUI/Services/Concrete/ProductService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/furkanturker/RiderProjects/MultiShop/Frontends/MultiShop.WebUI/ViewComponents/Product/ProductListViewComponent.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/furkanturker/RiderProjects/MultiShop/Frontends/MultiShop.WebUI/Views/Shared/Components/HomeSpacialOffer/Default.cshtml" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
   </component>
   <component name="McpProjectServerCommands">
     <commands />
@@ -343,61 +461,61 @@
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="4.471740199895116E-20" />
-      <entry key="MS500" value="2.3473025853190424E-4" />
-      <entry key="S2" value="0.20816049698029845" />
-      <entry key="S5" value="0.8090637291843351" />
-      <entry key="S10" value="1.2779742305535073" />
-      <entry key="S30" value="2.427809555840004" />
-      <entry key="S60" value="4.6355163075134165" />
-      <entry key="M2" value="7.647199407765601" />
-      <entry key="M5" value="13.32457469839406" />
-      <entry key="M10" value="27.26695471156105" />
-      <entry key="M15" value="41.70901928964556" />
-      <entry key="M30" value="73.2383444173275" />
-      <entry key="H1" value="106.17818560236672" />
-      <entry key="H2" value="137.57349373867424" />
-      <entry key="H4" value="194.86356875585787" />
-      <entry key="D1" value="930.6795360506853" />
-      <entry key="W1" value="2357.9089284335682" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0" />
+      <entry key="S60" value="1.0" />
+      <entry key="M2" value="1.000000000000002" />
+      <entry key="M5" value="1.0000121414779564" />
+      <entry key="M10" value="1.0243404692883546" />
+      <entry key="M15" value="1.3100984744348259" />
+      <entry key="M30" value="4.969855969340745" />
+      <entry key="H1" value="15.660377775866584" />
+      <entry key="H2" value="36.78962531817697" />
+      <entry key="H4" value="87.51690456861071" />
+      <entry key="D1" value="789.9071826045389" />
+      <entry key="W1" value="2333.7897390309263" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.000000000000461" />
-      <entry key="MS500" value="1.0048866155648122" />
-      <entry key="S2" value="1.5502792139817347" />
-      <entry key="S5" value="2.9383257578503583" />
-      <entry key="S10" value="4.288074797214752" />
-      <entry key="S30" value="6.304809065565473" />
-      <entry key="S60" value="7.862000308782796" />
-      <entry key="M2" value="9.397563222103672" />
-      <entry key="M5" value="12.320372993584511" />
-      <entry key="M10" value="21.916226192020257" />
-      <entry key="M15" value="32.58887910336382" />
-      <entry key="M30" value="54.97170324085317" />
-      <entry key="H1" value="75.44200855239207" />
-      <entry key="H2" value="93.02189141269427" />
-      <entry key="H4" value="121.6600645540582" />
-      <entry key="D1" value="508.4253305676149" />
-      <entry key="W1" value="1331.6118788446477" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="1.907316786704067E-188" />
+      <entry key="S30" value="8.784684803590951E-63" />
+      <entry key="S60" value="2.499114941289451E-31" />
+      <entry key="M2" value="1.5665543950133426E-15" />
+      <entry key="M5" value="6.3952200564426544E-6" />
+      <entry key="M10" value="0.011275864836764229" />
+      <entry key="M15" value="0.1379036462261461" />
+      <entry key="M30" value="1.6977125723238866" />
+      <entry key="H1" value="6.278086891632102" />
+      <entry key="H2" value="17.183138606642736" />
+      <entry key="H4" value="46.20881846657158" />
+      <entry key="D1" value="424.48574007759686" />
+      <entry key="W1" value="1309.6855070033762" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.00278134803828393" />
-      <entry key="MS500" value="0.31052970095196675" />
-      <entry key="S2" value="1.3376065395494827" />
-      <entry key="S5" value="3.2940004128844746" />
-      <entry key="S10" value="5.1825660769055375" />
-      <entry key="S30" value="8.510694774164827" />
-      <entry key="S60" value="12.336798028018903" />
-      <entry key="M2" value="16.936190802778604" />
-      <entry key="M5" value="25.58207369094467" />
-      <entry key="M10" value="49.124187010111115" />
-      <entry key="M15" value="74.23821633273366" />
-      <entry key="M30" value="128.15867671430348" />
-      <entry key="H1" value="181.58461441946233" />
-      <entry key="H2" value="230.57344920834026" />
-      <entry key="H4" value="316.5093435745843" />
-      <entry key="D1" value="1439.0945799487445" />
-      <entry key="W1" value="3689.516961371046" />
+      <entry key="MS100" value="0.7219645977612481" />
+      <entry key="MS500" value="0.9369214468724255" />
+      <entry key="S2" value="0.9838429889437325" />
+      <entry key="S5" value="0.9935055968910625" />
+      <entry key="S10" value="0.9967475090969942" />
+      <entry key="S30" value="0.9989146588263663" />
+      <entry key="S60" value="0.9994571820875401" />
+      <entry key="M2" value="0.9997285542023631" />
+      <entry key="M5" value="0.9999099142217798" />
+      <entry key="M10" value="1.0355294175254204" />
+      <entry key="M15" value="1.4476959146262725" />
+      <entry key="M30" value="6.665864121818088" />
+      <entry key="H1" value="21.935324432939613" />
+      <entry key="H2" value="53.968537964274205" />
+      <entry key="H4" value="133.72016702043746" />
+      <entry key="D1" value="1214.3843190717685" />
+      <entry key="W1" value="3643.4714611183267" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -418,6 +536,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     ".NET Launch Settings Profile.MultiShop.Basket: http.executor": "Run",
+    ".NET Launch Settings Profile.MultiShop.Basket: https.executor": "Run",
     ".NET Launch Settings Profile.MultiShop.Cargo.WebApi: http.executor": "Run",
     ".NET Launch Settings Profile.MultiShop.Catalog: http (1).executor": "Run",
     ".NET Launch Settings Profile.MultiShop.Catalog: http.executor": "Run",
@@ -450,7 +569,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.MultiShop.Comment: http">
+  <component name="RunManager" selected=".NET Launch Settings Profile.MultiShop.WebUI: http">
     <configuration name="MultiShop.Catalog" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1063,7 +1182,8 @@
     <MESSAGE value="Refactor API calls into services" />
     <MESSAGE value="cart and coupon operations" />
     <MESSAGE value="complete address and payment" />
-    <option name="LAST_COMMIT_MESSAGE" value="complete address and payment" />
+    <MESSAGE value="integrate RabbitMQ and add order history and cargo management" />
+    <option name="LAST_COMMIT_MESSAGE" value="integrate RabbitMQ and add order history and cargo management" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

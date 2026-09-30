@@ -1,7 +1,24 @@
 {
   "Routes": [
     {
-      "UpstreamHttpMethod": ["GET"],
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "UpstreamPathTemplate": "/services/comment/Comments/CommentByProductId",
+      "DownstreamPathTemplate": "/api/Comments/CommentByProductId",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5025
+        }
+      ],
+      "Priority": 10
+    },
+    {
+      "UpstreamHttpMethod": [
+        "GET"
+      ],
       "UpstreamPathTemplate": "/services/catalog/{everything}",
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
@@ -16,12 +33,18 @@
       ]
     },
     {
-      "UpstreamHttpMethod": ["POST", "PUT", "DELETE"],
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
       "UpstreamPathTemplate": "/services/catalog/{everything}",
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
       "AuthenticationOptions": {
-        "AuthenticationProviderKeys": ["OzelotAuthScheme"],
+        "AuthenticationProviderKeys": [
+          "OzelotAuthScheme"
+        ],
         "AllowedScopes": []
       },
       "DownstreamHostAndPorts": [
@@ -32,12 +55,18 @@
       ]
     },
     {
-      "UpstreamHttpMethod": ["GET", "POST", "DELETE"],
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "DELETE"
+      ],
       "UpstreamPathTemplate": "/services/basket/{everything}",
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
       "AuthenticationOptions": {
-        "AuthenticationProviderKeys": ["OzelotAuthScheme"],
+        "AuthenticationProviderKeys": [
+          "OzelotAuthScheme"
+        ],
         "AllowedScopes": []
       },
       "DownstreamHostAndPorts": [
@@ -48,12 +77,19 @@
       ]
     },
     {
-      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"],
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
       "UpstreamPathTemplate": "/services/cargo/{everything}",
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
       "AuthenticationOptions": {
-        "AuthenticationProviderKeys": ["OzelotAuthScheme"],
+        "AuthenticationProviderKeys": [
+          "OzelotAuthScheme"
+        ],
         "AllowedScopes": []
       },
       "DownstreamHostAndPorts": [
@@ -64,12 +100,19 @@
       ]
     },
     {
-      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"],
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
       "UpstreamPathTemplate": "/services/comment/{everything}",
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
       "AuthenticationOptions": {
-        "AuthenticationProviderKeys": ["OzelotAuthScheme"],
+        "AuthenticationProviderKeys": [
+          "OzelotAuthScheme"
+        ],
         "AllowedScopes": []
       },
       "DownstreamHostAndPorts": [
@@ -80,12 +123,19 @@
       ]
     },
     {
-      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"],
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
       "UpstreamPathTemplate": "/services/discount/{everything}",
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
       "AuthenticationOptions": {
-        "AuthenticationProviderKeys": ["OzelotAuthScheme"],
+        "AuthenticationProviderKeys": [
+          "OzelotAuthScheme"
+        ],
         "AllowedScopes": []
       },
       "DownstreamHostAndPorts": [
@@ -96,12 +146,19 @@
       ]
     },
     {
-      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"],
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
       "UpstreamPathTemplate": "/services/order/{everything}",
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
       "AuthenticationOptions": {
-        "AuthenticationProviderKeys": ["OzelotAuthScheme"],
+        "AuthenticationProviderKeys": [
+          "OzelotAuthScheme"
+        ],
         "AllowedScopes": []
       },
       "DownstreamHostAndPorts": [
@@ -112,7 +169,9 @@
       ]
     },
     {
-      "UpstreamHttpMethod": ["POST"],
+      "UpstreamHttpMethod": [
+        "POST"
+      ],
       "UpstreamPathTemplate": "/services/identity/auth/login",
       "DownstreamPathTemplate": "/api/auth/login",
       "DownstreamScheme": "http",
@@ -127,7 +186,9 @@
       ]
     },
     {
-      "UpstreamHttpMethod": ["POST"],
+      "UpstreamHttpMethod": [
+        "POST"
+      ],
       "UpstreamPathTemplate": "/services/identity/auth/register",
       "DownstreamPathTemplate": "/api/auth/register",
       "DownstreamScheme": "http",

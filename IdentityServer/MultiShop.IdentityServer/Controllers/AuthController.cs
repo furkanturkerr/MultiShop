@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.IdentityServer.Dtos;
@@ -6,6 +7,7 @@ using MultiShop.IdentityServer.Services;
 
 namespace MultiShop.IdentityServer.Controllers;
 
+[EnableRateLimiting("auth")]
 [ApiController]
 [Route("api/auth")]
 public class AuthController : ControllerBase

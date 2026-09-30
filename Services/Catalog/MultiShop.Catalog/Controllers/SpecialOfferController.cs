@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Catalog.Dtos.SpecialOfferDtos;
@@ -17,6 +18,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> SpecialOfferList()
         {
             var values = await _specialOfferService.GetAllSpecialOfferAsync();
@@ -24,6 +26,7 @@ namespace MultiShop.Catalog.Controllers
         }
         
         [HttpGet("status")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetSpecialOfferActiveStatus()
         {
             var values = await _specialOfferService.GetSpecialOfferByStatusAsync();
@@ -31,6 +34,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> SpecialOfferById(string id)
         {
             var value = await _specialOfferService.GetSpecialOfferByIdAsync(id);
@@ -38,6 +42,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateSpecialOffer(CreateSpecialOfferDto specialOfferDto)
         {
             await _specialOfferService.CreateSpecialOfferAsync(specialOfferDto);
@@ -45,6 +50,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateSpecialOffer(UpdateSpecialOfferDto specialOfferDto)
         {
             await _specialOfferService.UpdateSpecialOfferAsync(specialOfferDto);
@@ -52,6 +58,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteSpecialOffer(string id)
         {
             await _specialOfferService.DeleteSpecialOfferByIdAsync(id);

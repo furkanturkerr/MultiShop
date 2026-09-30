@@ -1,0 +1,54 @@
+@model MultiShop.Dtos.CatalogDtos.ProductDtos.ProductInputDto
+@using MultiShop.Dtos.CatalogDtos.ProductDtos
+@using MultiShop.WebUI.Models.Product
+
+@{
+    var productToUpdate = Model as UpdateProductDto;
+    var isUpdate = productToUpdate is not null;
+    var action = isUpdate ? "Update" : "Create";
+    var title = isUpdate ? "Ürünü güncelle" : "Yeni ürün ekle";
+    var buttonText = isUpdate ? "Değişiklikleri kaydet" : "Ürünü kaydet";
+    var options = (ProductOptionsViewModel)ViewData["ProductOptions"]!;
+}
+
+<link rel="stylesheet" href="~/css/admin-products.css" asp-append-version="true">
+
+<div class="ms-product-editor">
+    <section class="ms-page-head">
+        <div>
+            <span class="ms-kicker">KATALOG / ÜRÜNLER</span>
+            <h1>@title</h1>
+            <p>Ürün bilgilerini doldur, kategorisine uygun seçenekleri belirle.</p>
+        </div>
+        <a class="ms-secondary" asp-action="ProductList">
+            <i class="fa-solid fa-arrow-left"></i> Ürünlere dön
+        </a>
+    </section>
+
+    <form class="ms-form-layout" method="post" asp-action="@action">
+        @if (isUpdate)
+        {
+            <input type="hidden" name="ProductId" value="@productToUpdate!.ProductId">
+        }
+
+        <div class="ms-form-stack">
+            <div asp-validation-summary="All" class="ms-product-validation"></div>
+            <partial name="_Fields" model="Model" />
+            <partial name="_Options" model="options" />
+        </div>
+
+        <aside class="ms-form-stack ms-product-aside">
+            <partial name="_Image" model="Model" />
+            <section class="ms-card ms-form-card ms-product-save">
+                <h2>Kaydetmeye hazır mı?</h2>
+                <p>Kategori, fiyat ve görseli kontrol et. Seçenek değerleri ürün detayında müşteriye gösterilir.</p>
+                <button class="ms-primary" type="submit">
+                    <i class="fa-solid fa-check"></i> @buttonText
+                </button>
+                <a class="ms-secondary" asp-action="ProductList">Vazgeç</a>
+            </section>
+        </aside>
+    </form>
+</div>
+
+<script src="~/js/admin-product-options.js" asp-append-version="true" defer></script>

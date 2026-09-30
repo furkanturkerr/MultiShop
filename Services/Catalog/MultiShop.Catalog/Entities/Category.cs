@@ -13,4 +13,6 @@ public class Category
     public string CategoryName { get; set; }
     
     public string ImageUrl { get; set; }
+
+    public List<string> OptionNames { get; set; } = new();
 }

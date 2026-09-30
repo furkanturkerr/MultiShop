@@ -1,0 +1,31 @@
+@model MultiShop.WebUI.Models.Product.ProductOptionsViewModel
+@using System.Text.Json
+@{
+    var category = Model.Categories.FirstOrDefault(x => x.CategoryId == Model.CategoryId);
+    var names = category?.OptionNames ?? new List<string>();
+    var categorySchemas = Model.Categories.Select(x => new { x.CategoryId, x.OptionNames });
+}
+<section class="ms-card ms-form-card">
+    <div class="ms-form-title">
+        <h2><span class="ms-section-number">02</span> Seçenekler</h2>
+        <p>Gruplar seçtiğin kategoriden gelir. Yalnızca bu üründe bulunan değerleri virgülle ayırarak gir.</p>
+    </div>
+    <div id="productOptions" class="ms-product-options">
+        @for (var i = 0; i < names.Count; i++)
+        {
+            var name = names[i];
+            var option = Model.Options.FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase));
+            <div class="ms-field">
+                <label for="product-option-@i">@name</label>
+                <input type="hidden" name="Options[@i].Name" value="@name">
+                <input id="product-option-@i" class="ms-input" name="Options[@i].ValuesText" value="@option?.ValuesText" data-option-name="@name" placeholder="Bu üründe bulunan değerler">
+            </div>
+        }
+        @if (names.Count == 0)
+        {
+            <p class="text-muted">@(category is null ? "Önce kategori seç." : "Bu kategoride seçenek grubu tanımlanmamış. Grupları kategori düzenleme ekranından ekleyebilirsin.")</p>
+        }
+    </div>
+    <small>Üründe kullanılmayan grupları boş bırak. Örn. Renk: Siyah, Beyaz · Numara: 40, 41, 42.</small>
+</section>
+<script type="application/json" id="categoryOptionSchemas">@Html.Raw(JsonSerializer.Serialize(categorySchemas))</script>

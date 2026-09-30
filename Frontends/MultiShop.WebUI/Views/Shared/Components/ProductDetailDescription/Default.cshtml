@@ -2,5 +2,5 @@
 
 <div class="tab-pane fade @(ViewData["ShowReviews"] is not true ? "show active" : "")" id="tab-pane-1">
     <h4 class="mb-3">Ürün Detayı</h4>
-    <p>@Model.ProductDescription</p>
+    <p>@(string.IsNullOrWhiteSpace(Model?.ProductDescription) ? ((MultiShop.Dtos.CatalogDtos.ProductDtos.UpdateProductDto)ViewData["Product"]!).ProductDescription : Model.ProductDescription)</p>
 </div>

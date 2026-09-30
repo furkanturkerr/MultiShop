@@ -9,7 +9,7 @@
         <div class="navbar-nav w-100">
             @foreach (var item in Model.Take(10))
             {
-                <a asp-area="" asp-controller="Product" asp-action="Index" asp-route-id="@item.CategoryId" as class="nav-item nav-link">@item.CategoryName</a>
+                <a asp-area="" asp-controller="Product" asp-action="Index" asp-route-id="@item.CategoryId" class="nav-item nav-link">@item.CategoryName</a>
             }
         </div>
     </nav>

@@ -1,3 +1,6 @@
+using MultiShop.Order.WebApi.Services;
+using MultiShop.Order.Application.Features.Handlers.AddressHandlers;
+using MultiShop.Order.Application.Features.Queries.AddressQueries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +18,8 @@ namespace MultiShop.Order.WebApi.Controllers
     public class OrderingsController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly GetAddressByIdQueryHandler _addresses;
+        private readonly CheckoutService _checkout;
         private readonly ILoginService _loginService;
         private readonly IRabbitMqPublisher _rabbitMqPublisher;
         private readonly ILogger<OrderingsController> _logger;
@@ -23,9 +28,13 @@ namespace MultiShop.Order.WebApi.Controllers
             IMediator mediator,
             ILoginService loginService,
             IRabbitMqPublisher rabbitMqPublisher,
-            ILogger<OrderingsController> logger)
+            ILogger<OrderingsController> logger,
+            GetAddressByIdQueryHandler addresses,
+            CheckoutService checkout)
         {
             _mediator = mediator;
+            _addresses = addresses;
+            _checkout = checkout;
             _loginService = loginService;
             _rabbitMqPublisher = rabbitMqPublisher;
             _logger = logger;
@@ -39,6 +48,14 @@ namespace MultiShop.Order.WebApi.Controllers
             return Ok(value);
         }
 
+        [HttpGet("admin/{id:int}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AdminOrderDetail(int id)
+        {
+            var order = await _mediator.Send(new GetOrderingDetailQuery(id));
+            return order is null ? NotFound() : Ok(order);
+        }
+
         [HttpGet("my")]
         public async Task<IActionResult> MyOrders()
         {
@@ -47,12 +64,14 @@ namespace MultiShop.Order.WebApi.Controllers
 
             return Ok(values);
         }
-        
+
         [HttpGet("{id}")]
         public async Task<IActionResult> OrderById(int id)
         {
-            var value = await _mediator.Send(new GetOrderingByIdQuery(id));
+            var value = await _mediator.Send(new GetOrderingDetailQuery(id));
 
+            if (value is null)
+                return NotFound();
             if (!User.IsInRole("Admin") && value.UserId != _loginService.GetUserId)
                 return Forbid();
 
@@ -63,6 +82,27 @@ namespace MultiShop.Order.WebApi.Controllers
         public async Task<IActionResult> Create(CreateOrderingCommand command)
         {
             command.UserId = _loginService.GetUserId;
+            var address = await _addresses.Handler(new GetAddressByIdQuery(command.AddressId));
+            if (address is null)
+                return BadRequest("Adres bulunamadı.");
+            if (address.UserId != command.UserId)
+                return Forbid();
+            if (command.PaymentMethod != "Kredi/Banka Kartı")
+                return BadRequest("Ödeme yöntemi geçersiz.");
+
+            try
+            {
+                await _checkout.PrepareAsync(command);
+            }
+            catch (ArgumentException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+            catch (HttpRequestException)
+            {
+                return StatusCode(503, "Sepet servisine ulaşılamıyor.");
+            }
+
             var orderingId = await _mediator.Send(command);
 
             try

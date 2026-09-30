@@ -1,0 +1,62 @@
+@model MultiShop.WebUI.Models.Product.ProductListViewModel
+@using System.Globalization
+
+@{
+    var filters = Model.Filters;
+    var selectedCategory = Model.Categories.FirstOrDefault(x => x.CategoryId == filters.CategoryId);
+}
+
+<div class="catalog-toolbar bg-light">
+    <p class="mb-0" aria-live="polite">
+        @if (Model.TotalCount > 0)
+        {
+            <span><strong>@Model.FirstItem–@Model.LastItem</strong> / @Model.TotalCount ürün</span>
+        }
+        else
+        {
+            <span>Ürün bulunamadı</span>
+        }
+    </p>
+    <div class="catalog-toolbar-controls">
+        <div>
+            <label for="catalog-sort">Sıralama</label>
+            <select id="catalog-sort" name="sort" class="custom-select" form="catalog-filters" onchange="this.form.requestSubmit()">
+                <option value="name-asc" selected="@(filters.Sort == "name-asc")">Ürün adı: A–Z</option>
+                <option value="name-desc" selected="@(filters.Sort == "name-desc")">Ürün adı: Z–A</option>
+                <option value="price-asc" selected="@(filters.Sort == "price-asc")">Fiyat: düşükten yükseğe</option>
+                <option value="price-desc" selected="@(filters.Sort == "price-desc")">Fiyat: yüksekten düşüğe</option>
+            </select>
+        </div>
+        <div>
+            <label for="catalog-size">Sayfada</label>
+            <select id="catalog-size" name="pageSize" class="custom-select" form="catalog-filters" onchange="this.form.requestSubmit()">
+                @foreach (var size in new[] { 12, 24, 48 }.Append(filters.PageSize).Distinct().OrderBy(size => size))
+                {
+                    <option value="@size" selected="@(filters.PageSize == size)">@size ürün</option>
+                }
+            </select>
+        </div>
+    </div>
+    <noscript><button type="submit" form="catalog-filters" class="btn btn-primary">Güncelle</button></noscript>
+</div>
+@if (Model.HasFilters)
+{
+    <div class="catalog-active-filters">
+        @if (!string.IsNullOrWhiteSpace(filters.Q))
+        {
+            <span>Arama: @filters.Q</span>
+        }
+        @if (!string.IsNullOrWhiteSpace(filters.CategoryId))
+        {
+            <span>Kategori: @(selectedCategory?.CategoryName ?? "Seçili kategori")</span>
+        }
+        @if (filters.MinPrice.HasValue)
+        {
+            <span>En az: @filters.MinPrice.Value.ToString("N2", CultureInfo.GetCultureInfo("tr-TR")) ₺</span>
+        }
+        @if (filters.MaxPrice.HasValue)
+        {
+            <span>En çok: @filters.MaxPrice.Value.ToString("N2", CultureInfo.GetCultureInfo("tr-TR")) ₺</span>
+        }
+    </div>
+}

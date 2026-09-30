@@ -28,12 +28,16 @@ public class CategoryService : ICategoryService
     public async Task CreateCategoryAsync(CreateCategoryDto dto)
     {
         var value = _mapper.Map<Category>(dto);
+        value.OptionNames = dto.OptionNames.Select(x => x.Trim()).ToList();
         await _collection.InsertOneAsync(value);
     }
 
     public async Task UpdateCategoryAsync(UpdateCategoryDto dto)
     {
-        var update = Builders<Category>.Update.Set(x => x.CategoryName, dto.CategoryName);
+        var update = Builders<Category>.Update
+            .Set(x => x.CategoryName, dto.CategoryName)
+            .Set(x => x.ImageUrl, dto.ImageUrl)
+            .Set(x => x.OptionNames, dto.OptionNames.Select(x => x.Trim()).ToList());
         await _collection.UpdateOneAsync(x => x.CategoryId == dto.CategoryId, update);
     }
 

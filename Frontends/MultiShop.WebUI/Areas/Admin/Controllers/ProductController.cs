@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using MultiShop.Dtos.CatalogDtos.CategoryDtos;
 using MultiShop.Dtos.CatalogDtos.ProductDtos;
+using MultiShop.WebUI.Models.Product;
 using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.Areas.Admin.Controllers;
@@ -10,7 +9,6 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers;
 [Area("Admin")]
 [AutoValidateAntiforgeryToken]
 [Authorize(Roles = "Admin")]
-
 public class ProductController : Controller
 {
     private readonly IProductService _productService;
@@ -22,28 +20,34 @@ public class ProductController : Controller
         _categoryService = categoryService;
     }
 
-    // GET
-    public async Task<IActionResult> ProductList()
+    public async Task<IActionResult> ProductList([FromQuery] ProductFilterDto filters)
     {
-        var values = await _productService.GetAllProductAsync();
-        return View(values);
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var model = await _productService.GetProductListAsync(filters);
+        return View(model);
     }
 
     public async Task<IActionResult> Create()
     {
-        var categories = await _categoryService.GetAllCategoryAsync();
-        ViewBag.Category = new SelectList(categories, "CategoryId", "CategoryName");
-        return View();
+        var model = new CreateProductDto();
+        await PrepareFormAsync(model.CategoryId, model.Options);
+        return View(model);
     }
 
     [HttpPost]
     public async Task<IActionResult> Create(CreateProductDto dto)
     {
-        if (await _productService.CreateProductAsync(dto))
+        if (ModelState.IsValid && await _productService.CreateProductAsync(dto))
         {
             return RedirectToAction("ProductList");
         }
-        ViewBag.Category = new SelectList(await _categoryService.GetAllCategoryAsync(), "CategoryId", "CategoryName");
+
+        if (ModelState.IsValid)
+            ModelState.AddModelError(string.Empty, "Ürün kaydedilemedi. Lütfen tekrar deneyin.");
+
+        await PrepareFormAsync(dto.CategoryId, dto.Options);
         return View(dto);
     }
 
@@ -54,20 +58,22 @@ public class ProductController : Controller
         if (value is null)
             return NotFound();
 
-        ViewBag.Category = new SelectList(await _categoryService.GetAllCategoryAsync(),
-            "CategoryId", "CategoryName", value.CategoryId);
+        await PrepareFormAsync(value.CategoryId, value.Options);
         return View(value);
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Update(UpdateProductDto dto)
     {
-        if (await _productService.UpdateProductAsync(dto))
+        if (ModelState.IsValid && await _productService.UpdateProductAsync(dto))
         {
             return RedirectToAction("ProductList");
         }
-        ViewBag.Category = new SelectList(await _categoryService.GetAllCategoryAsync(),
-            "CategoryId", "CategoryName", dto.CategoryId);
+
+        if (ModelState.IsValid)
+            ModelState.AddModelError(string.Empty, "Ürün güncellenemedi. Lütfen tekrar deneyin.");
+
+        await PrepareFormAsync(dto.CategoryId, dto.Options);
         return View(dto);
     }
 
@@ -76,5 +82,16 @@ public class ProductController : Controller
     {
         await _productService.DeleteProductAsync(id);
         return RedirectToAction("ProductList");
+    }
+
+    private async Task PrepareFormAsync(string categoryId, List<ProductOptionDto> options)
+    {
+        var categories = await _categoryService.GetAllCategoryAsync();
+        ViewData["ProductOptions"] = new ProductOptionsViewModel
+        {
+            CategoryId = categoryId,
+            Categories = categories,
+            Options = options
+        };
     }
 }

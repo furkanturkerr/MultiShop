@@ -35,7 +35,7 @@
                 type: 'POST',
                 dataType: 'json',
                 data: {
-                    productId: button.data('product-id'),
+                    basketItemId: button.data('basket-item-id'),
                     quantity: requestedQuantity,
                     __RequestVerificationToken: $('#cartAjaxTokenForm input[name="__RequestVerificationToken"]').val()
                 }

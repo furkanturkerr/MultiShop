@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Catalog.Dtos.OfferDiscountDtos;
@@ -17,6 +18,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> OfferDiscountList()
         {
             var values = await _OfferDiscountService.GetAllOfferDiscountAsync();
@@ -24,6 +26,7 @@ namespace MultiShop.Catalog.Controllers
         }
         
         [HttpGet("status")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetOfferDiscountActiveStatus()
         {
             var values = await _OfferDiscountService.GetOfferDiscountByStatusAsync();
@@ -31,6 +34,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> OfferDiscountById(string id)
         {
             var value = await _OfferDiscountService.GetOfferDiscountByIdAsync(id);
@@ -38,6 +42,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateOfferDiscount(CreateOfferDiscountDto OfferDiscountDto)
         {
             await _OfferDiscountService.CreateOfferDiscountAsync(OfferDiscountDto);
@@ -45,6 +50,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateOfferDiscount(UpdateOfferDiscountDto OfferDiscountDto)
         {
             await _OfferDiscountService.UpdateOfferDiscountAsync(OfferDiscountDto);
@@ -52,6 +58,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteOfferDiscount(string id)
         {
             await _OfferDiscountService.DeleteOfferDiscountByIdAsync(id);

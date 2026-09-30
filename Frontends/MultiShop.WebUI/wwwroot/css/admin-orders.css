@@ -1,0 +1,106 @@
+.ms-orders-page .ms-table small {
+    display: block;
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.ms-orders-page .ms-table td {
+    font-size: 13px;
+}
+
+.ms-orders-page .ms-order-status {
+    display: inline-flex;
+    padding: 7px 10px;
+    border-radius: 8px;
+    background: var(--yellow-soft);
+    color: var(--dark);
+    font-size: 12px;
+}
+
+.ms-orders-page .ms-load-error {
+    padding: 18px;
+    margin-bottom: 20px;
+    border: 1px solid #f0c5c1;
+    border-radius: 10px;
+    background: #fff4f2;
+    color: #a32e24;
+    font-size: 13px;
+}
+
+.ms-orders-page .ms-empty-state {
+    padding: 40px;
+    text-align: center;
+    color: var(--muted);
+}
+
+.ms-order-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    align-items: start;
+    gap: 22px;
+}
+
+.ms-order-aside {
+    display: grid;
+    gap: 20px;
+}
+
+.ms-order-info {
+    padding: 24px;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.ms-order-info h2 {
+    margin: 0 0 18px;
+    font-size: 17px;
+}
+
+.ms-order-info p {
+    color: var(--text);
+}
+
+.ms-order-info dl {
+    margin: 0;
+}
+
+.ms-order-info dt {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.ms-order-info dd {
+    margin: 0 0 15px;
+}
+
+.ms-order-user-id {
+    overflow-wrap: anywhere;
+}
+
+.ms-orders-page .ms-order-product-name,
+.ms-orders-page .ms-order-address {
+    white-space: normal;
+    min-width: 220px;
+    line-height: 1.7;
+}
+
+.ms-order-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 24px;
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+}
+
+.ms-order-total strong {
+    font-size: 22px;
+}
+
+@media (max-width: 1000px) {
+    .ms-order-layout {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,1167 @@
+[
+  {
+    "ProductName": "Lacivert Modern Takım Elbise",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Lacivert"
+        ]
+      },
+      {
+        "Name": "Beden",
+        "Values": [
+          "46",
+          "48",
+          "50",
+          "52",
+          "54"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Premium Basic Beyaz Tişört",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Beyaz"
+        ]
+      },
+      {
+        "Name": "Beden",
+        "Values": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Klasik Beyaz Uzun Kollu Gömlek",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Beyaz"
+        ]
+      },
+      {
+        "Name": "Beden",
+        "Values": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Oxford Düğmeli Erkek Gömlek",
+    "Options": [
+      {
+        "Name": "Beden",
+        "Values": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Mevsimlik Erkek Ceket",
+    "Options": [
+      {
+        "Name": "Beden",
+        "Values": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Şehir Stili Erkek Üst Giyim",
+    "Options": [
+      {
+        "Name": "Beden",
+        "Values": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Klasik Erkek Blazer",
+    "Options": [
+      {
+        "Name": "Beden",
+        "Values": [
+          "46",
+          "48",
+          "50",
+          "52",
+          "54"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Modern Bej Blazer",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Bej"
+        ]
+      },
+      {
+        "Name": "Beden",
+        "Values": [
+          "36",
+          "38",
+          "40",
+          "42"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Yüksek Bel Geniş Paça Pantolon",
+    "Options": [
+      {
+        "Name": "Beden",
+        "Values": [
+          "36",
+          "38",
+          "40",
+          "42"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Fitilli Uzun Kollu Kadın Üst",
+    "Options": [
+      {
+        "Name": "Beden",
+        "Values": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Klasik Taş Rengi Trençkot",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Taş"
+        ]
+      },
+      {
+        "Name": "Beden",
+        "Values": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Pileli Midi Etek",
+    "Options": [
+      {
+        "Name": "Beden",
+        "Values": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Ekru Günlük Kadın Bluz",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Ekru"
+        ]
+      },
+      {
+        "Name": "Beden",
+        "Values": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Crimson Runner Pro",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Kırmızı"
+        ]
+      },
+      {
+        "Name": "Numara",
+        "Values": [
+          "36",
+          "37",
+          "38",
+          "39",
+          "40",
+          "41",
+          "42",
+          "43",
+          "44"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Heritage Taba Sneaker",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Taba"
+        ]
+      },
+      {
+        "Name": "Numara",
+        "Values": [
+          "36",
+          "37",
+          "38",
+          "39",
+          "40",
+          "41",
+          "42",
+          "43",
+          "44"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "StreetForm Gri Sneaker",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Gri"
+        ]
+      },
+      {
+        "Name": "Numara",
+        "Values": [
+          "36",
+          "37",
+          "38",
+          "39",
+          "40",
+          "41",
+          "42",
+          "43",
+          "44"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "CloudStep Beyaz Sneaker",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Beyaz"
+        ]
+      },
+      {
+        "Name": "Numara",
+        "Values": [
+          "36",
+          "37",
+          "38",
+          "39",
+          "40",
+          "41",
+          "42",
+          "43",
+          "44"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "MonoFlex Siyah Koşu Ayakkabısı",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Siyah"
+        ]
+      },
+      {
+        "Name": "Numara",
+        "Values": [
+          "36",
+          "37",
+          "38",
+          "39",
+          "40",
+          "41",
+          "42",
+          "43",
+          "44"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Motion X Performance",
+    "Options": [
+      {
+        "Name": "Numara",
+        "Values": [
+          "36",
+          "37",
+          "38",
+          "39",
+          "40",
+          "41",
+          "42",
+          "43",
+          "44"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Court High Beyaz Sneaker",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Beyaz"
+        ]
+      },
+      {
+        "Name": "Numara",
+        "Values": [
+          "36",
+          "37",
+          "38",
+          "39",
+          "40",
+          "41",
+          "42",
+          "43",
+          "44"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Krem Yapılı El Çantası",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Krem"
+        ]
+      },
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Standart"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Siyah Minimal Omuz Çantası",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Siyah"
+        ]
+      },
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Standart"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Urban Laptop Sırt Çantası",
+    "Options": [
+      {
+        "Name": "Boyut",
+        "Values": [
+          "14 inç",
+          "15.6 inç"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Taba Crossbody Çanta",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Taba"
+        ]
+      },
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Standart"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Günlük Tote Çanta",
+    "Options": [
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Standart"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Weekend Seyahat Çantası",
+    "Options": [
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Standart"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Soft Bag Günlük Çanta",
+    "Options": [
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Standart"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "14 İnç UltraBook Dizüstü Bilgisayar",
+    "Options": [
+      {
+        "Name": "Depolama",
+        "Values": [
+          "512 GB SSD",
+          "1 TB SSD"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "6.5 İnç 5G Akıllı Telefon",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Siyah",
+          "Gümüş"
+        ]
+      },
+      {
+        "Name": "Depolama",
+        "Values": [
+          "128 GB",
+          "256 GB"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Studio ANC Kablosuz Kulaklık",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Siyah",
+          "Beyaz"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Mirrorless 24 MP Kamera",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Siyah"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "55 İnç 4K Akıllı Televizyon",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Siyah"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Compact Bluetooth Hoparlör",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Siyah",
+          "Beyaz"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "27 İnç QHD Monitör",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Siyah"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Modern Salon Berjeri",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Bej",
+          "Gri"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Minimal Orta Sehpa",
+    "Options": [
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Standart"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Modern Çalışma Masası",
+    "Options": [
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Standart"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Yumuşak Yatak Tekstili Seti",
+    "Options": [
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Tek kişilik",
+          "Çift kişilik"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Modern Mutfak Düzen Seti",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Beyaz",
+          "Gri"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Minimal Masa Lambası",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Siyah",
+          "Beyaz"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Dekoratif Ahşap Raf Seti",
+    "Options": [
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Standart"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Günlük Nemlendirici Yüz Kremi",
+    "Options": [
+      {
+        "Name": "Hacim",
+        "Values": [
+          "50 ml",
+          "100 ml"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Hyaluronik Asit Bakım Serumu",
+    "Options": [
+      {
+        "Name": "Hacim",
+        "Values": [
+          "30 ml",
+          "50 ml"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Mat Bitiş Likit Ruj",
+    "Options": [
+      {
+        "Name": "Ton",
+        "Values": [
+          "Nude",
+          "Gül kurusu",
+          "Kırmızı"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "SPF50 Günlük Güneş Kremi",
+    "Options": [
+      {
+        "Name": "Hacim",
+        "Values": [
+          "50 ml",
+          "100 ml"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Besleyici Saç Bakım Yağı",
+    "Options": [
+      {
+        "Name": "Hacim",
+        "Values": [
+          "50 ml",
+          "100 ml"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Hacim Veren Siyah Maskara",
+    "Options": [
+      {
+        "Name": "Ton",
+        "Values": [
+          "Siyah"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Nazik Yüz Temizleme Jeli",
+    "Options": [
+      {
+        "Name": "Hacim",
+        "Values": [
+          "150 ml",
+          "200 ml"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Ev Fitness Güç Seti",
+    "Options": [
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Standart"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Core Training Antrenman Seti",
+    "Options": [
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Standart"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Koşu Antrenman Paketi",
+    "Options": [
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Standart"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Gym Performance Ekipman Seti",
+    "Options": [
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Standart"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Premium Yoga & Pilates Seti",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Mor",
+          "Siyah"
+        ]
+      },
+      {
+        "Name": "Boyut",
+        "Values": [
+          "180 × 60 cm"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Outdoor Kondisyon Seti",
+    "Options": [
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Standart"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Trekking Outdoor Başlangıç Seti",
+    "Options": [
+      {
+        "Name": "Boyut",
+        "Values": [
+          "Standart"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Minimal Çelik Kol Saati",
+    "Options": [
+      {
+        "Name": "Ölçü",
+        "Values": [
+          "40 mm",
+          "42 mm"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Deri Kordon Klasik Saat",
+    "Options": [
+      {
+        "Name": "Ölçü",
+        "Values": [
+          "40 mm",
+          "42 mm"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Siyah Spor Kronograf Saat",
+    "Options": [
+      {
+        "Name": "Renk",
+        "Values": [
+          "Siyah"
+        ]
+      },
+      {
+        "Name": "Ölçü",
+        "Values": [
+          "40 mm",
+          "42 mm"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "İnce Zincir Kolye",
+    "Options": [
+      {
+        "Name": "Ölçü",
+        "Values": [
+          "40 cm",
+          "45 cm",
+          "50 cm"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Zarif Taş Detaylı Kolye",
+    "Options": [
+      {
+        "Name": "Ölçü",
+        "Values": [
+          "40 cm",
+          "45 cm",
+          "50 cm"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Çelik Zincir Bileklik",
+    "Options": [
+      {
+        "Name": "Ölçü",
+        "Values": [
+          "18 cm",
+          "20 cm",
+          "22 cm"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Minimal Taşlı Yüzük",
+    "Options": [
+      {
+        "Name": "Ölçü",
+        "Values": [
+          "12",
+          "14",
+          "16",
+          "18"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Bebek Günlük Giyim Seti",
+    "Options": [
+      {
+        "Name": "Beden",
+        "Values": [
+          "56",
+          "62",
+          "68",
+          "74"
+        ]
+      },
+      {
+        "Name": "Yaş Grubu",
+        "Values": [
+          "0–3 ay",
+          "3–6 ay",
+          "6–9 ay"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Yenidoğan Bakım Tekstil Seti",
+    "Options": [
+      {
+        "Name": "Yaş Grubu",
+        "Values": [
+          "0–3 ay"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Çocuk Günlük Giyim Seti",
+    "Options": [
+      {
+        "Name": "Beden",
+        "Values": [
+          "98",
+          "104",
+          "110",
+          "116"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Ahşap Eğitici Oyuncak Seti",
+    "Options": [
+      {
+        "Name": "Yaş Grubu",
+        "Values": [
+          "3 yaş ve üzeri"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Bebek Oyun Alanı Seti",
+    "Options": [
+      {
+        "Name": "Yaş Grubu",
+        "Values": [
+          "6 ay ve üzeri"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Renkli Yapı Blokları",
+    "Options": [
+      {
+        "Name": "Yaş Grubu",
+        "Values": [
+          "3 yaş ve üzeri"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Yaratıcı Çocuk Aktivite Seti",
+    "Options": [
+      {
+        "Name": "Yaş Grubu",
+        "Values": [
+          "3 yaş ve üzeri"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Modern Dünya Klasikleri 5'li Set",
+    "Options": [
+      {
+        "Name": "Format",
+        "Values": [
+          "Ciltsiz",
+          "Sert kapak"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Klasik Edebiyat Kitap Seti",
+    "Options": [
+      {
+        "Name": "Format",
+        "Values": [
+          "Ciltsiz",
+          "Sert kapak"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Premium Sert Kapak Defter",
+    "Options": [
+      {
+        "Name": "Format",
+        "Values": [
+          "Çizgili",
+          "Kareli",
+          "Düz"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Akrilik Boya Başlangıç Seti",
+    "Options": [
+      {
+        "Name": "Parça Sayısı",
+        "Values": [
+          "12",
+          "24"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Çizim ve Eskiz Hobi Seti",
+    "Options": [
+      {
+        "Name": "Parça Sayısı",
+        "Values": [
+          "12",
+          "24"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Yaratıcı Hobi Malzemeleri Seti",
+    "Options": [
+      {
+        "Name": "Parça Sayısı",
+        "Values": [
+          "12",
+          "24"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Haftalık Taze Sebze Paketi",
+    "Options": [
+      {
+        "Name": "Paket",
+        "Values": [
+          "Standart",
+          "Aile boyu"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Taze Meyve ve Sebze Sepeti",
+    "Options": [
+      {
+        "Name": "Paket",
+        "Values": [
+          "Standart",
+          "Aile boyu"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Mutfak Temel Gıda Paketi",
+    "Options": [
+      {
+        "Name": "Paket",
+        "Values": [
+          "Standart",
+          "Aile boyu"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Organik Sebze Seçkisi",
+    "Options": [
+      {
+        "Name": "Paket",
+        "Values": [
+          "Standart",
+          "Aile boyu"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Aile Boyu Market Alışveriş Paketi",
+    "Options": [
+      {
+        "Name": "Paket",
+        "Values": [
+          "Standart",
+          "Aile boyu"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Kahvaltılık Market Paketi",
+    "Options": [
+      {
+        "Name": "Paket",
+        "Values": [
+          "Standart",
+          "Aile boyu"
+        ]
+      }
+    ]
+  },
+  {
+    "ProductName": "Günlük Market Temel İhtiyaç Paketi",
+    "Options": [
+      {
+        "Name": "Paket",
+        "Values": [
+          "Standart",
+          "Aile boyu"
+        ]
+      }
+    ]
+  }
+]

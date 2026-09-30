@@ -21,6 +21,7 @@ public class GeneralMapping : Profile
         CreateMap<CreateCategoryDto, Category>();
         CreateMap<Category, GetByIdCategoryDto>();
 
+        CreateMap<ProductOption, ProductOptionDto>().ReverseMap();
         CreateMap<Product, ResultProductDto>();
         CreateMap<UpdateProductDto, Product>();
         CreateMap<CreateProductDto, Product>();

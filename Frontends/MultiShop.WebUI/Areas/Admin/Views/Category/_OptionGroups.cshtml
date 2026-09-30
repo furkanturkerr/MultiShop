@@ -1,0 +1,14 @@
+@model MultiShop.Dtos.CatalogDtos.CategoryDtos.CategoryOptionSettingsDto
+<section class="ms-card ms-form-card">
+    <div class="ms-form-title">
+        <h2>Ürün seçenek grupları</h2>
+        <p>Bu kategoride kullanılabilecek grupları belirle. Değerleri her üründe ayrı gireceksin.</p>
+    </div>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="ms-field full">
+        <label asp-for="OptionNamesText">Grup adları (virgülle ayır)</label>
+        <input asp-for="OptionNamesText" class="ms-input" placeholder="Örn. Renk, Numara">
+        <small>En fazla 6 grup. Ayakkabı: Renk, Numara · Giyim: Renk, Beden · Telefon: Renk, Depolama.</small>
+        <small>Seçeneği olmayan kategorilerde boş bırak. Grup adını değiştirirsen ürünlerin ilgili değerlerini yeniden düzenle.</small>
+    </div>
+</section>

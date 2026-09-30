@@ -12,8 +12,11 @@ public class ProductDetailImagesViewComponent : ViewComponent
         _productImageService = productImageService;
     }
 
-    public async Task<IViewComponentResult> InvokeAsync(string productId)
+    public async Task<IViewComponentResult> InvokeAsync(string productId, string imageUrl)
     {
-        return View(await _productImageService.GetProductImageByProductIdAsync(productId));
+        var images = await _productImageService.GetProductImageByProductIdAsync(productId);
+        var urls = new[] { imageUrl, images?.ImageUrl1, images?.ImageUrl2, images?.ImageUrl3, images?.ImageUrl4 }
+            .Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x!).Distinct().ToList();
+        return View(urls);
     }
 }

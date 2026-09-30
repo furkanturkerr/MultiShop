@@ -13,7 +13,12 @@
         @foreach (var item in Model.BasketItems)
         {
             <div class="order-summary-product">
-                <span>@item.ProductName <span class="text-muted">× @item.Quantity</span></span>
+                <span>@item.ProductName <span class="text-muted">× @item.Quantity</span>
+                    @foreach (var option in item.SelectedOptions)
+                    {
+                        <small class="d-block text-muted">@option.Key: @option.Value</small>
+                    }
+                </span>
                 <strong>@((item.ProductPrice * item.Quantity).ToString("N0")) ₺</strong>
             </div>
         }

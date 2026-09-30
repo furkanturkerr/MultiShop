@@ -1,0 +1,39 @@
+@model MultiShop.WebUI.Models.Product.ProductListViewModel
+@using System.Globalization
+
+@{
+    var filters = Model.Filters;
+    var firstPage = Math.Max(1, filters.Page - 2);
+    var lastPage = Math.Min(Model.TotalPages, filters.Page + 2);
+}
+
+@if (Model.TotalPages > 1)
+{
+    <nav aria-label="Ürün sayfaları" class="mt-4">
+        <ul class="pagination justify-content-center flex-wrap">
+            @for (var pageNumber = firstPage - 1; pageNumber <= lastPage + 1; pageNumber++)
+            {
+                var isPrevious = pageNumber == firstPage - 1;
+                var isNext = pageNumber == lastPage + 1;
+                var targetPage = isPrevious ? filters.Page - 1 : isNext ? filters.Page + 1 : pageNumber;
+                var isDisabled = targetPage < 1 || targetPage > Model.TotalPages;
+                var label = isPrevious ? "Önceki" : isNext ? "Sonraki" : pageNumber.ToString();
+                <li class="page-item @(isDisabled ? "disabled" : !isPrevious && !isNext && pageNumber == filters.Page ? "active" : "")">
+                    @if (isDisabled)
+                    {
+                        <span class="page-link" aria-disabled="true">@label</span>
+                    }
+                    else
+                    {
+                        <a class="page-link" asp-area="" asp-controller="Product" asp-action="Index" asp-route-id=""
+                           asp-route-q="@filters.Q" asp-route-categoryId="@filters.CategoryId"
+                           asp-route-minPrice="@filters.MinPrice?.ToString(CultureInfo.InvariantCulture)"
+                           asp-route-maxPrice="@filters.MaxPrice?.ToString(CultureInfo.InvariantCulture)"
+                           asp-route-sort="@filters.Sort" asp-route-pageSize="@filters.PageSize" asp-route-page="@targetPage"
+                           aria-current="@(!isPrevious && !isNext && pageNumber == filters.Page ? "page" : null)">@label</a>
+                    }
+                </li>
+            }
+        </ul>
+    </nav>
+}

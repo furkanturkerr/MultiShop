@@ -1,112 +1,43 @@
 @model MultiShop.Dtos.CatalogDtos.ProductDtos.UpdateProductDto
-
-<div class="col-lg-7 h-auto mb-30">
-    <div class="h-100 bg-light p-30">
-
-        <h3>@Model.ProductName</h3>
-
-        <div class="d-flex mb-3">
-            <div class="text-primary mr-2">
-                <small class="fas fa-star"></small>
-                <small class="fas fa-star"></small>
-                <small class="fas fa-star"></small>
-                <small class="fas fa-star-half-alt"></small>
-                <small class="far fa-star"></small>
+<div class="col-lg-7 mb-30">
+    <div class="detail-purchase">
+        <span class="detail-kicker">MULTISHOP</span>
+        <h1>@Model.ProductName</h1>
+        <a class="detail-review-link" href="#tab-pane-3">Ürün yorumlarını gör</a>
+        <div class="detail-price">@Model.ProductPrice.ToString("N2") <small>₺</small></div>
+        <p class="detail-description">@Model.ProductDescription</p>
+        @if (TempData["ProductSelectionError"] is string error)
+        {
+            <div class="alert alert-danger" role="alert">@error</div>
+        }
+        <form asp-area="" asp-controller="Cart" asp-action="AddSelectedItem" method="post">
+            <input type="hidden" name="ProductId" value="@Model.ProductId">
+            @for (var i = 0; i < Model.Options.Count; i++)
+            {
+                var option = Model.Options[i];
+                <fieldset class="detail-options">
+                    <legend>@option.Name</legend>
+                    <input type="hidden" name="SelectedOptions[@i].Key" value="@option.Name">
+                    <div class="detail-option-values">
+                        @for (var j = 0; j < option.Values.Count; j++)
+                        {
+                            <label class="detail-option">
+                                <input type="radio" name="SelectedOptions[@i].Value" value="@option.Values[j]" required>
+                                <span>@option.Values[j]</span>
+                            </label>
+                        }
+                    </div>
+                </fieldset>
+            }
+            <div class="detail-buy-row">
+                <div class="detail-quantity">
+                    <button type="button" data-quantity-change="-1" aria-label="Adedi azalt">−</button>
+                    <input type="number" name="Quantity" value="1" min="1" max="99" required aria-label="Adet">
+                    <button type="button" data-quantity-change="1" aria-label="Adedi artır">+</button>
+                </div>
+                <button type="submit" class="btn btn-primary detail-add"><i class="fa fa-shopping-cart mr-2"></i>Sepete ekle</button>
             </div>
-            <small class="pt-1">(99 Yorum)</small>
-        </div>
-
-        <h3 class="font-weight-semi-bold mb-4">@Model.ProductPrice ₺</h3>
-
-        <p class="mb-4">
-            @Model.ProductDescription
-        </p>
-
-        <div class="d-flex mb-3">
-            <strong class="text-dark mr-3">Paket:</strong>
-
-            <form>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="package-1" name="package">
-                    <label class="custom-control-label" for="package-1">Sadece Gövde</label>
-                </div>
-
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="package-2" name="package">
-                    <label class="custom-control-label" for="package-2">18-55 mm Kit Lens</label>
-                </div>
-            </form>
-        </div>
-
-        <div class="d-flex mb-4">
-            <strong class="text-dark mr-3">Renk:</strong>
-
-            <form>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="color-1" name="color">
-                    <label class="custom-control-label" for="color-1">Siyah</label>
-                </div>
-
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="color-2" name="color">
-                    <label class="custom-control-label" for="color-2">Gümüş</label>
-                </div>
-            </form>
-        </div>
-
-        <div class="d-flex align-items-center mb-4 pt-2">
-
-            <div class="input-group quantity mr-3" style="width: 130px;">
-
-                <div class="input-group-btn">
-                    <button class="btn btn-primary btn-minus">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </div>
-
-                <input type="text"
-                       class="form-control bg-secondary border-0 text-center"
-                       value="1">
-
-                <div class="input-group-btn">
-                    <button class="btn btn-primary btn-plus">
-                        <i class="fa fa-plus"></i>
-                    </button>
-                </div>
-
-            </div>
-
-            <button class="btn btn-primary px-3">
-                <i class="fa fa-shopping-cart mr-1"></i>
-                Sepete Ekle
-            </button>
-
-        </div>
-
-        <div class="d-flex pt-2">
-
-            <strong class="text-dark mr-2">Paylaş:</strong>
-
-            <div class="d-inline-flex">
-
-                <a class="text-dark px-2" href="">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-
-                <a class="text-dark px-2" href="">
-                    <i class="fab fa-twitter"></i>
-                </a>
-
-                <a class="text-dark px-2" href="">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-
-                <a class="text-dark px-2" href="">
-                    <i class="fab fa-pinterest"></i>
-                </a>
-
-            </div>
-        </div>
-
+        </form>
+        <div class="detail-service"><span><i class="fa fa-truck"></i> Teslimat adresini ödeme adımında seç</span><span><i class="fa fa-shield-alt"></i> Hesabınla güvenli alışveriş</span></div>
     </div>
 </div>

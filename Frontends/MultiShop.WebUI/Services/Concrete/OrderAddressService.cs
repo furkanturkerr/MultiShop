@@ -15,9 +15,7 @@ public class OrderAddressService : IOrderAddressService
     public async Task<List<ResultOrderAddressDto>> GetAllOrderAddressesAsync()
     {
         var response = await _client.GetAsync("order/Addresses");
-        if (!response.IsSuccessStatusCode)
-            return [];
-
+        response.EnsureSuccessStatusCode();
         return await response.Content.ReadFromJsonAsync<List<ResultOrderAddressDto>>() ?? [];
     }
 

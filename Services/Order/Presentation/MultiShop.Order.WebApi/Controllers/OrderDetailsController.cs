@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Order.Application.Features.Commands.OrderDetailCommands;
@@ -8,6 +9,7 @@ namespace MultiShop.Order.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class OrderDetailsController : ControllerBase
     {
      private readonly GetOrderDetailQueryHandler _getOrderDetailQueryHandler;

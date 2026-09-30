@@ -1,4 +1,3 @@
-using MultiShop.Dtos.OrderDtos.OrderDetailDtos;
 using MultiShop.Dtos.OrderDtos.OrderingDtos;
 using MultiShop.WebUI.Services.Interfaces;
 
@@ -15,17 +14,11 @@ public class OrderService : IOrderService
 
     public async Task<int?> CreateOrderingAsync(CreateOrderingDto dto)
     {
-        var response = await _client.PostAsJsonAsync("order/Orderings", dto);
+        using var response = await _client.PostAsJsonAsync("order/Orderings", dto);
         if (!response.IsSuccessStatusCode)
             return null;
 
         return await response.Content.ReadFromJsonAsync<int>();
-    }
-
-    public async Task<bool> CreateOrderDetailAsync(CreateOrderDetailDto dto)
-    {
-        var response = await _client.PostAsJsonAsync("order/OrderDetails", dto);
-        return response.IsSuccessStatusCode;
     }
 
     public async Task<List<ResultOrderByUserIdDto>> GetMyOrdersAsync()
@@ -37,5 +30,20 @@ public class OrderService : IOrderService
             return new List<ResultOrderByUserIdDto>();
 
         return response;
+    }
+
+    public async Task<List<ResultOrderingDto>> GetAllOrdersAsync()
+    {
+        return await _client.GetFromJsonAsync<List<ResultOrderingDto>>("order/Orderings") ?? [];
+    }
+
+    public async Task<ResultOrderingDto?> GetOrderDetailAsync(int id)
+    {
+        using var response = await _client.GetAsync($"order/Orderings/admin/{id}");
+        if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            return null;
+
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<ResultOrderingDto>();
     }
 }

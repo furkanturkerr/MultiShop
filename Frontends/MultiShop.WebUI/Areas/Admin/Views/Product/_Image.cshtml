@@ -1,0 +1,29 @@
+@model MultiShop.Dtos.CatalogDtos.ProductDtos.ProductInputDto
+
+<section class="ms-card ms-form-card">
+    <div class="ms-form-title">
+        <h2>Ürün görseli</h2>
+        <p>Ana görsel ürün listesinde ve detay sayfasında gösterilir.</p>
+    </div>
+    <div class="ms-image-preview" data-product-image-preview>
+        @if (!string.IsNullOrWhiteSpace(Model.ProductImageUrl))
+        {
+            <img src="@Model.ProductImageUrl" alt="Ürün görseli önizleme">
+        }
+        else
+        {
+            <div class="ms-image-preview-inner">
+                <i class="fa-regular fa-image"></i>
+                <strong>Görsel önizleme</strong>
+                <span>Görsel adresini aşağıya ekle.</span>
+            </div>
+        }
+    </div>
+    <div class="ms-field ms-image-url">
+        <label asp-for="ProductImageUrl">Görsel adresi</label>
+        <input class="ms-input" asp-for="ProductImageUrl" data-product-image-url
+               placeholder="https://… veya /images/…">
+        <span asp-validation-for="ProductImageUrl"></span>
+        <small>Doğrudan görselin bağlantısını kullan.</small>
+    </div>
+</section>

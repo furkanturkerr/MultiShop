@@ -2,10 +2,8 @@
     <div class="row bg-secondary py-1 px-xl-5">
         <div class="col-lg-6 d-none d-lg-block">
             <div class="d-inline-flex align-items-center h-100">
-                <a class="text-body mr-3" href="">Hakkımızda</a>
-                <a class="text-body mr-3" href="">İletişim</a>
-                <a class="text-body mr-3" href="">Yardım</a>
-                <a class="text-body mr-3" href="">SSS</a>
+                <a class="text-body mr-3" asp-area="" asp-controller="Contact" asp-action="Index">İletişim</a>
+                <a class="text-body mr-3" asp-area="User" asp-controller="Order" asp-action="OrderHistory">Siparişlerim</a>
             </div>
         </div>
         <div class="col-lg-6 text-center text-lg-right">
@@ -18,8 +16,8 @@
                             <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
                                 <button class="dropdown-item" type="submit">Çıkış yap</button>
                             </form>
-                            <a asp-area="User" asp-controller="Order" asp-action="OrderHistory" class="dropdown-item" type="submit">Tüm Siparişlerim</a>
-                            <a class="dropdown-item" type="submit">Kullanıcı Bilgilerim</a>
+                            <a asp-area="User" asp-controller="Order" asp-action="OrderHistory" class="dropdown-item">Tüm Siparişlerim</a>
+                            <a asp-area="" asp-controller="Cart" asp-action="Index" class="dropdown-item">Sepetim</a>
                         }
                         else
                         {
@@ -46,13 +44,8 @@
                 </div>
             </div>
             <div class="d-inline-flex align-items-center d-block d-lg-none">
-                <a href="" class="btn px-0 ml-2">
-                    <i class="fas fa-heart text-dark"></i>
-                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                </a>
-                <a href="" class="btn px-0 ml-2">
+                <a asp-area="" asp-controller="Cart" asp-action="Index" class="btn px-0 ml-2" aria-label="Sepetim">
                     <i class="fas fa-shopping-cart text-dark"></i>
-                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
                 </a>
             </div>
         </div>
@@ -60,19 +53,19 @@
 
     <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
         <div class="col-lg-4">
-            <a href="" class="text-decoration-none">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="text-decoration-none">
                 <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
                 <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
             </a>
         </div>
         <div class="col-lg-4 col-6 text-left">
-            <form action="">
+            <form asp-area="" asp-controller="Product" asp-action="Index" method="get">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Ürünlerde ara">
+                    <input type="search" name="q" value="@Context.Request.Query["q"]" class="form-control" placeholder="Ürünlerde ara" aria-label="Ürünlerde ara">
                     <div class="input-group-append">
-                        <span class="input-group-text bg-transparent text-primary">
+                        <button type="submit" class="input-group-text bg-transparent text-primary" aria-label="Ara">
                             <i class="fa fa-search"></i>
-                        </span>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -90,7 +83,7 @@
 
         <div class="col-lg-9">
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
-                <a href="" class="text-decoration-none d-block d-lg-none">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="text-decoration-none d-block d-lg-none">
                     <span class="h1 text-uppercase text-dark bg-light px-2">Multi</span>
                     <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
                 </a>
@@ -100,23 +93,23 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Ana Sayfa</a>
-                        <a href="shop.html" class="nav-item nav-link">Mağaza</a>
-                        <a href="detail.html" class="nav-item nav-link">Ürün Detayı</a>
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-item nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">Ana Sayfa</a>
+                        <a asp-area="" asp-controller="Product" asp-action="Index" class="nav-item nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Product" ? "active" : "")">Mağaza</a>
 
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Sayfalar <i class="fa fa-angle-down mt-1"></i></a>
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                <a href="cart.html" class="dropdown-item">Sepet</a>
-                                <a href="checkout.html" class="dropdown-item">Ödeme</a>
+                                <a asp-area="" asp-controller="Cart" asp-action="Index" class="dropdown-item">Sepet</a>
+                                <a asp-area="" asp-controller="Order" asp-action="Index" class="dropdown-item">Ödeme</a>
+                                <a asp-area="User" asp-controller="Order" asp-action="OrderHistory" class="dropdown-item">Siparişlerim</a>
                             </div>
                         </div>
 
-                        <a href="contact.html" class="nav-item nav-link">İletişim</a>
+                        <a asp-area="" asp-controller="Contact" asp-action="Index" class="nav-item nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Contact" ? "active" : "")">İletişim</a>
                     </div>
 
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                        <a asp-controller="Cart" asp-action="Index" class="btn px-0 ml-3">
+                        <a asp-area="" asp-controller="Cart" asp-action="Index" class="btn px-0 ml-3" aria-label="Sepetim">
                             <i class="fas fa-shopping-cart text-primary"></i>
                         </a>
                     </div>

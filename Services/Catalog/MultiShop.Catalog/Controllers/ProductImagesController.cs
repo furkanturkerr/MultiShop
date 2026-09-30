@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Catalog.Dtos.ProductImageDtos;
 using MultiShop.Catalog.Services.ProductImageServices;
@@ -16,6 +17,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> ProductImageList()
         {
             var values = await _productImageService.GetAllCategoriesAsync();
@@ -23,6 +25,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet("ProductImagesByProductId")]
+        [AllowAnonymous]
         public async Task<IActionResult> ProductImageListByProductId(string productId)
         {
             var values = await _productImageService.GetProductImageByProductIdAsync(productId);
@@ -30,6 +33,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> ProductImageById(string id)
         {
             var value = await _productImageService.GetProductImageByIdAsync(id);
@@ -37,6 +41,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateProductImage(CreateProductImageDto productImageDto)
         {
             await _productImageService.CreateProductImageAsync(productImageDto);
@@ -44,6 +49,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateProductImage(UpdateProductImageDto productImageDto)
         {
             await _productImageService.UpdateProductImageAsync(productImageDto);
@@ -51,6 +57,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProductImage(string id)
         {
             await _productImageService.DeleteProductImageByIdAsync(id);

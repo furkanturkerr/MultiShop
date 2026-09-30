@@ -74,6 +74,10 @@
         <section class="ms-nav-group">
             <div class="ms-nav-label">MÜŞTERİ İŞLEMLERİ</div>
             <nav class="ms-nav" aria-label="Müşteri işlemleri">
+                <a class="@NavClass("Order")" asp-area="Admin" asp-controller="Order" asp-action="Index">
+                    <span class="ms-nav-icon"><i class="fa-solid fa-receipt"></i></span>
+                    <span>Siparişler</span>
+                </a>
                 <a class="@NavClass("Comment")" asp-area="Admin" asp-controller="Comment" asp-action="Index">
                     <span class="ms-nav-icon"><i class="fa-solid fa-comments"></i></span>
                     <span>Ürün Yorumları</span>

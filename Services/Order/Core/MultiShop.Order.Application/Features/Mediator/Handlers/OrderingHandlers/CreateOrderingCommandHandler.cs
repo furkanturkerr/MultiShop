@@ -23,7 +23,8 @@ public class CreateOrderingCommandHandler : IRequestHandler<CreateOrderingComman
             OrderStatus = "Sipariş alındı",
             PaymentMethod = request.PaymentMethod,
             TotalPrice = request.TotalPrice,
-            UserId = request.UserId
+            UserId = request.UserId,
+            OrderDetails = request.OrderDetails
         };
         
         await _orderingRepository.CreateAsync(ordering);

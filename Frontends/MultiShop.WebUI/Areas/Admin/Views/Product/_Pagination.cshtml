@@ -1,0 +1,41 @@
+@model MultiShop.WebUI.Models.Product.ProductListViewModel
+
+<div class="ms-product-pagination">
+    <span>@Model.TotalCount ürünün @Model.FirstItem–@Model.LastItem arası</span>
+    @if (Model.TotalPages > 1)
+    {
+        <nav aria-label="Ürün sayfaları">
+            @if (Model.Filters.Page > 1)
+            {
+                <a asp-action="ProductList"
+                       asp-route-page="@(Model.Filters.Page - 1)"
+                       asp-route-q="@Model.Filters.Q"
+                       asp-route-categoryId="@Model.Filters.CategoryId"
+                       asp-route-pageSize="@Model.Filters.PageSize">Önceki</a>
+            }
+            @for (var pageNumber = Math.Max(1, Model.Filters.Page - 2); pageNumber <= Math.Min(Model.TotalPages, Model.Filters.Page + 2); pageNumber++)
+            {
+                if (pageNumber == Model.Filters.Page)
+                {
+                    <span class="current" aria-current="page">@pageNumber</span>
+                }
+                else
+                {
+                    <a asp-action="ProductList"
+                       asp-route-page="@pageNumber"
+                       asp-route-q="@Model.Filters.Q"
+                       asp-route-categoryId="@Model.Filters.CategoryId"
+                       asp-route-pageSize="@Model.Filters.PageSize">@pageNumber</a>
+                }
+            }
+            @if (Model.Filters.Page < Model.TotalPages)
+            {
+                <a asp-action="ProductList"
+                       asp-route-page="@(Model.Filters.Page + 1)"
+                       asp-route-q="@Model.Filters.Q"
+                       asp-route-categoryId="@Model.Filters.CategoryId"
+                       asp-route-pageSize="@Model.Filters.PageSize">Sonraki</a>
+            }
+        </nav>
+    }
+</div>

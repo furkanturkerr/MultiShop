@@ -26,32 +26,32 @@
                     <h5 class="text-secondary text-uppercase mb-4">Hızlı Erişim</h5>
 
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-secondary mb-2" href="#">
+                        <a class="text-secondary mb-2" asp-area="" asp-controller="Home" asp-action="Index">
                             <i class="fa fa-angle-right mr-2"></i>
                             Ana Sayfa
                         </a>
 
-                        <a class="text-secondary mb-2" href="#">
+                        <a class="text-secondary mb-2" asp-area="" asp-controller="Product" asp-action="Index">
                             <i class="fa fa-angle-right mr-2"></i>
                             Mağaza
                         </a>
 
-                        <a class="text-secondary mb-2" href="#">
+                        <a class="text-secondary mb-2" asp-area="" asp-controller="Product" asp-action="Index">
                             <i class="fa fa-angle-right mr-2"></i>
-                            Ürün Detayı
+                            Tüm Ürünler
                         </a>
 
-                        <a class="text-secondary mb-2" href="#">
+                        <a class="text-secondary mb-2" asp-area="" asp-controller="Cart" asp-action="Index">
                             <i class="fa fa-angle-right mr-2"></i>
                             Sepet
                         </a>
 
-                        <a class="text-secondary mb-2" href="#">
+                        <a class="text-secondary mb-2" asp-area="" asp-controller="Order" asp-action="Index">
                             <i class="fa fa-angle-right mr-2"></i>
                             Ödeme
                         </a>
 
-                        <a class="text-secondary" href="#">
+                        <a class="text-secondary" asp-area="" asp-controller="Contact" asp-action="Index">
                             <i class="fa fa-angle-right mr-2"></i>
                             İletişim
                         </a>
@@ -62,78 +62,50 @@
                     <h5 class="text-secondary text-uppercase mb-4">Hesabım</h5>
 
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-secondary mb-2" href="#">
+                        <a class="text-secondary mb-2" asp-area="" asp-controller="Account" asp-action="Login">
                             <i class="fa fa-angle-right mr-2"></i>
-                            Profilim
+                            Giriş Yap
                         </a>
 
-                        <a class="text-secondary mb-2" href="#">
+                        <a class="text-secondary mb-2" asp-area="User" asp-controller="Order" asp-action="OrderHistory">
                             <i class="fa fa-angle-right mr-2"></i>
                             Siparişlerim
                         </a>
 
-                        <a class="text-secondary mb-2" href="#">
+                        <a class="text-secondary mb-2" asp-area="" asp-controller="Account" asp-action="Register">
                             <i class="fa fa-angle-right mr-2"></i>
-                            Favorilerim
+                            Kayıt Ol
                         </a>
 
-                        <a class="text-secondary mb-2" href="#">
+                        <a class="text-secondary mb-2" asp-area="" asp-controller="Cart" asp-action="Index">
                             <i class="fa fa-angle-right mr-2"></i>
                             Sepetim
                         </a>
 
-                        <a class="text-secondary mb-2" href="#">
+                        <a class="text-secondary mb-2" asp-area="" asp-controller="Order" asp-action="Index">
                             <i class="fa fa-angle-right mr-2"></i>
-                            Adreslerim
+                            Adres ve Ödeme
                         </a>
 
-                        <a class="text-secondary" href="#">
+                        <a class="text-secondary" asp-area="" asp-controller="Contact" asp-action="Index">
                             <i class="fa fa-angle-right mr-2"></i>
-                            Hesap Ayarları
+                            Destek
                         </a>
                     </div>
                 </div>
 
                 <div class="col-md-4 mb-5">
-                    <h5 class="text-secondary text-uppercase mb-4">Bülten</h5>
-
-                    <p>
-                        Kampanyalar ve yeni ürünlerden haberdar olmak için e-posta listemize katılın.
-                    </p>
-
-                    <form action="">
-                        <div class="input-group">
-                            <input type="text"
-                                   class="form-control"
-                                   placeholder="E-posta adresiniz">
-
-                            <div class="input-group-append">
-                                <button class="btn btn-primary">
-                                    Kaydol
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-                    <h6 class="text-secondary text-uppercase mt-4 mb-3">
-                        Bizi Takip Edin
-                    </h6>
-
-                    <div class="d-flex">
-                        <a class="btn btn-primary btn-square mr-2" href="#">
-                            <i class="fab fa-twitter"></i>
+                    <h5 class="text-secondary text-uppercase mb-4">Müşteri Desteği</h5>
+                    <p>Siparişleriniz ve ürünlerimizle ilgili sorularınız için bize ulaşın.</p>
+                    <div class="d-flex flex-column">
+                        <a class="text-secondary mb-2" asp-area="" asp-controller="Contact" asp-action="Index">
+                            <i class="fa fa-angle-right mr-2"></i>İletişim
                         </a>
-
-                        <a class="btn btn-primary btn-square mr-2" href="#">
-                            <i class="fab fa-facebook-f"></i>
+                        <a class="text-secondary mb-2" href="mailto:info@multishop.com">
+                            <i class="fa fa-envelope mr-2"></i>info@multishop.com
                         </a>
-
-                        <a class="btn btn-primary btn-square mr-2" href="#">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-
-                        <a class="btn btn-primary btn-square" href="#">
-                            <i class="fab fa-instagram"></i>
+                        <a class="text-secondary" href="tel:+902123456789">
+                            <i class="fa fa-phone-alt mr-2"></i>+90 212 345 67 89
                         </a>
                     </div>
                 </div>
@@ -147,14 +119,14 @@
 
         <div class="col-md-6 px-xl-0">
             <p class="mb-md-0 text-center text-md-left text-secondary">
-                &copy; <a class="text-primary" href="#">MultiShop</a>.
+                &copy; <a class="text-primary" asp-area="" asp-controller="Home" asp-action="Index">MultiShop</a>.
                 Tüm hakları saklıdır.
             </p>
         </div>
 
         <div class="col-md-6 px-xl-0 text-center text-md-right">
             <img class="img-fluid"
-                 src="img/payments.png"
+                 src="~/online-shop-website-template/img/payments.png"
                  alt="Ödeme yöntemleri">
         </div>
     </div>

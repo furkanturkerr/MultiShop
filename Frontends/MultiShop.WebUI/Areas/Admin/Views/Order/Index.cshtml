@@ -1,0 +1,75 @@
+@model MultiShop.WebUI.Models.Order.AdminOrderListViewModel
+@using System.Globalization
+
+@{
+    Layout = "_AdminLayout";
+    var culture = CultureInfo.GetCultureInfo("tr-TR");
+    var error = ViewData["LoadError"] as string ?? TempData["OrderError"] as string;
+}
+
+<link rel="stylesheet" href="~/css/admin-orders.css" asp-append-version="true">
+
+<div class="ms-orders-page">
+    <section class="ms-page-head">
+        <div>
+            <span class="ms-kicker">MÜŞTERİ İŞLEMLERİ</span>
+            <h1>Siparişler</h1>
+            <p>Müşteri siparişlerini, ürünlerini ve teslimat bilgilerini görüntüle.</p>
+        </div>
+        <a class="ms-secondary" asp-controller="CargoCustomer" asp-action="Index">Müşteri adresleri</a>
+    </section>
+
+    @if (error is not null)
+    {
+        <p class="ms-load-error" role="alert">@error</p>
+    }
+
+    <section class="ms-card">
+        <div class="ms-toolbar">
+            <strong>Tüm siparişler</strong>
+            <span class="ms-toolbar-meta">@Model.Orders.Count sipariş</span>
+        </div>
+        <div class="ms-table-wrap">
+            <table class="ms-table">
+                <thead>
+                    <tr>
+                        <th>Sipariş</th>
+                        <th>Müşteri</th>
+                        <th>Tarih</th>
+                        <th>Tutar</th>
+                        <th>Durum</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model.Orders)
+                    {
+                        Model.Addresses.TryGetValue(order.AddressId, out var address);
+                        <tr>
+                            <td><strong>#@order.OrderingId</strong><small>@order.PaymentMethod</small></td>
+                            <td>
+                                @if (address is not null)
+                                {
+                                    <strong>@address.Name @address.Surname</strong>
+                                    <small>@address.Email</small>
+                                }
+                                else
+                                {
+                                    <span title="@order.UserId">Müşteri bilgisi bulunamadı</span>
+                                }
+                            </td>
+                            <td>@order.OrderDate.ToString("dd MMM yyyy", culture)<small>@order.OrderDate.ToString("HH:mm")</small></td>
+                            <td><strong>@order.TotalPrice.ToString("N2", culture) ₺</strong></td>
+                            <td><span class="ms-order-status">@(string.IsNullOrWhiteSpace(order.OrderStatus) ? "Belirtilmemiş" : order.OrderStatus)</span></td>
+                            <td><a class="ms-secondary" asp-action="Detail" asp-route-id="@order.OrderingId">Detayı gör</a></td>
+                        </tr>
+                    }
+                    @if (Model.Orders.Count == 0 && error is null)
+                    {
+                        <tr><td colspan="6" class="ms-empty-state">Henüz sipariş bulunmuyor.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

@@ -1,104 +1,56 @@
-@model List<MultiShop.Dtos.CatalogDtos.ProductDtos.ResultProductDto>
+@model MultiShop.WebUI.Models.Product.ProductListViewModel
 
 @{
-  Layout = "_AdminLayout";
+    Layout = "_AdminLayout";
 }
 
-<section class="ms-page-head">
-  <div><span class="ms-kicker">KATALOG</span>
-    <h1>Ürünler</h1>
-    <p>Ürünleri, fiyatları ve yayın durumlarını buradan yönet.</p></div>
-  <a class="ms-primary" asp-area="Admin" asp-controller="Product" asp-action="Create">
-    <i class="fa-solid fa-plus"></i> Yeni Ürün
-  </a>
-</section>
+<link rel="stylesheet" href="~/css/admin-products.css" asp-append-version="true">
 
-<section class="ms-card">
-  <div class="ms-toolbar">
-    <div class="ms-search">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <input type="search" placeholder="Ürün, marka veya kategori ara...">
-    </div>
-    <select class="ms-select">
-      <option>Tüm kategoriler</option>
-      <option>Ayakkabı</option>
-      <option>Elektronik</option>
-      <option>Ev & Yaşam</option>
-    </select>
-    <select class="ms-select">
-      <option>Tüm durumlar</option>
-      <option>Aktif</option>
-      <option>Pasif</option>
-    </select>
-  </div>
-  <div class="ms-table-wrap">
-    <table class="ms-table">
-      <thead>
-      <tr>
-        <th>Ürün</th>
-        <th>Kategori</th>
-        <th>Fiyat</th>
-        <th>Durum</th>
-        <th>Oluşturulma</th>
-        <th style="text-align:right">İşlem</th>
-      </tr>
-      </thead>
-      <tbody>
-      @foreach (var item in Model)
-      {
-        <tr>
-          <td>
-            <div class="ms-cell">
-              <img src="@item.ProductImageUrl">
-              <div>
-                <strong>@item.ProductName</strong>
-                <small>Nike</small>
-              </div>
-            </div>
-          </td>
-          <td>@item.CategoryName</td>
-          <td>
-            <div class="ms-price">
-              <strong>@item.ProductPrice ₺</strong>
-              <del>5.499 ₺</del>
-            </div>
-          </td>
-          <td><span class="ms-status on">Aktif</span></td>
-          <td>18 Eyl 2026</td>
-          <td>
-            <div class="ms-actions">
-              <a class="ms-action" asp-area="Admin" asp-controller="ProductDetail" asp-action="Index" asp-route-id="@item.ProductId">
-                <i class="fa-regular fa-file-lines"></i>
-              </a>
-              <a class="ms-action" asp-area="Admin" asp-controller="ProductImage" asp-action="Index" asp-route-id="@item.ProductId">
-                <i class="fa-solid fa-camera"></i>
-              </a>
-              <a class="ms-action" href="#">
-                <i class="fa-regular fa-eye"></i>
-              </a>
-              <a class="ms-action" asp-area="Admin" asp-controller="Product" asp-action="Update" asp-route-id="@item.ProductId">
-                <i class="fa-regular fa-pen-to-square"></i>
-              </a>
-              <form method="post"
-                    asp-area="Admin"
-                    asp-controller="Product"
-                    asp-action="Delete"
-                    asp-route-id="@item.ProductId"
-                    class="d-inline">
+<div class="ms-product-page">
+    <section class="ms-page-head">
+        <div>
+            <span class="ms-kicker">KATALOG</span>
+            <h1>Ürünler</h1>
+            <p>Ürünleri, kategorileri ve satış fiyatlarını buradan yönet.</p>
+        </div>
+        <a class="ms-primary" asp-action="Create">
+            <svg class="ms-product-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" />
+            </svg>
+            Yeni ürün
+        </a>
+    </section>
 
-                @Html.AntiForgeryToken()
-
-                <button type="submit"
-                        class="ms-action danger"
-                        title="Ürünü Sil">
-                  <i class="fa-regular fa-trash-can"></i>
-                </button>
-              </form>
+    <section class="ms-card">
+        <form class="ms-toolbar" method="get" asp-action="ProductList">
+            <div class="ms-search">
+                <svg class="ms-product-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="10.5" cy="10.5" r="6.5" />
+                    <path d="m16 16 4 4" />
+                </svg>
+                <input name="q" value="@Model.Filters.Q" type="search"
+                       placeholder="Ürün adı veya açıklama ara…" aria-label="Ürün ara">
             </div>
-          </td>
-        </tr>
-      }
-      </tbody>
-    </table>
-  </div>
-</section>
+            <select class="ms-select" name="categoryId" aria-label="Kategori">
+                <option value="">Tüm kategoriler</option>
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@category.CategoryId" selected="@(category.CategoryId == Model.Filters.CategoryId)">
+                        @category.CategoryName
+                    </option>
+                }
+            </select>
+            <select class="ms-select" name="pageSize" aria-label="Sayfadaki ürün sayısı">
+                @foreach (var size in new[] { 12, 24, 48 })
+                {
+                    <option value="@size" selected="@(size == Model.Filters.PageSize)">@size ürün / sayfa</option>
+                }
+            </select>
+            <button type="submit" class="ms-primary">Filtrele</button>
+            <a class="ms-secondary" asp-action="ProductList">Temizle</a>
+        </form>
+        <partial name="_Table" model="Model.Products" />
+    </section>
+
+    <partial name="_Pagination" model="Model" />
+</div>

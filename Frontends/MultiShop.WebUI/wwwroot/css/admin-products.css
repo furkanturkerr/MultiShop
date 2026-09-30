@@ -1,0 +1,277 @@
+/* Only product management pages use these styles. */
+.ms-product-editor .ms-form-layout {
+    grid-template-columns: minmax(0,1fr) 340px;
+    align-items: start;
+    gap: 24px;
+}
+
+.ms-product-editor .ms-form-stack {
+    align-content: start;
+    gap: 24px;
+}
+
+.ms-product-editor .ms-form-card {
+    padding: 28px;
+}
+
+.ms-product-editor .ms-form-title h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+}
+
+.ms-product-editor .ms-form-title p,.ms-product-editor .ms-product-save p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #778087;
+}
+
+.ms-product-editor .ms-field label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.ms-product-editor .ms-input,.ms-product-editor .ms-form-select,.ms-product-editor .ms-textarea {
+    font-size: 14px;
+    background: #fafbfc;
+    border-color: #dce1e5;
+    border-radius: 8px;
+}
+
+.ms-product-editor .ms-input,.ms-product-editor .ms-form-select {
+    height: 48px;
+}
+
+.ms-product-editor .ms-textarea {
+    min-height: 150px;
+    resize: vertical;
+    line-height: 1.7;
+}
+
+.ms-product-editor .ms-field small,.ms-product-editor .ms-form-card>small {
+    font-size: 12px;
+    color: #778087;
+    line-height: 1.7;
+}
+
+.ms-product-editor .ms-section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #fff6cc;
+    color: #8a6f00;
+    font-size: 12px;
+}
+
+.ms-product-editor .ms-product-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.ms-product-editor .ms-product-options>p {
+    grid-column: 1/-1;
+    padding: 18px;
+    background: #f5f7f8;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #778087;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.ms-product-editor .ms-image-preview {
+    height: 270px;
+    background: #fafbfc;
+    border: 1px dashed #d7dde1;
+    border-radius: 10px;
+}
+
+.ms-product-editor .ms-image-preview img {
+    height: 100%;
+    object-fit: contain;
+}
+
+.ms-product-editor .ms-image-preview-inner strong {
+    font-size: 14px;
+}
+
+.ms-product-editor .ms-image-preview-inner span {
+    font-size: 12px;
+}
+
+.ms-product-editor .ms-image-url {
+    margin-top: 20px;
+}
+
+.ms-product-editor .ms-product-save h2 {
+    font-size: 16px;
+    margin: 0;
+}
+
+.ms-product-editor .ms-product-save .ms-primary,.ms-product-editor .ms-product-save .ms-secondary {
+    width: 100%;
+    justify-content: center;
+    margin-top: 12px;
+    min-height: 46px;
+}
+
+.ms-product-editor .ms-product-validation,.ms-product-editor .field-validation-error {
+    color: #b42318;
+    font-size: 13px;
+}
+
+.ms-product-editor .validation-summary-valid {
+    display: none;
+}
+
+.ms-product-page .ms-toolbar {
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    padding: 18px;
+}
+
+.ms-product-page .ms-search {
+    flex: 1;
+    min-width: 240px;
+    height: 44px;
+    max-width: none;
+    padding: 0 14px;
+    gap: 10px;
+}
+
+.ms-product-page .ms-empty {
+    padding: 40px;
+    text-align: center;
+    color: #778087;
+}
+
+.ms-product-page .ms-product-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+    font-size: 13px;
+    color: #778087;
+}
+
+.ms-product-page .ms-product-pagination nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.ms-product-page .ms-product-pagination nav a,.ms-product-page .ms-product-pagination nav span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    min-height: 38px;
+    padding: 0 12px;
+    border: 1px solid #dce1e5;
+    border-radius: 8px;
+    background: white;
+    color: #39434a;
+    text-decoration: none;
+}
+
+.ms-product-page .ms-product-pagination nav .current,.ms-product-page .ms-product-pagination nav a:hover {
+    background: #ffda36;
+    border-color: #ffda36;
+    color: #303940;
+}
+
+@media(max-width:1100px) {
+    .ms-product-editor .ms-form-layout {
+        grid-template-columns: minmax(0,1fr) 300px;
+        gap: 18px;
+    }
+
+    .ms-product-editor .ms-form-card {
+        padding: 22px;
+    }
+
+}
+
+@media(max-width:900px) {
+    .ms-product-editor .ms-form-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .ms-product-editor .ms-product-aside {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+@media(max-width:600px) {
+    .ms-product-editor .ms-product-options,.ms-product-editor .ms-product-aside {
+        grid-template-columns: 1fr;
+    }
+
+    .ms-product-editor .ms-form-card {
+        padding: 20px;
+    }
+
+    .ms-product-page .ms-select {
+        width: 100%;
+    }
+
+}
+
+.ms-product-page .ms-actions-heading {
+    text-align: right;
+}
+
+/* Keep search, dropdowns and actions aligned in the product toolbar. */
+
+.ms-product-page .ms-search input {
+    min-width: 0;
+    height: 100%;
+    font-size: 13px;
+}
+
+.ms-product-page .ms-select,
+.ms-product-page .ms-toolbar .ms-primary,
+.ms-product-page .ms-toolbar .ms-secondary {
+    height: 44px;
+    min-height: 44px;
+    font: inherit;
+    font-size: 13px;
+}
+
+.ms-product-page .ms-select {
+    min-width: 150px;
+    padding: 0 12px;
+}
+
+.ms-product-page .ms-product-icon {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    display: block;
+}
+
+.ms-product-page .ms-search .ms-product-icon {
+    color: #7e8b94;
+}
+
+@media (max-width: 600px) {
+    .ms-product-page .ms-search {
+        min-width: 0;
+        width: 100%;
+    }
+}

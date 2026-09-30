@@ -1,0 +1,77 @@
+@model MultiShop.WebUI.Models.Order.AdminOrderDetailViewModel
+@using System.Globalization
+
+@{
+    Layout = "_AdminLayout";
+    var culture = CultureInfo.GetCultureInfo("tr-TR");
+    var order = Model.Order;
+    var address = Model.Address;
+}
+
+<link rel="stylesheet" href="~/css/admin-orders.css" asp-append-version="true">
+
+<div class="ms-orders-page">
+    <section class="ms-page-head">
+        <div>
+            <span class="ms-kicker">SİPARİŞ DETAYI</span>
+            <h1>Sipariş #@order.OrderingId</h1>
+            <p>@order.OrderDate.ToString("dd MMMM yyyy HH:mm", culture) · @order.PaymentMethod</p>
+        </div>
+        <a class="ms-secondary" asp-action="Index">Siparişlere dön</a>
+    </section>
+
+    <div class="ms-order-layout">
+        <section class="ms-card">
+            <div class="ms-toolbar"><strong>Sipariş ürünleri</strong><span class="ms-toolbar-meta">@order.OrderDetails.Sum(x => x.ProductAmount) adet</span></div>
+            <div class="ms-table-wrap">
+                <table class="ms-table">
+                    <thead><tr><th>Ürün</th><th>Adet</th><th>Birim fiyat</th><th>Tutar</th></tr></thead>
+                    <tbody>
+                        @foreach (var item in order.OrderDetails)
+                        {
+                            <tr>
+                                <td class="ms-order-product-name">@item.ProductName</td>
+                                <td>@item.ProductAmount</td>
+                                <td>@item.ProductPrice.ToString("N2", culture) ₺</td>
+                                <td><strong>@item.ProductTotalPrice.ToString("N2", culture) ₺</strong></td>
+                            </tr>
+                        }
+                        @if (order.OrderDetails.Count == 0)
+                        {
+                            <tr><td colspan="4" class="ms-empty-state">Bu siparişin ürün kaydı bulunmuyor.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="ms-order-total"><span>Sipariş toplamı</span><strong>@order.TotalPrice.ToString("N2", culture) ₺</strong></div>
+        </section>
+
+        <aside class="ms-order-aside">
+            <section class="ms-card ms-order-info">
+                <h2>Sipariş bilgileri</h2>
+                <dl>
+                    <dt>Durum</dt><dd>@(string.IsNullOrWhiteSpace(order.OrderStatus) ? "Belirtilmemiş" : order.OrderStatus)</dd>
+                    <dt>Ödeme yöntemi</dt><dd>@order.PaymentMethod</dd>
+                    <dt>Kullanıcı</dt><dd class="ms-order-user-id">@order.UserId</dd>
+                </dl>
+            </section>
+            <section class="ms-card ms-order-info">
+                <h2>Teslimat adresi</h2>
+                @if (address is not null)
+                {
+                    <strong>@address.Name @address.Surname</strong>
+                    <p>@address.Detail1<br>@address.Detail2<br>@address.District / @address.City<br>@address.Country</p>
+                    <p>@address.Phone<br>@address.Email</p>
+                    @if (!string.IsNullOrWhiteSpace(address.Description))
+                    {
+                        <p class="ms-order-note">@address.Description</p>
+                    }
+                }
+                else
+                {
+                    <p>Siparişin adres kaydı bulunamadı.</p>
+                }
+            </section>
+        </aside>
+    </div>
+</div>

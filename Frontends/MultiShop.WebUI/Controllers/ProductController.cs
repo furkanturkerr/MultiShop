@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using MultiShop.Dtos.CommentDtos;
+using MultiShop.Dtos.CatalogDtos.ProductDtos;
 using MultiShop.WebUI.Services.Interfaces;
 
 namespace MultiShop.WebUI.Controllers;
@@ -8,23 +9,44 @@ namespace MultiShop.WebUI.Controllers;
 public class ProductController : Controller
 {
     private readonly ICommentService _commentService;
+    private readonly IProductService _productService;
 
-    public ProductController(ICommentService commentService)
+    public ProductController(ICommentService commentService, IProductService productService)
     {
         _commentService = commentService;
+        _productService = productService;
     }
 
     // GET
-    [ Route("product/category/{id}")]
-    public IActionResult Index(string id)
+    [HttpGet("product/category/{id}")]
+    public async Task<IActionResult> Index(string id, [FromQuery] ProductFilterDto filters)
     {
-        ViewBag.Id = id;
-        return View();
+        filters.CategoryId = id;
+        return await ProductListAsync(filters);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Index([FromQuery] ProductFilterDto filters)
+    {
+        return await ProductListAsync(filters);
+    }
+
+    private async Task<IActionResult> ProductListAsync(ProductFilterDto filters)
+    {
+        if (!TryValidateModel(filters))
+            return BadRequest(ModelState);
+
+        var model = await _productService.GetProductListAsync(filters);
+        return View("Index", model);
     }
 
     [HttpGet("product/detail/{id}")]
-    public IActionResult Detail(string id, bool reviews = false)
+    public async Task<IActionResult> Detail(string id, bool reviews = false)
     {
+        var product = await _productService.GetByIdProductAsync(id);
+        if (product is null)
+            return NotFound();
+        ViewData["Product"] = product;
         ViewBag.Id = id;
         ViewData["ShowReviews"] = reviews;
         return View(new CreateCommentDto { ProductId = id });
@@ -41,6 +63,10 @@ public class ProductController : Controller
             return BadRequest("Yorumun ait olduğu ürün doğrulanamadı.");
         }
 
+        var product = await _productService.GetByIdProductAsync(id);
+        if (product is null)
+            return NotFound();
+        ViewData["Product"] = product;
         ViewBag.Id = id;
         ViewData["ShowReviews"] = true;
         if (!ModelState.IsValid)

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Catalog.Dtos.ProductDetailDtos;
 using MultiShop.Catalog.Services.ProductDetailServices;
@@ -16,6 +17,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> ProductDetailList()
         {
             var values = await _productDetailService.GetAllCategoriesAsync();
@@ -23,6 +25,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet("ProductDetailsByProductId")]
+        [AllowAnonymous]
         public async Task<IActionResult> ProductDetailListByProductId(string productId)
         {
             var values = await _productDetailService.GetProductDetailByProductIdAsync(productId);
@@ -30,6 +33,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> ProductDetailById(string id)
         {
             var value = await _productDetailService.GetProductDetailByIdAsync(id);
@@ -37,6 +41,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateProductDetail(CreateProductDetailDto productDetailDto)
         {
             await _productDetailService.CreateProductDetailAsync(productDetailDto);
@@ -44,6 +49,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateProductDetail(UpdateProductDetailDto productDetailDto)
         {
             await _productDetailService.UpdateProductDetailAsync(productDetailDto);
@@ -51,6 +57,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProductDetail(string id)
         {
             await _productDetailService.DeleteProductDetailByIdAsync(id);

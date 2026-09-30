@@ -23,16 +23,38 @@ public class BasketsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetMyBasketDetail()
     {
-        var values = await _basketService.GetBasketAsync(_loginService.GetUserId);
-        return Ok(values);
+        try
+        {
+            return Ok(await _basketService.GetBasketAsync(_loginService.GetUserId));
+        }
+        catch (ArgumentException exception)
+        {
+            return BadRequest(exception.Message);
+        }
+        catch (HttpRequestException)
+        {
+            return StatusCode(503, "Ürün veya kupon servisine ulaşılamıyor.");
+        }
     }
 
     [HttpPost]
     public async Task<IActionResult> SaveMyBasket(BasketTotalDto basketTotalDto)
     {
         basketTotalDto.UserId = _loginService.GetUserId;
-        await _basketService.SaveBasketAsync(basketTotalDto);
-        return Ok();
+
+        try
+        {
+            await _basketService.SaveBasketAsync(basketTotalDto);
+            return Ok();
+        }
+        catch (ArgumentException exception)
+        {
+            return BadRequest(exception.Message);
+        }
+        catch (HttpRequestException)
+        {
+            return StatusCode(503, "Ürün veya kupon servisine ulaşılamıyor.");
+        }
     }
 
     [HttpDelete]

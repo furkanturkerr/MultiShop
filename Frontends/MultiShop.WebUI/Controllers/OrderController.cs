@@ -2,7 +2,6 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Dtos.OrderDtos.OrderAddressDtos;
-using MultiShop.Dtos.OrderDtos.OrderDetailDtos;
 using MultiShop.Dtos.OrderDtos.OrderingDtos;
 using MultiShop.WebUI.Models.Order;
 using MultiShop.WebUI.Services.Interfaces;
@@ -107,26 +106,7 @@ public class OrderController : Controller
             return View(model);
         }
 
-        foreach (var item in basket.BasketItems)
-        {
-            var created = await _orderService.CreateOrderDetailAsync(new CreateOrderDetailDto
-            {
-                OrderingId = orderingId.Value,
-                ProductId = item.ProductId,
-                ProductName = item.ProductName,
-                ProductPrice = item.ProductPrice,
-                ProductAmount = item.Quantity,
-                ProductTotalPrice = item.ProductPrice * item.Quantity
-            });
-
-            if (!created)
-            {
-                ModelState.AddModelError(string.Empty, "Sipariş ürünleri kaydedilemedi. Sepetiniz korunmuştur.");
-                return View(model);
-            }
-        }
-
-        await _basketService.DeleteBasketAsync(userId);
+        await _basketService.DeleteBasketAsync();
         TempData["CompletedOrderingId"] = orderingId.Value;
         return RedirectToAction(nameof(Completed), new { id = orderingId.Value });
     }

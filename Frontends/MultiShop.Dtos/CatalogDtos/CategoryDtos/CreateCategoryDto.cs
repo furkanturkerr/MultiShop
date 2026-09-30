@@ -1,6 +1,6 @@
 namespace MultiShop.Dtos.CatalogDtos.CategoryDtos;
 
-public class CreateCategoryDto
+public class CreateCategoryDto : CategoryOptionSettingsDto
 {
     public string CategoryName { get; set; }
     

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.Catalog.Dtos.FeaturedDtos;
@@ -17,6 +18,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> FeaturedList()
         {
             var values = await _featuredService.GetAllFeaturedAsync();
@@ -24,6 +26,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet("status")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetFeaturedActiveStatus()
         {
             var values = await _featuredService.GetFeaturedByStatusAsync();
@@ -31,6 +34,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> FeaturedById(string id)
         {
             var value = await _featuredService.GetFeaturedByIdAsync(id);
@@ -38,6 +42,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateFeatured(CreateFeaturedDto featuredDto)
         {
             await _featuredService.CreateFeaturedAsync(featuredDto);
@@ -45,6 +50,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateFeatured(UpdateFeaturedDto featuredDto)
         {
             await _featuredService.UpdateFeaturedAsync(featuredDto);
@@ -52,6 +58,7 @@ namespace MultiShop.Catalog.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteFeatured(string id)
         {
             await _featuredService.DeleteFeaturedByIdAsync(id);

@@ -1,0 +1,75 @@
+@model List<MultiShop.Dtos.CatalogDtos.ProductDtos.ResultProductDto>
+
+<div class="ms-table-wrap">
+    <table class="ms-table">
+        <thead>
+        <tr>
+            <th>Ürün</th>
+            <th>Kategori</th>
+            <th>Fiyat</th>
+            <th class="ms-actions-heading">İşlem</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <div class="ms-cell">
+                        <img src="@item.ProductImageUrl" alt="@item.ProductName">
+                        <div>
+                            <strong>@item.ProductName</strong>
+                        </div>
+                    </div>
+                </td>
+                <td>@item.CategoryName</td>
+                <td>
+                    <div class="ms-price">
+                        <strong>@item.ProductPrice ₺</strong>
+                    </div>
+                </td>
+                <td>
+                    <div class="ms-actions">
+                        <a class="ms-action" asp-area="Admin" asp-controller="ProductDetail" asp-action="Index"
+                       asp-route-id="@item.ProductId">
+                            <i class="fa-regular fa-file-lines"></i>
+                        </a>
+                        <a class="ms-action" asp-area="Admin" asp-controller="ProductImage" asp-action="Index"
+                       asp-route-id="@item.ProductId">
+                            <i class="fa-solid fa-camera"></i>
+                        </a>
+                        <a class="ms-action" asp-area="" asp-controller="Product" asp-action="Detail"
+                       asp-route-id="@item.ProductId" title="Mağazada görüntüle">
+                            <i class="fa-regular fa-eye"></i>
+                        </a>
+                        <a class="ms-action" asp-area="Admin" asp-controller="Product" asp-action="Update"
+                       asp-route-id="@item.ProductId">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </a>
+                        <form method="post"
+                                    asp-area="Admin"
+                                    asp-controller="Product"
+                                    asp-action="Delete"
+                                   
+                       asp-route-id="@item.ProductId"
+                                    class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button type="submit"
+                                            class="ms-action danger"
+                                            title="Ürünü Sil">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+        @if (Model.Count == 0)
+        {
+            <tr>
+            <td colspan="4" class="ms-empty">Bu filtrelere uygun ürün bulunamadı.</td>
+        </tr>
+        }
+        </tbody>
+    </table>
+</div>
