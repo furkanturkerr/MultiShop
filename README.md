@@ -255,10 +255,6 @@ Geliştirme ortamında **SQL Server, MongoDB, Redis ve RabbitMQ** Docker contain
 
 Repodaki `docker-compose.infrastructure.yml`, RabbitMQ container'ını, volume'unu ve healthcheck ayarlarını tanımlar. SQL Server, MongoDB ve Redis mevcut geliştirme ortamında ayrı container'lar olarak yönetilir.
 
-<p align="center">
-  <img src="docs/screenshots/docker-infrastructure.png" alt="Docker Desktop üzerinde geliştirme altyapısı container'ları" width="1000" />
-</p>
-
 ## 📨 RabbitMQ ile Sipariş Olayı
 
 ```mermaid
