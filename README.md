@@ -20,6 +20,7 @@ adres ve sipariş yönetimine kadar birbirine bağlı bir alışveriş akışı.
 <img src="https://img.shields.io/badge/Redis-Basket-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" />
 <img src="https://img.shields.io/badge/SQL_Server-Persistence-CC2927?style=for-the-badge" alt="SQL Server" />
 <img src="https://img.shields.io/badge/RabbitMQ-Messaging-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white" alt="RabbitMQ" />
+<img src="https://img.shields.io/badge/Docker-Container_Infrastructure-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
 
 <br/>
 
@@ -240,6 +241,23 @@ Basket ve Order, her istekte kullanıcıyı öğrenmek için Identity'ye tekrar 
 API'lerde imza, süre, issuer ve audience doğrulaması yapılır. Kayıt sahipliği ve rol kontrolleri, Gateway kontrolünün yanında ilgili API'de de uygulanır. WebUI'deki yönetim ekranlarında da ilgili controller'ın Admin / Manager rol kısıtları uygulanır.
 
 JWT anahtarı ve bağlantı parolaları geliştirmede **.NET User Secrets**, sunucuda ortam değişkenleri üzerinden yapılandırılır. Ayrıntılar: [Güvenlik notları](SECURITY.md).
+
+## 🐳 Docker ile Altyapı Yönetimi
+
+Geliştirme ortamında **SQL Server, MongoDB, Redis ve RabbitMQ** Docker container'ları üzerinden çalıştırılır. Veritabanı ve mesajlaşma altyapısı Docker Desktop üzerinden yönetilir.
+
+| Container altyapısı | Projedeki kullanım |
+| --- | --- |
+| SQL Server | Identity, Order, Discount, Comment ve Cargo veritabanları |
+| MongoDB | Katalog ve ana sayfa içerikleri |
+| Redis | Kullanıcıya ait sepet verileri |
+| RabbitMQ | Sipariş olaylarının kuyruk üzerinden iletilmesi |
+
+Repodaki `docker-compose.infrastructure.yml`, RabbitMQ container'ını, volume'unu ve healthcheck ayarlarını tanımlar. SQL Server, MongoDB ve Redis mevcut geliştirme ortamında ayrı container'lar olarak yönetilir.
+
+<p align="center">
+  <img src="docs/screenshots/docker-infrastructure.png" alt="Docker Desktop üzerinde geliştirme altyapısı container'ları" width="1000" />
+</p>
 
 ## 📨 RabbitMQ ile Sipariş Olayı
 
